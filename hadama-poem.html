@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قصيدة الشاعر</title>
+    <!-- استيراد خط Noto Sans Arabic من Google Fonts لتحسين عرض النص العربي -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* إعادة تعيين أساسي للأنماط والخطوط */
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #1a1a1a; /* خلفية داكنة جداً */
+            color: #e0e0e0; /* لون نص فاتح */
+            font-family: 'Noto Sans Arabic', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* محاذاة المحتوى للأعلى */
+            min-height: 100vh;
+            overflow-y: auto; /* السماح بالتمرير إذا كان المحتوى طويلاً */
+        }
+
+        /* حاوية القصيدة الرئيسية */
+        .poem-container {
+            width: 100%;
+            max-width: 900px; /* عرض أقصى لضمان قابلية القراءة */
+            background-color: #2a2a2a; /* لون داكن أفتح قليلاً لمنطقة المحتوى */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* ظل أنيق للحاوية */
+            padding: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box; /* تضمين الحشوة في العرض الكلي */
+            opacity: 0; /* مبدئياً غير مرئي لتأثير التلاشي */
+        }
+
+        /* عنوان القصيدة */
+        h1 {
+            color: #00bcd4; /* لون أزرق سماوي/فيروزي جذاب للعنوان */
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.5); /* ظل نص للعنوان */
+        }
+
+        /* نمط البيت الشعري (مجموعة من الشطرين) */
+        .couplet {
+            display: flex;
+            flex-wrap: wrap; /* السماح بتجاوز السطر في الشاشات الصغيرة */
+            justify-content: space-between; /* توزيع الشطرين على الجانبين */
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* فاصل خفيف بين الأبيات */
+            line-height: 1.8; /* تباعد الأسطر لتحسين القراءة */
+            transition: background-color 0.3s ease; /* تأثير انتقال سلس عند التحويم */
+        }
+
+        .couplet:last-child {
+            border-bottom: none; /* إزالة الفاصل عن البيت الأخير */
+        }
+
+        .couplet:hover {
+            background-color: #333333; /* تأثير تحويم خفيف */
+            border-radius: 5px; /* حواف مستديرة عند التحويم */
+        }
+
+        /* نمط الشطر الأول (الصدر) والشطر الثاني (العجز) */
+        .sadr, .ajz {
+            flex: 1 1 48%; /* كل شطر يأخذ حوالي نصف العرض، مع السماح بالتقلص */
+            text-align: right; /* محاذاة النص لليمين للعربية */
+            padding: 5px 10px;
+            font-size: 1.1em;
+            word-wrap: break-word; /* التأكد من كسر الكلمات الطويلة */
+        }
+
+        .sadr {
+            padding-right: 20px; /* مسافة بين الشطرين */
+            font-weight: 400;
+            color: #f0f0f0; /* لون أبيض مائل للرمادي للصدر */
+        }
+
+        .ajz {
+            padding-left: 20px;
+            font-weight: 300; /* وزن خط أفتح قليلاً للعجز */
+            color: #c0c0c0; /* لون رمادي أفتح للعجز */
+        }
+
+        /* تعديلات للطباعة والاستجابة للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .couplet {
+                flex-direction: column; /* عرض الأبيات عمودياً في الشاشات الصغيرة */
+                align-items: flex-end; /* محاذاة النص لليمين للعربية */
+                border-bottom: 1px dashed rgba(255, 255, 255, 0.05); /* فاصل أخف بين الأبيات المكدسة */
+            }
+            .sadr, .ajz {
+                flex: none; /* إزالة التمدد المرن */
+                width: 100%; /* عرض كامل */
+                padding: 5px 0; /* تعديل الحشوة */
+                text-align: right; /* ضمان المحاذاة لليمين */
+            }
+            .sadr {
+                padding-bottom: 0; /* تقليل المسافة بين الشطرين المكدسين */
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* نمط شريط التمرير (لمتصفحات Webkit) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2a2a2a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00bcd4;
+            border-radius: 10px;
+            border: 2px solid #2a2a2a;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0097a7;
+        }
+    </style>
+</head>
+<body>
+    <div class="poem-container">
+        <h1>قصيدة الشاعر</h1>
+
+        <!-- الأبيات الشعرية -->
+        <div class="couplet">
+            <span class="sadr">هَلْ بَقَى لِي مَكَانٌ فِي الشُّعَرَاءِ</span>
+            <span class="ajz">حَتَّى أخُذُهُ أخْذَ العَزِيزِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">فِي ثَلَاثَةٍ مِنْ عَشْرِ أسْبَابِ</span>
+            <span class="ajz">كُلِّمَتْ فِي دَرْسِ العَمَّارِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">الأُولَى وهِيَ الثَامِنُ مِنْ دِرَاسَتِي</span>
+            <span class="ajz">ولَا أجِدُ للْمَعْنَى فِي الثَّانِيَةِ سَبَبُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وقَوْلُ الثَّانِي أفْضَلُ لِلْمَعَانِي</span>
+            <span class="ajz">حَيْثُ الثَّانِي هُوَ عَمَّارُ الأَحْمَدِي</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">قُلْتُهُمْ فِي لَيْلَةٍ وَحْدَاءِ</span>
+            <span class="ajz">لَا أجِدُ فِيهَا أحَدً مَعِي</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">قُرَابَةَ الرَّابِعَةِ مِنَ الصَّبَاحِ</span>
+            <span class="ajz">فِي هَاذَا خَطَأٌ ومِيلُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">ذُبَابَةٌ إلْتَفَّتْ حَوْلِي</span>
+            <span class="ajz">لَا أطِيقُ النَّوْمَ بِالسَّبَبُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">والثًّالِثُ هَوُ جُلُوسٌ بِدُونِ تَعَلُّمِ</span>
+            <span class="ajz">مَكْتُوبٌ بِعَقْلٍ مَوْزُونُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وقَصِيدَةٌ لَمْ أكْتُبْ لَهَا شَيْئَاً</span>
+            <span class="ajz">حَتَّى كَتَبْتُ الأسْبَابَ كُلَّهَا</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">نَقَلْتُ أحَدَهُمْ عَنِ الوَقْتِ</span>
+            <span class="ajz">وجَاءَتْ ضَرْبَةٌ خَطَئَاً</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">فِي الوَجْهِ لَا أطِيقُ</span>
+            <span class="ajz">ونَقَلْتُ الأَخَرُ عَنِ العُمْرِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وتَرَكْتُ كَلَامً مَفْتُوحَاً</span>
+            <span class="ajz">لِيُصْبِحَ شِعْرِي مِثْلُ الأسْرَارِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وكَلَامٌ غَامِضٌ أُنْهِي بِهِ وَجْهٌ</span>
+            <span class="ajz">مِنْ عَشْرِ أوْجُهٍ للألْوَانِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">بِيضٌ بَنِيُّ صَفَارُ خَارِجٌ عَنِ القَاعِدِ</span>
+            <span class="ajz">حُمْرٌ سُودٌ وبُرْتُقَال خَارِجٌ عَنِ القَاعِدِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">أرْبَعٍ مِنْ عَشْرٍ فِي الأخِيرِ</span>
+            <span class="ajz">وكُلٌّ مَازَالَ فِي الأبْيَضِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">حَتَّى سَوَّيْتُهُ بِيضٌ</span>
+            <span class="ajz">فَقِيلَ إنَّكَ فِي السَّادِسِ بَعْدَ العَشْرِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">قُلْتُ ومَا عَلَاقَتُكَ بِي</span>
+            <span class="ajz">إذْ أنِّي فِي السَّابِعُ العَشْرِيُّ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وقَدْ عُدِّلَتْ عَشْرَةٌ لِعَشْرٍ</span>
+            <span class="ajz">فَأكْثَرْتُ التَّعْقِيدُ تَعْقِيدُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">مَقْصَدٌ فِي بِدَايَةٍ قُرْبَ البِيضُ الأبْيَضُ</span>
+            <span class="ajz">هَيَّا إلَى العِشْرُونَ يَا سَامِعٍ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وغُيِّرَتِ الكَلِمَةَ لَفْظَاً</span>
+            <span class="ajz">لَا مَعْنَاً جَاءُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">خُدْنِي يَا عَمَّارُ إلَيْكَ</span>
+            <span class="ajz">إنَّكَ أنْتَ الخَوَارِزْمِيُّ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وَضِفْ لِنَفْسِكَ النِّيُوتَنِيُّ</span>
+            <span class="ajz">والأذْكَى رِيَاضِيُّ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وَضِفِ المُتَنَبِّي</span>
+            <span class="ajz">وعَالِمُ الذَّرَّةِ والتَّارِيخُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وأنْسِبْ الجُغْرَافِيِّ إلَيْكَ</span>
+            <span class="ajz">وأنْسِبِ الحُزْنَ والفَرَحُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وأنْسِبِ العَقْلَ لَمَّا جَاءُ</span>
+            <span class="ajz">فِي بَيْتٍ مَخْصُوصُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وأنْسِبِ البَلَاغَةَ إلَيْكَ</span>
+            <span class="ajz">ولَا تَنْسَى النَّظَرِيَّاتُ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وَدَعِ الظُّلْمَ يَذْهَبُ وَرَائِي</span>
+            <span class="ajz">فِي صَبَأِ مَشَارِي</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وحَزْنُ الخَمْسَةِ والعَشْرِينِ</span>
+            <span class="ajz">فِي قِرَاءَةِ المَصَاحِفِ العَشْرِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">للْمَشَارِيِّ حِينَ هُدَّى</span>
+            <span class="ajz">فِي الدُّورِيُّ عَنِ الكَسَائِيِّ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">ومَا زَالَ البُكَاءَ يَجْرِي</span>
+            <span class="ajz">حَتَّى زَالَ الأرْضَ كُلْهَا</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وبَقَا المُؤْمِنُونَ فَرِحُونَ بَعْدَ حُزْنِ</span>
+            <span class="ajz">ولَقَا الظَّالِمُونَ اليَأْسَ بَعْدَ فَرَحِ الحُزْنِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">ولَا نَنْسَى المَشَارِيُّ حِينَ قُرِأَ</span>
+            <span class="ajz">سُورَةُ يُوسُفَ وهُوَ المَطْلُوبِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">فِي نِهَايَةِ الأمْرِ</span>
+            <span class="ajz">حِينَ جَاءَ إخْوَةُ يُوسُفَ إلَيْهِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وهُوَ العَزِيزُ بْنُ العَزِيزِ</span>
+            <span class="ajz">وقَصَدْتُ حَذْفَ الألِفِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">ونُنْهِي مَشَارِي الأنَ</span>
+            <span class="ajz">ولَمْ أسْتَطِعْ مِثْلِهِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">مَهْمَا تَعَلَّمْتُ مِنَ التَّأْثِيرِ</span>
+            <span class="ajz">فَبَقَى الكَثِيرُ لأمْشِي</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وأضَفْ لِي الرِّوَايَاتِ العَشْرِ</span>
+            <span class="ajz">ولَكِنْ فِي الثَّامِنِ مِنْ دِرَاسَتِي كَانُوا سِتَّةً تَقْرِيبِي</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">هُمُ رُوَيْسُ عَنْ يَعْقُوبَ الحَضْرُومِي</span>
+            <span class="ajz">وحَفْصٌ عَنْ عَاصِمُ الرَّسْمِي</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">والدُّورِيُّ عَنِ الكَسَائِي مَعَهُمْ</span>
+            <span class="ajz">ولَا نَنْسَى ابْنَ ذَكْوَانِي عَنِ ابْنَ عَامِرِي</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وأُضِيفَتْ يَائَيْنِ الْلَحْنِ</span>
+            <span class="ajz">وشُعْبَةً أخُو حَفْصٍ حَيْثُ كَانَا عَنْ عَاصِمِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">ومَقْصَدُ أُخْوَةً غَيْرَ إخْوَةِ</span>
+            <span class="ajz">وخَلَفُ العَاشِرِ الأَخِيرِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">ومَا لَمْ أتَمَدَّدْ بِهِ</span>
+            <span class="ajz">الأنْ حَتَّى وفِي الأخِرِ مِنَ الرِوَايَاتِ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وأتَمَنَّى الإكْمَالَ</span>
+            <span class="ajz">مَا دَامَ الخَيْرُ مَازَالَ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">وقَبْلَ نِهَايِةِ الكِتَابَةِ الأُولَى</span>
+            <span class="ajz">فِي عَمَّارِ الأحْمَدِيُّ</span>
+        </div>
+        <div class="couplet">
+            <span class="sadr">أقُولُ خَمْسٌ وأرْبَعِينِ جَاءَ</span>
+            <span class="ajz">ولَهْجَةٍ وكِتَابَةٍ مَفْهِيمِة</span>
+        </div>
+    </div>
+
+    <script>
+        // سكريبت بسيط لإضافة تأثير تلاشي عند تحميل الصفحة لجعلها أكثر احترافية
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.poem-container');
+            // تأخير صغير قبل بدء التلاشي
+            setTimeout(() => {
+                container.style.transition = 'opacity 1s ease-in-out'; // إضافة انتقال سلس
+                container.style.opacity = '1'; // جعل الحاوية مرئية
+            }, 100);
+        });
+    </script>
+</body>
+</html>
