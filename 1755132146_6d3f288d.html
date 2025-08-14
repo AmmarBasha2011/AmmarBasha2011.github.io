@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Innovations - Future of Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a1a2e;
+            --secondary-dark: #16213e;
+            --accent-blue: #0f3460;
+            --text-light: #e0e0e0;
+            --text-accent: #e94560;
+            --gradient-start: #16213e;
+            --gradient-end: #0f3460;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--text-accent);
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--text-accent);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: url('https://image.pollinations.ai/prompt/cyberpunk%20city%20at%20night%20with%20neon%20lights%20and%20futuristic%20AI%20elements?nologo=true&seed=988317115934&width=1920&height=1080&model=flux-realism&enhance=true&steps=40&guidanceScale=8&negative_prompt=blurry,text') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 20px;
+            animation: fadeInScale 1.5s ease-out;
+        }
+
+        .hero-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--text-accent);
+            text-shadow: 0 0 15px rgba(233, 69, 96, 0.6);
+            animation: neonGlow 2s infinite alternate;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--text-accent);
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #c93b54;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(233, 69, 96, 0.4);
+        }
+
+        section {
+            padding: 80px 0;
+            text-align: center;
+            background-color: var(--secondary-dark);
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            opacity: 0; /* For scroll animation */
+            transform: translateY(50px); /* For scroll animation */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:nth-child(even) {
+            background-color: var(--primary-dark);
+        }
+
+        section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--text-accent);
+            text-shadow: 0 0 10px rgba(233, 69, 96, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .features-grid, .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-item, .application-item {
+            background-color: var(--accent-blue);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            border: 1px solid rgba(233, 69, 96, 0.2);
+        }
+
+        .feature-item:hover, .application-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.4);
+        }
+
+        .feature-item h3, .application-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-accent);
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .feature-item p, .application-item p {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        footer {
+            background-color: var(--accent-blue);
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes neonGlow {
+            from {
+                text-shadow: 0 0 5px var(--text-accent), 0 0 10px var(--text-accent), 0 0 20px rgba(233, 69, 96, 0.6);
+            }
+            to {
+                text-shadow: 0 0 10px var(--text-accent), 0 0 20px var(--text-accent), 0 0 30px rgba(233, 69, 96, 0.8);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 15px;
+            }
+
+            nav ul li {
+                margin: 0 15px;
+            }
+
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .features-grid, .applications-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>AI Innovations</h1>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#what-is-ai">What is AI?</a></li>
+                    <li><a href="#applications">Applications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h2>Unleash the Power of Artificial Intelligence</h2>
+            <p>Revolutionizing industries and shaping the future with intelligent solutions.</p>
+            <a href="#contact" class="btn">Get Started Today</a>
+        </div>
+    </section>
+
+    <section id="what-is-ai" class="section">
+        <div class="container">
+            <h2>What is Artificial Intelligence?</h2>
+            <p>Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.</p>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>Machine Learning</h3>
+                    <p>Enabling systems to learn from data, identify patterns, and make decisions with minimal human intervention.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Deep Learning</h3>
+                    <p>A subset of machine learning using neural networks with many layers to analyze complex data patterns.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Natural Language Processing (NLP)</h3>
+                    <p>Allowing computers to understand, interpret, and generate human language in a valuable way.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Computer Vision</h3>
+                    <p>Equipping machines with the ability to "see" and interpret visual information from the world.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="applications" class="section">
+        <div class="container">
+            <h2>Applications of AI Across Industries</h2>
+            <p>AI is transforming every sector, offering unprecedented opportunities for growth and innovation.</p>
+            <div class="applications-grid">
+                <div class="application-item">
+                    <h3>Healthcare</h3>
+                    <p>From disease diagnosis and drug discovery to personalized treatment plans, AI is revolutionizing patient care.</p>
+                </div>
+                <div class="application-item">
+                    <h3>Finance</h3>
+                    <p>AI assists with fraud detection, algorithmic trading, risk assessment, and personalized financial advice.</p>
+                </div>
+                <div class="application-item">
+                    <h3>Automotive</h3>
+                    <p>Powering self-driving cars, optimizing traffic flow, and enhancing vehicle safety features.</p>
+                </div>
+                <div class="application-item">
+                    <h3>Retail</h3>
+                    <p>Improving customer experience through personalized recommendations, inventory management, and predictive analytics.</p>
+                </div>
+                <div class="application-item">
+                    <h3>Manufacturing</h3>
+                    <p>Optimizing production lines, predictive maintenance, and quality control with intelligent automation.</p>
+                </div>
+                <div class="application-item">
+                    <h3>Education</h3>
+                    <p>Personalized learning paths, automated grading, and intelligent tutoring systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>Ready to Embrace AI?</h2>
+            <p>Contact us today to discuss how AI can transform your business and drive innovation.</p>
+            <a href="mailto:info@aiinnovations.com" class="btn">Contact Us</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 AI Innovations. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Intersection Observer for section animations
+            const sections = document.querySelectorAll('.section');
+
+            const observerOptions = {
+                root: null, // relative to the viewport
+                rootMargin: '0px',
+                threshold: 0.2 // 20% of the section must be visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
