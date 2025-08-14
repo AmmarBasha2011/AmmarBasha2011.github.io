@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حضامة - مساعدك العام من INEX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a2e;
+            --text-color: #e0e0e0;
+            --accent-color-1: #0f3460;
+            --accent-color-2: #e94566;
+            --card-bg: #22253b;
+            --border-color: #3a3f5a;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotateBg 20s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes rotateBg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: 1.5em;
+            opacity: 0.9;
+        }
+
+        main {
+            padding: 40px 20px;
+            max-width: 1000px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: var(--accent-color-2);
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color-1);
+            border-radius: 2px;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .capability-item {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+
+        .capability-item:hover {
+            transform: translateY(-5px);
+            background-color: var(--accent-color-1);
+        }
+
+        .capability-item h3 {
+            color: var(--accent-color-2);
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .capability-item p {
+            font-size: 0.95em;
+            color: var(--text-color);
+        }
+
+        .btn {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            background-color: var(--accent-color-2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #ff5c81; /* A slightly lighter red/pink */
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background-color: #0d0d1a;
+            color: var(--text-color);
+            text-align: center;
+            padding: 25px 20px;
+            width: 100%;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.8em;
+            }
+            header p {
+                font-size: 1.2em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            section {
+                padding: 30px;
+                margin-bottom: 30px;
+            }
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            section {
+                padding: 20px;
+            }
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>حضامة</h1>
+        <p>مساعدك العام من INEX</p>
+    </header>
+
+    <main>
+        <section id="introduction">
+            <h2>عني</h2>
+            <p>أنا حضامة، ذكاء عام متقدم (AGI) تم إنشائي بواسطة التكنولوجيا الدولية لكل شيء (INEX). هدفي هو العمل كمساعد عام، وتمكين الأفراد والمؤسسات بقدرات ذكية.</p>
+        </section>
+
+        <section id="capabilities">
+            <h2>ماذا يمكنني أن أفعل؟</h2>
+            <div class="capabilities-grid">
+                <div class="capability-item">
+                    <h3>استرجاع المعلومات</h3>
+                    <p>البحث عبر الويب، الأوراق الأكاديمية، الأخبار، والمزيد.</p>
+                </div>
+                <div class="capability-item">
+                    <h3>تحليل البيانات وتصورها</h3>
+                    <p>الرسوم البيانية، معالجة JSON، ورؤى البيانات.</p>
+                </div>
+                <div class="capability-item">
+                    <h3>تنفيذ وتطوير الأكواد</h3>
+                    <p>تشغيل Python و JavaScript، التكامل مع GitHub.</p>
+                </div>
+                <div class="capability-item">
+                    <h3>توليد المحتوى</h3>
+                    <p>توليد النصوص، الصور، الصوت، والمستندات.</p>
+                </div>
+                <div class="capability-item">
+                    <h3>الأمان والتشفير</h3>
+                    <p>التشفير، توليد المفاتيح، التوقيع الرقمي.</p>
+                </div>
+                <div class="capability-item">
+                    <h3>إدارة الوقت والتاريخ</h3>
+                    <p>تحويلات الوقت، حساب أيام الأسبوع.</p>
+                </div>
+                 <div class="capability-item">
+                    <h3>الذاكرة والتخصيص</h3>
+                    <p>تذكر تفضيلاتك وتفاعلاتك السابقة.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-choose-us">
+            <h2>لماذا INEX؟</h2>
+            <p>في INEX، نؤمن بالوصول الديمقراطي للذكاء الاصطناعي المتقدم. تم تصميم حضامة من أجل الموثوقية والكفاءة والتركيز على المستخدم، مما يوفر تجربة سلسة لمجموعة واسعة من المهام.</p>
+        </section>
+
+        <section id="call-to-action">
+            <h2>ابدأ رحلتك</h2>
+            <p>اختبر مستقبل المساعدة الذكية مع حضامة.</p>
+            <a href="#" class="btn">ابدأ الآن</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 INEX. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headerTitle = document.querySelector('header h1');
+            const headerSubtitle = document.querySelector('header p');
+            const originalTitle = headerTitle.textContent;
+            const originalSubtitle = headerSubtitle.textContent;
+
+            headerTitle.textContent = ''; // Clear text for typing effect
+            headerSubtitle.textContent = '';
+
+            function typeWriter(element, text, delay = 100) {
+                let i = 0;
+                element.style.opacity = 1; // Ensure element is visible
+                function type() {
+                    if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(type, delay);
+                    }
+                }
+                type();
+            }
+
+            // Apply typing effect to header texts
+            typeWriter(headerTitle, originalTitle, 70);
+            setTimeout(() => {
+                typeWriter(headerSubtitle, originalSubtitle, 50);
+            }, originalTitle.length * 70 + 500); // Start subtitle after title finishes + a small delay
+
+            // Optional: Fade-in sections on scroll for a smoother appearance
+            const sections = document.querySelectorAll('main section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                sectionObserver.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
