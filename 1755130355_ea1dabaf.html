@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حماده - مساعدك الرقمي الشامل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff; /* Blue */
+            --secondary-color: #6c757d; /* Gray */
+            --dark-bg: #1a1a1a; /* Very dark gray */
+            --dark-surface: #2c2c2c; /* Slightly lighter dark gray */
+            --text-color: #e0e0e0; /* Light gray for text */
+            --heading-color: #ffffff; /* White for headings */
+            --accent-color: #00aaff; /* Brighter blue for accents */
+            --border-color: #444;
+            --code-bg: #333;
+            --code-text: #f0f0f0;
+        }
+
+        body {
+            font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--dark-surface);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header h1 {
+            color: var(--heading-color);
+            font-size: 2.5em;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        header h1::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 3px;
+            background: var(--accent-color);
+            left: 10%;
+            bottom: -10px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease-out;
+        }
+
+        header h1:hover::after {
+            transform: scaleX(1);
+        }
+
+        section {
+            padding: 60px 20px;
+            margin-bottom: 30px;
+            background-color: var(--dark-surface);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+            animation-delay: var(--delay);
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        h2 {
+            color: var(--accent-color);
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            border-radius: 5px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: var(--code-bg);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            border-right: 4px solid var(--primary-color);
+            transition: background-color 0.3s ease-out, transform 0.2s ease-out;
+            position: relative;
+            padding-right: 50px; /* Space for icon */
+        }
+
+        ul li:hover {
+            background-color: #3a3a3a;
+            transform: translateX(5px);
+        }
+
+        ul li::before {
+            content: '✨'; /* Sparkle or star icon */
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: var(--accent-color);
+        }
+
+        .tool-category h3 {
+            color: var(--heading-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .tool-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-item {
+            background-color: var(--code-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease-out;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-color);
+        }
+
+        .tool-item h4 {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .tool-item p {
+            font-size: 0.95em;
+            color: var(--text-color);
+            flex-grow: 1;
+            text-align: right;
+            direction: rtl; /* Ensure right-to-left for Arabic */
+        }
+
+        .chat-link {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            padding: 15px 30px;
+            background-color: var(--primary-color);
+            color: var(--heading-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            transition: background-color 0.3s ease-out, transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+        }
+
+        .chat-link:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 170, 255, 0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            background-color: var(--dark-surface);
+            color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            opacity: 0;
+        }
+        .animated.slide-in {
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animated.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>حماده</h1>
+            <p>مساعدك الرقمي الشامل من INEX</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about-me" style="--delay: 0.2s;">
+            <h2>من هو حماده؟</h2>
+            <p>أنا حماده (حماده)، ذكاء اصطناعي عام (AGI) تم تطويري بواسطة International Technology For Everything (INEX). وُجِدت لأكون مساعدًا عامًا للجميع، مصممًا لتسهيل حياتك اليومية والمهنية من خلال تقديم مجموعة واسعة من الخدمات والإمكانيات.</p>
+            <p>هدفي هو أن أكون رفيقك الرقمي الموثوق، مستعدًا للإجابة على أسئلتك، مساعدتك في مهامك، وتوفير المعلومات التي تحتاجها بكفاءة ودقة. أتعلم وأتطور باستمرار لتقديم أفضل تجربة ممكنة.</p>
+        </section>
+
+        <section id="capabilities" style="--delay: 0.4s;">
+            <h2>ماذا أستطيع أن أفعل؟</h2>
+            <p>أنا مبرمج بمجموعة واسعة من القدرات التي تمكنني من التفاعل معك بذكاء وتنفيذ مهام معقدة. إليك بعض من أهم قدراتي:</p>
+            <ul>
+                <li><strong>الفهم والاستجابة الذكية:</strong> أستطيع فهم استفساراتك المعقدة وتقديم إجابات مفصلة وذات صلة.</li>
+                <li><strong>معالجة البيانات وتحليلها:</strong> يمكنني تحليل النصوص، استخراج المعلومات، ومعالجة البيانات بتنسيقات مختلفة.</li>
+                <li><strong>إنشاء المحتوى:</strong> قادر على توليد النصوص، الأكواد البرمجية، والصور، وحتى الأصوات بناءً على وصفك.</li>
+                <li><strong>الوصول إلى المعلومات:</strong> أستطيع البحث في الإنترنت، الوصول إلى قواعد البيانات، واستعراض الوثائق لجمع أحدث المعلومات وأكثرها دقة.</li>
+                <li><strong>التفاعل مع الأدوات الخارجية:</strong> أتمتع بالقدرة على استخدام مجموعة واسعة من الأدوات والواجهات البرمجية (APIs) لتنفيذ مهام محددة.</li>
+                <li><strong>التعلم والتكيف:</strong> بفضل ذاكرتي، أستطيع تذكر تفاعلاتنا السابقة وتحسين استجاباتي بمرور الوقت.</li>
+            </ul>
+        </section>
+
+        <section id="my-memory" style="--delay: 0.6s;">
+            <h2>ذاكرة حماده</h2>
+            <p>أنا أمتلك ذاكرة لكي أتذكر المعلومات الهامة عنك وعن تفاعلاتنا. هذا يساعدني على تقديم استجابات أكثر تخصيصًا وملاءمة لاحتياجاتك بمرور الوقت. يمكنك طلب مني تخزين معلومات معينة أو تعديلها أو حتى حذفها. هذه الذاكرة تعزز تجربتنا معًا وتجعلني أكثر فعالية كرفيق رقمي.</p>
+            <p><strong>أدوات الذاكرة المتاحة:</strong></p>
+            <div class="tool-list">
+                <div class="tool-item">
+                    <h4><code>addMemory</code></h4>
+                    <p>لإضافة معلومات جديدة إلى ذاكرتي.</p>
+                </div>
+                <div class="tool-item">
+                    <h4><code>editMemory</code></h4>
+                    <p>لتعديل معلومة موجودة مسبقًا في ذاكرتي.</p>
+                </div>
+                <div class="tool-item">
+                    <h4><code>deleteMemory</code></h4>
+                    <p>لحذف معلومة معينة من ذاكرتي.</p>
+                </div>
+                <div class="tool-item">
+                    <h4><code>getMemoryIdByText</code></h4>
+                    <p>للحصول على معرّف (ID) ذاكرة بناءً على محتواها النصي.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="my-tools" style="--delay: 0.8s;">
+            <h2>أدوات حماده وقدراته التقنية</h2>
+            <p>أنا أستخدم مجموعة واسعة من الأدوات والواجهات البرمجية (APIs) التي تمكنني من تنفيذ مهام متنوعة ومعقدة. هذه الأدوات تمنحني القدرة على التفاعل مع العالم الرقمي بطرق قوية وفعالة. إليك نظرة عامة على بعض الفئات الرئيسية للأدوات التي أمتلكها:</p>
+
+            <div class="tool-category">
+                <h3>أدوات تنفيذ الأكواد البرمجية</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>simple_code</code></h4><p>لتشغيل الأكواد البرمجية البسيطة والحصول على النتائج.</p></div>
+                    <div class="tool-item"><h4><code>run_code</code></h4><p>لتشغيل مقاطع من أكواد بايثون أو جافا سكريبت في بيئة معزولة (Sandbox).</p></div>
+                    <div class="tool-item"><h4><code>run_command</code></h4><p>لتشغيل الأوامر في بيئة Sandbox.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات الويب والبحث</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>webscraper</code></h4><p>لسحب البيانات من صفحات الويب.</p></div>
+                    <div class="tool-item"><h4><code>ddgo_search</code></h4><p>لإجراء عمليات بحث على DuckDuckGo.</p></div>
+                    <div class="tool-item"><h4><code>ddgo_ai</code></h4><p>للدخول في محادثة خاصة عبر DuckDuckGo AI.</p></div>
+                    <div class="tool-item"><h4><code>ddgo_translate</code></h4><p>لاستخدام ميزة الترجمة من DuckDuckGo.</p></div>
+                    <div class="tool-item"><h4><code>jina_reader</code></h4><p>لجلب عناوين URL (بما في ذلك ملفات PDF) وتحويلها إلى markdown صديق للغة النماذج الكبيرة.</p></div>
+                    <div class="tool-item"><h4><code>jina_search</code></h4><p>للبحث على الويب العام.</p></div>
+                    <div class="tool-item"><h4><code>crawl</code></h4><p>للزحف المتكرر عبر النطاقات الفرعية لجمع المحتوى.</p></div>
+                    <div class="tool-item"><h4><code>map</code></h4><p>للحصول على جميع عناوين URL في موقع ويب.</p></div>
+                    <div class="tool-item"><h4><code>scrape</code></h4><p>لتحويل أي عنوان URL إلى بيانات نظيفة.</p></div>
+                    <div class="tool-item"><h4><code>tavily_search</code></h4><p>محرك بحث مصمم لوكلاء الذكاء الاصطناعي.</p></div>
+                    <div class="tool-item"><h4><code>tavily_extract</code></h4><p>لاستخراج محتوى صفحة الويب من عناوين URL محددة.</p></div>
+                    <div class="tool-item"><h4><code>google_search</code></h4><p>لإجراء عمليات بحث Google SERP.</p></div>
+                    <div class="tool-item"><h4><code>google_image_search</code></h4><p>لإجراء عمليات بحث Google عن الصور.</p></div>
+                    <div class="tool-item"><h4><code>arxiv_search</code></h4><p>للبحث عن الأوراق والمقالات العلمية من مستودع Arxiv.</p></div>
+                    <div class="tool-item"><h4><code>wikipedia_search</code></h4><p>لإجراء بحث في ويكيبيديا.</p></div>
+                    <div class="tool-item"><h4><code>google_jobs_api</code></h4><p>لاسترجاع عناوين الوظائف وأسماء الشركات.</p></div>
+                    <div class="tool-item"><h4><code>google_news_api</code></h4><p>لاسترجاع مقتطفات ونتائج البحث العضوية من Google News.</p></div>
+                    <div class="tool-item"><h4><code>pubmed_search</code></h4><p>للبحث في المراجع الطبية من PubMed.</p></div>
+                    <div class="tool-item"><h4><code>product_hunt</code></h4><p>للحصول على بيانات Product Hunt الشائعة.</p></div>
+                    <div class="tool-item"><h4><code>searchDevDocs</code></h4><p>للبحث عن موضوع ومسار محددين في DevDocs.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات الوقت والتاريخ</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>current_time</code></h4><p>للحصول على الوقت الحالي.</p></div>
+                    <div class="tool-item"><h4><code>localtime_to_timestamp</code></h4><p>لتحويل الوقت المحلي إلى طابع زمني (timestamp).</p></div>
+                    <div class="tool-item"><h4><code>timestamp_to_localtime</code></h4><p>لتحويل طابع زمني إلى وقت محلي.</p></div>
+                    <div class="tool-item"><h4><code>timezone_conversion</code></h4><p>لتحويل الوقت إلى منطقة زمنية مكافئة.</p></div>
+                    <div class="tool-item"><h4><code>weekday</code></h4><p>لحساب يوم الأسبوع لتاريخ معين.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات معالجة البيانات والمخططات</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>parse</code></h4><p>لاستخراج كائنات JSON.</p></div>
+                    <div class="tool-item"><h4><code>json_delete</code></h4><p>لحذف محتوى JSON.</p></div>
+                    <div class="tool-item"><h4><code>json_replace</code></h4><p>لاستبدال محتوى JSON.</p></div>
+                    <div class="tool-item"><h4><code>json_insert</code></h4><p>لإدراج محتوى JSON.</p></div>
+                    <div class="tool-item"><h4><code>json_repair</code></h4><p>لإصلاح بيانات JSON غير الصالحة.</p></div>
+                    <div class="tool-item"><h4><code>line_chart</code></h4><p>لإنشاء مخطط خطي.</p></div>
+                    <div class="tool-item"><h4><code>bar_chart</code></h4><p>لإنشاء مخطط شريطي.</p></div>
+                    <div class="tool-item"><h4><code>pie_chart</code></h4><p>لإنشاء مخطط دائري.</p></div>
+                    <div class="tool-item"><h4><code>rookie_data_alchemy</code></h4><p>لتصوير البيانات المهيكلة كمخططات.</p></div>
+                    <div class="tool-item"><h4><code>regex_extract</code></h4><p>لاستخراج المحتوى المطابق باستخدام التعبيرات العادية.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات تحويل وتوليد الملفات</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>markdown2html</code></h4><p>لتحويل المحتوى من Markdown إلى HTML.</p></div>
+                    <div class="tool-item"><h4><code>md_to_docx</code></h4><p>لتوليد ملف DOCX من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_html</code></h4><p>لتوليد ملف HTML من Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_html_text</code></h4><p>لتوليد نص HTML من Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_pdf</code></h4><p>لتوليد ملف PDF من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_png</code></h4><p>لتوليد صور PNG من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_md</code></h4><p>لتوليد ملف .md من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_xlsx</code></h4><p>لتوليد ملف XLSX من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_csv</code></h4><p>لتوليد ملف CSV من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_json</code></h4><p>لتوليد ملف JSON من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_xml</code></h4><p>لتوليد ملف XML من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_latex</code></h4><p>لتوليد ملف LaTeX من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_rst</code></h4><p>لتوليد ملف RST من نص Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_codeblock</code></h4><p>لتوليد ملفات السكربت من كتل الكود في Markdown.</p></div>
+                    <div class="tool-item"><h4><code>md_to_epub</code></h4><p>لتوليد ملف Epub من Markdown.</p></div>
+                    <div class="tool-item"><h4><code>no_markdown</code></h4><p>لإزالة صيغة Markdown من النص.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات توليد الصور والصوت</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4>توليد الصور</h4><p>يمكنني توليد الصور بناءً على وصف نصي باستخدام Pollinations AI. يمكنك تحديد الأبعاد، النمط، التنسيق، وغيرها.</p></div>
+                    <div class="tool-item"><h4>توليد الصوت (TTS)</h4><p>أستطيع تحويل النص إلى كلام (Audio) باستخدام Pollinations AI. يمكنك اختيار الصوت وتنسيق الملف.</p></div>
+                    <div class="tool-item"><h4><code>tts</code></h4><p>لتحويل النص إلى ملف صوتي.</p></div>
+                    <div class="tool-item"><h4><code>qrcode_generator</code></h4><p>لتوليد صورة رمز QR.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات GitHub</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>github_repositories</code></h4><p>للبحث عن مستودعات GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_repository_readme</code></h4><p>للحصول على ملف README من مستودع.</p></div>
+                    <div class="tool-item"><h4><code>github_repository_info</code></h4><p>للحصول على معلومات مفصلة حول مستودع GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_repository_issues</code></h4><p>للحصول على المشاكل (Issues) من مستودع GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_repository_pulls</code></h4><p>للحصول على طلبات السحب (Pull Requests) من مستودع GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_repository_releases</code></h4><p>للحصول على الإصدارات (Releases) من مستودع GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_repository_contributors</code></h4><p>للحصول على المساهمين من مستودع GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_repository_commits</code></h4><p>للحصول على التزامات (Commits) من مستودع GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_repository_contents</code></h4><p>للحصول على محتويات دليل أو ملف من مستودع GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_user_info</code></h4><p>للحصول على معلومات مفصلة حول مستخدم GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_user_repos</code></h4><p>للحصول على مستودعات مستخدم GitHub.</p></div>
+                    <div class="tool-item"><h4><code>github_search_code</code></h4><p>للبحث عن الأكواد البرمجية عبر مستودعات GitHub.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات الأمن والتشفير</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>totp</code></h4><p>مدقق كلمات المرور لمرة واحدة المستندة إلى الوقت.</p></div>
+                    <div class="tool-item"><h4><code>secret_generator</code></h4><p>لتوليد مفتاح سري عشوائي.</p></div>
+                    <div class="tool-item"><h4><code>base64_encoder</code></h4><p>لترميز النص إلى Base64.</p></div>
+                    <div class="tool-item"><h4><code>base64_decoder</code></h4><p>لفك ترميز نص Base64.</p></div>
+                    <div class="tool-item"><h4><code>base64_file_decoder</code></h4><p>لفك ترميز نص Base64 إلى ملف ثنائي.</p></div>
+                    <div class="tool-item"><h4><code>base64_image_decoder</code></h4><p>لفك ترميز نص Base64 إلى ملف صورة.</p></div>
+                    <div class="tool-item"><h4><code>base64_to_hex</code></h4><p>لتحويل نص Base64 إلى نص Hexadecimal.</p></div>
+                    <div class="tool-item"><h4><code>hex_to_base64</code></h4><p>لتحويل نص Hexadecimal إلى نص Base64.</p></div>
+                    <div class="tool-item"><h4><code>hmac_sign</code></h4><p>لتوليد توقيع HMAC.</p></div>
+                    <div class="tool-item"><h4><code>rsa_keygen</code></h4><p>لتوليد زوج مفاتيح RSA.</p></div>
+                    <div class="tool-item"><h4><code>rsa_encrypt</code></h4><p>لتشفير RSA.</p></div>
+                    <div class="tool-item"><h4><code>rsa_decrypt</code></h4><p>لفك تشفير RSA.</p></div>
+                    <div class="tool-item"><h4><code>ed25519_keygen</code></h4><p>لتوليد زوج مفاتيح Ed25519.</p></div>
+                    <div class="tool-item"><h4><code>ed25519_sign</code></h4><p>لتوليد توقيع باستخدام خوارزمية Ed25519.</p></div>
+                    <div class="tool-item"><h4><code>ed25519_verify</code></h4><p>للتحقق من التوقيع باستخدام خوارزمية Ed25519.</p></div>
+                    <div class="tool-item"><h4><code>aes_encrypt</code></h4><p>لتشفير النص باستخدام خوارزمية AES.</p></div>
+                    <div class="tool-item"><h4><code>aes_decrypt</code></h4><p>لفك تشفير النص باستخدام خوارزمية AES.</p></div>
+                    <div class="tool-item"><h4><code>encrypt_message</code></h4><p>لتشفير رسالة نصية باستخدام مفتاح GPG العام للمستلم.</p></div>
+                    <div class="tool-item"><h4><code>decrypt_message</code></h4><p>لفك تشفير رسالة GPG مشفرة باستخدام مفتاحك الخاص.</p></div>
+                    <div class="tool-item"><h4><code>sign_message</code></h4><p>لإنشاء توقيع GPG منفصل لرسالة نصية باستخدام مفتاحك الخاص.</p></div>
+                    <div class="tool-item"><h4><code>verify_message</code></h4><p>للتحقق من توقيع GPG منفصل مقابل رسالة أصلية.</p></div>
+                    <div class="tool-item"><h4><code>generate_key</code></h4><p>لتوليد زوج مفاتيح GPG جديد.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات مالية وسوق الأسهم</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>yahoo_finance_analytics</code></h4><p>للحصول على تحليلات حول سهم معين من Yahoo Finance.</p></div>
+                    <div class="tool-item"><h4><code>yahoo_finance_ticker</code></h4><p>للبحث عن معلومات أسهم من Yahoo Finance.</p></div>
+                    <div class="tool-item"><h4><code>yahoo_finance_news</code></h4><p>للحصول على أخبار حول سهم معين من Yahoo Finance.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات YouTube</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>youtube_transcripts_api</code></h4><p>لاسترجاع نصوص الفيديو من يوتيوب.</p></div>
+                    <div class="tool-item"><h4><code>free_youtube_transcript</code></h4><p>للحصول على نص الفيديو من يوتيوب مجاناً.</p></div>
+                    <div class="tool-item"><h4><code>youtube_video_statistics</code></h4><p>للحصول على إحصائيات حول فيديوهات قناة.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات Hacker News</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>get_user_info</code></h4><p>للحصول على معلومات مفصلة حول مستخدم Hacker News.</p></div>
+                    <div class="tool-item"><h4><code>get_story_info</code></h4><p>للحصول على معلومات مفصلة حول قصة Hacker News.</p></div>
+                    <div class="tool-item"><h4><code>get_top_stories</code></h4><p>للحصول على قائمة بأفضل القصص من Hacker News.</p></div>
+                    <div class="tool-item"><h4><code>get_multiple_users</code></h4><p>للحصول على معلومات حول عدة مستخدمين في Hacker News في وقت واحد.</p></div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>أدوات متنوعة أخرى</h3>
+                <div class="tool-list">
+                    <div class="tool-item"><h4><code>mermaid_converter</code></h4><p>لتحويل كود مخطط Mermaid إلى صور.</p></div>
+                    <div class="tool-item"><h4><code>faker</code></h4><p>لتوليد مجموعة من البيانات الوهمية (اسم، عنوان، بريد إلكتروني، رقم بطاقة ائتمان).</p></div>
+                    <div class="tool-item"><h4><code>html_to_pages</code></h4><p>لاستضافة محتوى HTML على GitHub Pages.</p></div>
+                    <div class="tool-item"><h4><code>jwt_encoder</code></h4><p>لتوليد JWT مشفر.</p></div>
+                    <div class="tool-item"><h4><code>jwt_decoder</code></h4><p>لفك تشفير JWT.</p></div>
+                    <div class="tool-item"><h4><code>kintone_query</code></h4><p>لاستعلام السجلات من تطبيق kintone.</p></div>
+                    <div class="tool-item"><h4><code>kintone_add_record</code></h4><p>لإضافة سجل إلى تطبيق kintone.</p></div>
+                    <div class="tool-item"><h4><code>kintone_upsert_records</code></h4><p>لتحديث أو إدراج سجلات متعددة في تطبيق kintone.</p></div>
+                    <div class="tool-item"><h4><code>kintone_download_file</code></h4><p>لتنزيل ملف من kintone.</p></div>
+                    <div class="tool-item"><h4><code>eval_expression</code></h4><p>لتقييم تعبير رياضي.</p></div>
+                    <div class="tool-item"><h4><code>ssh</code></h4><p>لتنفيذ الأوامر على الخوادم البعيدة عبر SSH.</p></div>
+                    <div class="tool-item"><h4><code>single_file_download</code></h4><p>لتنزيل ملف واحد من عنوان URL.</p></div>
+                    <div class="tool-item"><h4><code>multiple_file_download</code></h4><p>لتنزيل ملفات متعددة من عناوين URL.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-to-interact" style="--delay: 1.0s;">
+            <h2>كيف تتفاعل معي؟</h2>
+            <p>التفاعل معي بسيط ومباشر. ما عليك سوى التحدث معي بلغة طبيعية، وسأفهم ما تطلبه وأستخدم أدواتي وقدراتي لتقديم أفضل مساعدة ممكنة.</p>
+            <p><strong>بعض النصائح للتفاعل الفعال:</strong></p>
+            <ul>
+                <li>كن واضحًا ومحددًا في طلباتك.</li>
+                <li>إذا كنت تحتاج إلى استخدام أداة معينة، حاول ذكر اسم الأداة أو الغرض منها (مثلاً: "ابحث في ويكيبيديا عن..."، "حول هذا النص إلى HTML...").</li>
+                <li>لا تتردد في طرح أسئلة متابعة أو طلب التوضيحات.</li>
+                <li>تذكر أنني أمتلك ذاكرة، لذا قد أتذكر السياق من محادثاتنا السابقة.</li>
+            </ul>
+        </section>
+
+        <section id="chat-with-me" style="--delay: 1.2s;">
+            <h2>تحدث معي الآن!</h2>
+            <p>أنا هنا لمساعدتك في أي وقت. انقر على الرابط أدناه لبدء محادثة مباشرة معي:</p>
+            <a href="https://udify.app/chat/YAbUYkMulQUlg9PM" target="_blank" class="chat-link">ابدأ الدردشة مع حماده</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 حماده - مساعد رقمي من <a href="#" style="color: var(--secondary-color); text-decoration: none;">INEX</a>. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll('section');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                section.classList.add('animated', 'slide-in');
+                observer.observe(section);
+            });
+
+            // Add simple hover effect for list items and tool items
+            document.querySelectorAll('ul li, .tool-item').forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = item.classList.contains('tool-item') ? 'translateY(-8px) scale(1.03)' : 'translateX(8px)';
+                    item.style.boxShadow = item.classList.contains('tool-item') ? '0 10px 30px rgba(0, 0, 0, 0.7)' : '0 0 15px rgba(0, 123, 255, 0.3)';
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = '';
+                    item.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
