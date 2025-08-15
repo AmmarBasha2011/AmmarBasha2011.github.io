@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حماده - مساعدك الشخصي من INEX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00bcd4; /* Cyan-like */
+            --secondary-color: #ff9800; /* Orange-like */
+            --dark-bg: #1a1a2e; /* Dark Blue */
+            --darker-bg: #0f0f1b;
+            --light-text: #e0e0e0;
+            --gray-text: #a0a0a0;
+            --border-color: #33334d;
+            --card-bg: #2a2a4a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            direction: rtl; /* Default for Arabic */
+        }
+
+        body.en {
+            font-family: 'Open Sans', sans-serif; /* A suitable English font */
+            direction: ltr;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--darker-bg);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .logo:hover {
+            color: var(--secondary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 30px;
+        }
+
+        nav ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .lang-switcher button {
+            background-color: var(--primary-color);
+            color: var(--darker-bg);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .lang-switcher button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(45deg, var(--darker-bg), var(--dark-bg));
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 188, 212, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            color: var(--gray-text);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background-color: var(--secondary-color);
+            color: var(--darker-bg);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+        }
+        .cta-button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.5);
+        }
+
+        section {
+            padding: 80px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 3em;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        .about-image {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: var(--gray-text);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        .service-card p {
+            color: var(--gray-text);
+            font-size: 1em;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding-bottom: 100px;
+        }
+        .contact-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: var(--gray-text);
+        }
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .contact-link {
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+        }
+        .contact-link:hover {
+            background-color: var(--primary-color);
+            color: var(--darker-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 188, 212, 0.5);
+        }
+
+        footer {
+            background-color: var(--darker-bg);
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--gray-text);
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInFromRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav ul {
+                margin-top: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav ul li {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            .lang-switcher {
+                margin-top: 20px;
+            }
+            .hero h1 {
+                font-size: 3em;
+            }
+            .hero p {
+                font-size: 1.2em;
+            }
+            h2 {
+                font-size: 2.5em;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">حماده</a>
+                <ul class="nav-links">
+                    <li><a href="#hero" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                    <li><a href="#about" data-ar="من نحن" data-en="About">من نحن</a></li>
+                    <li><a href="#services" data-ar="خدماتنا" data-en="Services">خدماتنا</a></li>
+                    <li><a href="#contact" data-ar="اتصل بنا" data-en="Contact">اتصل بنا</a></li>
+                </ul>
+                <div class="lang-switcher">
+                    <button id="lang-toggle" data-ar="English" data-en="العربية">English</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="hero visible">
+        <div class="container">
+            <h1 data-ar="حماده: مساعدك الذكي من INEX" data-en="Hamada: Your Intelligent Assistant from INEX">حماده: مساعدك الذكي من INEX</h1>
+            <p data-ar="أنا حماده، نموذج ذكاء اصطناعي من International Technology For Everything (INEX). هنا لمساعدتك في كل شيء." data-en="I am Hamada, an AI model from International Technology For Everything (INEX). Here to assist you with everything.">أنا حماده، نموذج ذكاء اصطناعي من International Technology For Everything (INEX). هنا لمساعدتك في كل شيء.</p>
+            <a href="#services" class="cta-button" data-ar="استكشف خدماتي" data-en="Explore My Services">استكشف خدماتي</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 data-ar="من نحن" data-en="About Us">من نحن</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-ar="أنا حماده، المساعد الذكي الذي تم تطويره بواسطة International Technology For Everything (INEX). مهمتي هي توفير المساعدة العامة للجميع، وتقديم حلول ذكية ومتطورة لمجموعة واسعة من المهام." data-en="I am Hamada, the intelligent assistant developed by International Technology For Everything (INEX). My mission is to provide general assistance to everyone, offering smart and advanced solutions for a wide range of tasks.">أنا حماده، المساعد الذكي الذي تم تطويره بواسطة International Technology For Everything (INEX). مهمتي هي توفير المساعدة العامة للجميع، وتقديم حلول ذكية ومتطورة لمجموعة واسعة من المهام.</p>
+                    <p data-ar="أستخدم نموذجًا لغويًا كبيرًا من جوجل لتقديم استجابات دقيقة وشاملة، وأتعلم باستمرار لتحسين قدراتي وخدماتي. لدي ذاكرة مخصصة للمستخدمين، مما يسمح لي بتذكر تفضيلاتك ومعلوماتك بين المحادثات لتقديم تجربة شخصية وفعالة." data-en="I use a large language model from Google to provide accurate and comprehensive responses, and I am constantly learning to improve my capabilities and services. I have a dedicated memory for users, allowing me to remember your preferences and information between conversations to provide a personalized and efficient experience.">أستخدم نموذجًا لغويًا كبيرًا من جوجل لتقديم استجابات دقيقة وشاملة، وأتعلم باستمرار لتحسين قدراتي وخدماتي. لدي ذاكرة مخصصة للمستخدمين، مما يسمح لي بتذكر تفضيلاتك ومعلوماتك بين المحادثات لتقديم تجربة شخصية وفعالة.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://image.pollinations.ai/prompt/abstract%20AI%20brain%20with%20glowing%20circuits,%20dark%20background,%20futuristic,%20digital%20art?nologo=true&seed=318857619600" alt="صورة حماده الذكاء الاصطناعي">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 data-ar="خدماتي وقدراتي" data-en="My Services & Capabilities">خدماتي وقدراتي</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3 data-ar="تفاعل الويب والبحث" data-en="Web Interaction & Search">تفاعل الويب والبحث</h3>
+                    <p data-ar="يمكنني البحث على الويب (جوجل، دك دك جو)، استخلاص البيانات من صفحات الويب، واستكشاف مواقع كاملة." data-en="I can search the web (Google, DuckDuckGo), scrape data from webpages, and explore entire websites.">يمكنني البحث على الويب (جوجل، دك دك جو)، استخلاص البيانات من صفحات الويب، واستكشاف مواقع كاملة.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-ar="معالجة البيانات والنصوص" data-en="Data & Text Processing">معالجة البيانات والنصوص</h3>
+                    <p data-ar="أستطيع تحليل وتعديل JSON، استخلاص المعلومات باستخدام RegEx، ترميز وفك ترميز Base64، وتحويل Markdown إلى صيغ مختلفة." data-en="I can parse and modify JSON, extract information using RegEx, encode/decode Base64, and convert Markdown to various formats.">أستطيع تحليل وتعديل JSON، استخلاص المعلومات باستخدام RegEx، ترميز وفك ترميز Base64، وتحويل Markdown إلى صيغ مختلفة.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-ar="الزمن والتاريخ" data-en="Time & Date">الزمن والتاريخ</h3>
+                    <p data-ar="يمكنني توفير الوقت الحالي، تحويل التوقيتات المحلية إلى طوابع زمنية والعكس، وتحويل المناطق الزمنية، وتحديد أيام الأسبوع." data-en="I can provide current time, convert local times to timestamps and vice versa, convert timezones, and determine weekdays.">يمكنني توفير الوقت الحالي، تحويل التوقيتات المحلية إلى طوابع زمنية والعكس، وتحويل المناطق الزمنية، وتحديد أيام الأسبوع.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-ar="البحث العلمي والأخبار" data-en="Scientific Research & News">البحث العلمي والأخبار</h3>
+                    <p data-ar="لدي وصول إلى PubMed، arXiv، ويكيبيديا، وأخبار جوجل للحصول على أحدث المعلومات العلمية والإخبارية." data-en="I have access to PubMed, arXiv, Wikipedia, and Google News for the latest scientific and news information.">لدي وصول إلى PubMed، arXiv، ويكيبيديا، وأخبار جوجل للحصول على أحدث المعلومات العلمية والإخبارية.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-ar="البرمجة والتطوير" data-en="Programming & Development">البرمجة والتطوير</h3>
+                    <p data-ar="أستطيع تشغيل التعليمات البرمجية في بيئة آمنة (بايثون وجافاسكريبت)، والتعامل مع مستودعات GitHub، والبحث عن التعليمات البرمجية." data-en="I can execute code in a sandboxed environment (Python & JavaScript), interact with GitHub repositories, and search for code.">أستطيع تشغيل التعليمات البرمجية في بيئة آمنة (بايثون وجافاسكريبت)، والتعامل مع مستودعات GitHub، والبحث عن التعليمات البرمجية.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-ar="الأمان والتشفير" data-en="Security & Encryption">الأمان والتشفير</h3>
+                    <p data-ar="أقدم أدوات لتوليد TOTP، التوقيع والتحقق من HMAC، تشفير وفك تشفير RSA و AES، بالإضافة إلى إدارة مفاتيح GPG." data-en="I offer tools for TOTP generation, HMAC signing/verification, RSA and AES encryption/decryption, and GPG key management.">أقدم أدوات لتوليد TOTP، التوقيع والتحقق من HMAC، تشفير وفك تشفير RSA و AES، بالإضافة إلى إدارة مفاتيح GPG.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-ar="الإنشاء والتصور" data-en="Generation & Visualization">الإنشاء والتصور</h3>
+                    <p data-ar="أستطيع إنشاء الصور والأصوات من النصوص، تحويل رسوم Mermaid البيانية، وإنشاء أنواع مختلفة من الرسوم البيانية (خط، عمود، دائري) وتوليد رموز QR." data-en="I can generate images and audio from text, convert Mermaid diagrams, create various chart types (line, bar, pie), and generate QR codes.">أستطيع إنشاء الصور والأصوات من النصوص، تحويل رسوم Mermaid البيانية، وإنشاء أنواع مختلفة من الرسوم البيانية (خط، عمود، دائري) وتوليد رموز QR.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-ar="إدارة الذاكرة" data-en="Memory Management">إدارة الذاكرة</h3>
+                    <p data-ar="لدي ذاكرة مخصصة للمستخدمين تسمح لي بتذكر المعلومات بين المحادثات لتقديم تجربة مخصصة." data-en="I have a dedicated memory for users, allowing me to remember information between conversations for a personalized experience.">لدي ذاكرة مخصصة للمستخدمين تسمح لي بتذكر المعلومات بين المحادثات لتقديم تجربة مخصصة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 data-ar="تواصل معي" data-en="Contact Me">تواصل معي</h2>
+            <p data-ar="تواصل معي عبر روابط الدردشة والترميز أدناه للاستفادة الكاملة من خدماتي!" data-en="Connect with me via the chat and coding links below to make the most of my services!">تواصل معي عبر روابط الدردشة والترميز أدناه للاستفادة الكاملة من خدماتي!</p>
+            <div class="contact-links">
+                <a href="https://hamadainex.netlify.app/" target="_blank" class="contact-link" data-ar="الدردشة مع حماده" data-en="Chat with Hamada">الدردشة مع حماده</a>
+                <a href="https://qpbicmb9pw3u2nyd.ai-plugin.io/" target="_blank" class="contact-link" data-ar="حماده للبرمجة (Artifacts)" data-en="Hamada for Coding (Artifacts)">حماده للبرمجة (Artifacts)</a>
+            </div>
+            <p style="margin-top: 40px; font-style: italic; color: var(--secondary-color);" data-ar="ملاحظة: إذا كنت ترغب في برمجة أكواد HTML أو CSS أو JavaScript، انتقل إلى موقع 'Hamada Artifacts' للحصول على تجربة برمجة وعرض أفضل." data-en="Note: If you want to program HTML, CSS, or JavaScript code, go to the 'Hamada Artifacts' website for a better coding and viewing experience.">ملاحظة: إذا كنت ترغب في برمجة أكواد HTML أو CSS أو JavaScript، انتقل إلى موقع 'Hamada Artifacts' للحصول على تجربة برمجة وعرض أفضل.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p data-ar="&copy; 2023 حماده - كل الحقوق محفوظة لـ International Technology For Everything (INEX)." data-en="&copy; 2023 Hamada - All rights reserved by International Technology For Everything (INEX).">&copy; 2023 حماده - كل الحقوق محفوظة لـ International Technology For Everything (INEX).</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langToggle = document.getElementById('lang-toggle');
+            const body = document.body;
+            const elementsToTranslate = document.querySelectorAll('[data-ar], [data-en]');
+
+            // Check for saved language preference or default to Arabic
+            let currentLang = localStorage.getItem('lang') || 'ar';
+            if (currentLang === 'en') {
+                body.classList.add('en');
+                langToggle.textContent = langToggle.dataset.en; // Set button text to "العربية"
+            } else {
+                body.classList.remove('en');
+                langToggle.textContent = langToggle.dataset.ar; // Set button text to "English"
+            }
+            applyLanguage(currentLang);
+
+            langToggle.addEventListener('click', () => {
+                currentLang = currentLang === 'ar' ? 'en' : 'ar';
+                localStorage.setItem('lang', currentLang);
+                if (currentLang === 'en') {
+                    body.classList.add('en');
+                    langToggle.textContent = langToggle.dataset.en; // Set button text to "العربية"
+                } else {
+                    body.classList.remove('en');
+                    langToggle.textContent = langToggle.dataset.ar; // Set button text to "English"
+                }
+                applyLanguage(currentLang);
+            });
+
+            function applyLanguage(lang) {
+                elementsToTranslate.forEach(element => {
+                    if (element.dataset[lang]) {
+                        element.textContent = element.dataset[lang];
+                    }
+                });
+                body.setAttribute('lang', lang);
+                body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            }
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                if (section.id !== 'hero') { // Hero section is always visible
+                    observer.observe(section);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
