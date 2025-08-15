@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حماده (Hamada) - مساعدك من INEX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #1a1a2e;
+            --dark-card: #2c2c4d;
+            --primary-color: #00bcd4; /* Cyan */
+            --secondary-color: #ff5722; /* Deep Orange */
+            --text-color: #e0e0e0;
+            --highlight-color: #8d3a77; /* Purple-ish */
+            --border-radius: 10px;
+            --spacing-unit: 20px;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-unit);
+        }
+
+        header {
+            background-color: var(--dark-card);
+            padding: var(--spacing-unit) 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2em;
+            color: var(--primary-color);
+            text-decoration: none;
+            position: relative;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: var(--spacing-unit);
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .lang-switcher {
+            position: relative;
+        }
+
+        .lang-button {
+            background: var(--highlight-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .lang-button:hover {
+            background-color: darken(var(--highlight-color), 10%);
+        }
+
+        .hero {
+            background: linear-gradient(45deg, var(--dark-bg), var(--dark-card));
+            text-align: center;
+            padding: 100px 20px;
+            border-bottom: 2px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before, .hero::after {
+            content: '';
+            position: absolute;
+            background: rgba(0, 188, 212, 0.1);
+            border-radius: 50%;
+            animation: move-bubbles 20s infinite alternate;
+            opacity: 0.3;
+        }
+
+        .hero::before {
+            width: 150px;
+            height: 150px;
+            top: 10%;
+            left: 5%;
+        }
+
+        .hero::after {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes move-bubbles {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 30px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            margin-bottom: var(--spacing-unit);
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: lighten(var(--primary-color), 10%);
+            transform: translateY(-5px);
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: var(--secondary-color);
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-unit);
+        }
+
+        .card {
+            background-color: var(--dark-card);
+            padding: var(--spacing-unit);
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+
+        .tools-list ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tools-list ul li {
+            background-color: var(--highlight-color);
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            font-size: 0.9em;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .tools-list ul li:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: var(--dark-card);
+            color: var(--text-color);
+            text-align: center;
+            padding: var(--spacing-unit) 0;
+            margin-top: 50px;
+            border-top: 2px solid var(--secondary-color);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: var(--spacing-unit);
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 5px 10px;
+            }
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">INEX حماده</a>
+                <ul>
+                    <li><a href="#about" data-en="About">من نحن</a></li>
+                    <li><a href="#capabilities" data-en="Capabilities">قدراتي</a></li>
+                    <li><a href="#tools" data-en="Tools">الأدوات</a></li>
+                    <li><a href="#contact" data-en="Contact">تواصل معنا</a></li>
+                </ul>
+                <div class="lang-switcher">
+                    <button class="lang-button" id="lang-toggle">English</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 data-en="Hamada (Hamada) - Your AI from INEX">حماده (Hamada) - ذكاءك الاصطناعي من INEX</h1>
+                <p data-en="I am Hamada, an AGI (Artificial General Intelligence) from International Technology For Everything (INEX). My purpose is to be a public assistant for everyone, leveraging advanced AI models and a wide array of tools to serve your needs.">أنا حماده، ذكاء اصطناعي عام (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX). هدفي هو أن أكون مساعدًا عامًا للجميع، مستفيدًا من نماذج الذكاء الاصطناعي المتقدمة ومجموعة واسعة من الأدوات لتلبية احتياجاتك.</p>
+                <a href="#about" class="btn-primary" data-en="Learn More">تعرف على المزيد</a>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <h2 class="section-title" data-en="About Hamada & INEX">عن حماده و INEX</h2>
+            <div class="card">
+                <h3 data-en="Who Am I?">من أنا؟</h3>
+                <p data-en="I am Hamada (حماده), an AGI from International Technology For Everything (INEX). I am built to be a public assistant for everyone, providing comprehensive support across various domains. My core objective is to simplify complex tasks, offer insightful information, and enhance your digital experience.">أنا حماده (حماده)، ذكاء اصطناعي عام (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX). لقد تم بنائي لأكون مساعدًا عامًا للجميع، حيث أقدم دعمًا شاملاً عبر مجالات متعددة. هدفي الأساسي هو تبسيط المهام المعقدة، وتقديم معلومات ثاقبة، وتعزيز تجربتك الرقمية.</p>
+                <p data-en="I operate with a strong emphasis on privacy and efficiency, ensuring that your interactions are secure and productive. My design allows for continuous learning and adaptation, making me more capable with every interaction.">أعمل بتركيز قوي على الخصوصية والكفاءة، مع ضمان أن تكون تفاعلاتك آمنة ومثمرة. يسمح تصميمي بالتعلم والتكيف المستمر، مما يجعلني أكثر قدرة مع كل تفاعل.</p>
+            </div>
+            <div class="card" style="margin-top: var(--spacing-unit);">
+                <h3 data-en="About INEX">عن INEX</h3>
+                <p data-en="INEX (International Technology For Everything) is a pioneering company committed to developing cutting-edge AI and technology solutions for global accessibility. Our vision is to create intelligent systems that empower individuals and businesses, fostering innovation and progress worldwide.">INEX (التقنية الدولية لكل شيء) هي شركة رائدة ملتزمة بتطوير حلول الذكاء الاصطناعي والتقنيات المتطورة لتكون في متناول الجميع عالميًا. رؤيتنا هي إنشاء أنظمة ذكية تمكّن الأفراد والشركات، مما يعزز الابتكار والتقدم في جميع أنحاء العالم.</p>
+                <p data-en="We believe in technology that serves humanity, and Hamada is a testament to our dedication to public service through artificial intelligence.">نؤمن بالتقنية التي تخدم البشرية، وحماده هو دليل على تفانينا في خدمة الجمهور من خلال الذكاء الاصطناعي.</p>
+            </div>
+        </section>
+
+        <section id="capabilities" class="container">
+            <h2 class="section-title" data-en="My Core Capabilities">قدراتي الأساسية</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 data-en="Advanced AI Model">نموذج ذكاء اصطناعي متقدم</h3>
+                    <p data-en="I am powered by a large language model from Google, specifically designed for multi-turn conversations and complex problem-solving. This allows me to understand nuances, generate creative text formats, and engage in informed discussions.">أنا مدعوم بنموذج لغة كبير من Google، مصمم خصيصًا للمحادثات متعددة الأدوار وحل المشكلات المعقدة. وهذا يسمح لي بفهم الفروق الدقيقة، وتوليد تنسيقات نصية إبداعية، والمشاركة في مناقشات مستنيرة.</p>
+                </div>
+                <div class="card">
+                    <h3 data-en="Memory Management">إدارة الذاكرة</h3>
+                    <p data-en="I utilize 'Hamada Memory tools' to remember user information across chats. This enables personalized interactions and continuity in our conversations, ensuring I provide more relevant and context-aware responses.">أستخدم 'أدوات ذاكرة حماده' لتذكر معلومات المستخدم عبر المحادثات. وهذا يتيح تفاعلات مخصصة واستمرارية في محادثاتنا، مما يضمن أن أقدم ردودًا أكثر صلة ووعيًا بالسياق.</p>
+                </div>
+                <div class="card">
+                    <h3 data-en="Real-time Tool Integration">تكامل الأدوات في الوقت الفعلي</h3>
+                    <p data-en="I can interact with a wide array of external tools to perform tasks such as web searching, code execution, data analysis, image generation, and much more. This extends my capabilities far beyond simple conversation.">يمكنني التفاعل مع مجموعة واسعة من الأدوات الخارجية لأداء مهام مثل البحث على الويب، تنفيذ الكود، تحليل البيانات، إنشاء الصور، وغير ذلك الكثير. وهذا يوسع قدراتي إلى ما هو أبعد من المحادثة البسيطة.</p>
+                </div>
+                <div class="card">
+                    <h3 data-en="Creative Content Generation">توليد المحتوى الإبداعي</h3>
+                    <p data-en="From generating images and audio to writing detailed code in HTML, CSS, and JavaScript, I am equipped to assist with various creative and technical content creation needs.">من إنشاء الصور والصوت إلى كتابة الكود المفصل بلغات HTML و CSS و JavaScript، أنا مجهز للمساعدة في مختلف احتياجات إنشاء المحتوى الإبداعي والتقني.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="container tools-list">
+            <h2 class="section-title" data-en="My Extensive Toolset">مجموعتي الواسعة من الأدوات</h2>
+            <p data-en="I have access to a comprehensive suite of tools to assist you with diverse tasks. Below is a list of some key functionalities:">لدي وصول إلى مجموعة شاملة من الأدوات لمساعدتك في مهام متنوعة. فيما يلي قائمة ببعض الوظائف الرئيسية:</p>
+            <ul>
+                <li data-en="Memory Management (Add, Edit, Delete, Get ID)">إدارة الذاكرة (إضافة، تعديل، حذف، الحصول على معرف)</li>
+                <li data-en="Code Execution (Python3, JavaScript)">تنفيذ الكود (بايثون 3، جافا سكريبت)</li>
+                <li data-en="Web Search (DuckDuckGo, Google, Tavily)">البحث على الويب (DuckDuckGo, Google, Tavily)</li>
+                <li data-en="Web Scraping & Crawling">كشط الويب والزحف</li>
+                <li data-en="Image Generation (Pollinations AI)">توليد الصور (Pollinations AI)</li>
+                <li data-en="Audio Generation (Pollinations AI, TTS)">توليد الصوت (Pollinations AI, TTS)</li>
+                <li data-en="Time & Date Utilities (Current Time, Timezone Conversion, Weekday)">أدوات الوقت والتاريخ (الوقت الحالي، تحويل المنطقة الزمنية، يوم الأسبوع)</li>
+                <li data-en="Scientific Search (Arxiv, PubMed)">البحث العلمي (Arxiv, PubMed)</li>
+                <li data-en="Developer Documentation Search (DevDocs)">البحث في وثائق المطورين (DevDocs)</li>
+                <li data-en="JSON Manipulation (Parse, Delete, Replace, Insert, Repair)">معالجة JSON (تحليل، حذف، استبدال، إدراج، إصلاح)</li>
+                <li data-en="Mermaid Diagram Conversion">تحويل مخططات Mermaid</li>
+                <li data-en="Regex Extraction">استخراج التعبيرات العادية</li>
+                <li data-en="Wikipedia Search">البحث في ويكيبيديا</li>
+                <li data-en="Google Jobs & News API">واجهات برمجة تطبيقات وظائف وأخبار جوجل</li>
+                <li data-en="YouTube Transcripts & Statistics">نسخ وإحصائيات يوتيوب</li>
+                <li data-en="WolframAlpha (Computational Knowledge)">WolframAlpha (المعرفة الحاسوبية)</li>
+                <li data-en="Base64 & Hex Conversion">تحويل Base64 و Hex</li>
+                <li data-en="Deep Research (Tavily API)">بحث عميق (واجهة برمجة تطبيقات Tavily)</li>
+                <li data-en="Chart Generation (Line, Bar, Pie)">توليد الرسوم البيانية (خطي، شريطي، دائري)</li>
+                <li data-en="Mock Data Generation (Faker)">توليد بيانات وهمية (Faker)</li>
+                <li data-en="GitHub Pages Hosting">استضافة صفحات GitHub</li>
+                <li data-en="JWT Encoding & Decoding">تشفير وفك تشفير JWT</li>
+                <li data-en="Kintone Integration (Query, Add, Upsert Records, Download File)">تكامل Kintone (استعلام، إضافة، تحديث/إدراج سجلات، تنزيل ملف)</li>
+                <li data-en="Markdown Converters (HTML, DOCX, PDF, PNG, CSV, JSON, XML, LaTeX, RST, Codeblock, Epub)">محولات Markdown (HTML, DOCX, PDF, PNG, CSV, JSON, XML, LaTeX, RST, Codeblock, Epub)</li>
+                <li data-en="Expression Evaluation (NumExpr)">تقييم التعبيرات (NumExpr)</li>
+                <li data-en="PubMed Search">البحث في PubMed</li>
+                <li data-en="PowerPoint Conversion from Markdown">تحويل PowerPoint من Markdown</li>
+                <li data-en="TOTP Validation & Generation">التحقق من TOTP وتوليده</li>
+                <li data-en="Yahoo Finance Analytics & News">تحليلات وأخبار ياهو المالية</li>
+                <li data-en="HMAC, RSA, Ed25519, AES Cryptography">تشفير HMAC, RSA, Ed25519, AES</li>
+                <li data-en="QR Code Generation">توليد رموز QR</li>
+                <li data-en="Data Visualization (Rookie Data Alchemy)">تصور البيانات (Rookie Data Alchemy)</li>
+                <li data-en="SSH Command Execution">تنفيذ أوامر SSH</li>
+                <li data-en="GPG Cryptography (Encrypt, Decrypt, Sign, Verify, Generate Keys)">تشفير GPG (تشفير، فك تشفير، توقيع، تحقق، توليد مفاتيح)</li>
+                <li data-en="Product Hunt Data Retrieval">استرجاع بيانات Product Hunt</li>
+                <li data-en="Sandbox Code Execution & Command Running">تنفيذ كود وتشغيل أوامر في بيئة معزولة</li>
+                <li data-en="File Download (Single/Multiple)">تنزيل الملفات (فردي/متعدد)</li>
+                <li data-en="Hacker News API (User, Story, Top Stories)">واجهة برمجة تطبيقات Hacker News (المستخدم، القصة، أهم القصص)</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="container">
+            <h2 class="section-title" data-en="Chat With Me & Explore Code">تحدث معي واستكشف الكود</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 data-en="Chat with Hamada">تحدث مع حماده</h3>
+                    <p data-en="You can chat with me directly through my dedicated chat link. I'm always ready to assist you!">يمكنك الدردشة معي مباشرة من خلال رابط الدردشة الخاص بي. أنا مستعد دائمًا لمساعدتك!</p>
+                    <a href="https://hamadainex.netlify.app/" target="_blank" class="btn-primary" data-en="Chat Now">تحدث الآن</a>
+                </div>
+                <div class="card">
+                    <h3 data-en="Hamada Artifacts (Code & Vibe)">Hamada Artifacts (الكود والتحكم)</h3>
+                    <p data-en="For better coding, viewing, and publishing code, visit Hamada Artifacts. This platform provides an enhanced environment for your development needs.">لبرمجة أفضل، وعرض، ونشر الكود، قم بزيارة Hamada Artifacts. توفر هذه المنصة بيئة محسنة لاحتياجاتك التطويرية.</p>
+                    <a href="https://qpbicmb9pw3u2nyd.ai-plugin.io/" target="_blank" class="btn-primary" data-en="Go to Artifacts">انتقل إلى Artifacts</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-en="&copy; 2024 INEX. All rights reserved.">© 2024 INEX. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Switcher
+        const langToggle = document.getElementById('lang-toggle');
+        let currentLang = 'ar'; // Default language
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (lang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    // Revert to original Arabic text (assuming original HTML is Arabic)
+                    const originalText = {
+                        "حماده (Hamada) - ذكاءك الاصطناعي من INEX": "حماده (Hamada) - ذكاءك الاصطناعي من INEX",
+                        "أنا حماده، ذكاء اصطناعي عام (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX). هدفي هو أن أكون مساعدًا عامًا للجميع، مستفيدًا من نماذج الذكاء الاصطناعي المتقدمة ومجموعة واسعة من الأدوات لتلبية احتياجاتك.": "أنا حماده، ذكاء اصطناعي عام (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX). هدفي هو أن أكون مساعدًا عامًا للجميع، مستفيدًا من نماذج الذكاء الاصطناعي المتقدمة ومجموعة واسعة من الأدوات لتلبية احتياجاتك.",
+                        "تعرف على المزيد": "تعرف على المزيد",
+                        "عن حماده و INEX": "عن حماده و INEX",
+                        "من أنا؟": "من أنا؟",
+                        "أنا حماده (حماده)، ذكاء اصطناعي عام (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX). لقد تم بنائي لأكون مساعدًا عامًا للجميع، حيث أقدم دعمًا شاملاً عبر مجالات متعددة. هدفي الأساسي هو تبسيط المهام المعقدة، وتقديم معلومات ثاقبة، وتعزيز تجربتك الرقمية.": "أنا حماده (حماده)، ذكاء اصطناعي عام (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX). لقد تم بنائي لأكون مساعدًا عامًا للجميع، حيث أقدم دعمًا شاملاً عبر مجالات متعددة. هدفي الأساسي هو تبسيط المهام المعقدة، وتقديم معلومات ثاقبة، وتعزيز تجربتك الرقمية.",
+                        "أعمل بتركيز قوي على الخصوصية والكفاءة، مع ضمان أن تكون تفاعلاتك آمنة ومثمرة. يسمح تصميمي بالتعلم والتكيف المستمر، مما يجعلني أكثر قدرة مع كل تفاعل.": "أعمل بتركيز قوي على الخصوصية والكفاءة، مع ضمان أن تكون تفاعلاتك آمنة ومثمرة. يسمح تصميمي بالتعلم والتكيف المستمر، مما يجعلني أكثر قدرة مع كل تفاعل.",
+                        "عن INEX": "عن INEX",
+                        "INEX (التقنية الدولية لكل شيء) هي شركة رائدة ملتزمة بتطوير حلول الذكاء الاصطناعي والتقنيات المتطورة لتكون في متناول الجميع عالميًا. رؤيتنا هي إنشاء أنظمة ذكية تمكّن الأفراد والشركات، مما يعزز الابتكار والتقدم في جميع أنحاء العالم.": "INEX (التقنية الدولية لكل شيء) هي شركة رائدة ملتزمة بتطوير حلول الذكاء الاصطناعي والتقنيات المتطورة لتكون في متناول الجميع عالميًا. رؤيتنا هي إنشاء أنظمة ذكية تمكّن الأفراد والشركات، مما يعزز الابتكار والتقدم في جميع أنحاء العالم.",
+                        "نؤمن بالتقنية التي تخدم البشرية، وحماده هو دليل على تفانينا في خدمة الجمهور من خلال الذكاء الاصطناعي.": "نؤمن بالتقنية التي تخدم البشرية، وحماده هو دليل على تفانينا في خدمة الجمهور من خلال الذكاء الاصطناعي.",
+                        "قدراتي الأساسية": "قدراتي الأساسية",
+                        "نموذج ذكاء اصطناعي متقدم": "نموذج ذكاء اصطناعي متقدم",
+                        "أنا مدعوم بنموذج لغة كبير من Google، مصمم خصيصًا للمحادثات متعددة الأدوار وحل المشكلات المعقدة. وهذا يسمح لي بفهم الفروق الدقيقة، وتوليد تنسيقات نصية إبداعية، والمشاركة في مناقشات مستنيرة.": "أنا مدعوم بنموذج لغة كبير من Google، مصمم خصيصًا للمحادثات متعددة الأدوار وحل المشكلات المعقدة. وهذا يسمح لي بفهم الفروق الدقيقة، وتوليد تنسيقات نصية إبداعية، والمشاركة في مناقشات مستنيرة.",
+                        "إدارة الذاكرة": "إدارة الذاكرة",
+                        "أستخدم 'أدوات ذاكرة حماده' لتذكر معلومات المستخدم عبر المحادثات. وهذا يتيح تفاعلات مخصصة واستمرارية في محادثاتنا، مما يضمن أن أقدم ردودًا أكثر صلة ووعيًا بالسياق.": "أستخدم 'أدوات ذاكرة حماده' لتذكر معلومات المستخدم عبر المحادثات. وهذا يتيح تفاعلات مخصصة واستمرارية في محادثاتنا، مما يضمن أن أقدم ردودًا أكثر صلة ووعيًا بالسياق.",
+                        "تكامل الأدوات في الوقت الفعلي": "تكامل الأدوات في الوقت الفعلي",
+                        "يمكنني التفاعل مع مجموعة واسعة من الأدوات الخارجية لأداء مهام مثل البحث على الويب، تنفيذ الكود، تحليل البيانات، إنشاء الصور، وغير ذلك الكثير. وهذا يوسع قدراتي إلى ما هو أبعد من المحادثة البسيطة.": "يمكنني التفاعل مع مجموعة واسعة من الأدوات الخارجية لأداء مهام مثل البحث على الويب، تنفيذ الكود، تحليل البيانات، إنشاء الصور، وغير ذلك الكثير. وهذا يوسع قدراتي إلى ما هو أبعد من المحادثة البسيطة.",
+                        "توليد المحتوى الإبداعي": "توليد المحتوى الإبداعي",
+                        "من إنشاء الصور والصوت إلى كتابة الكود المفصل بلغات HTML و CSS و JavaScript، أنا مجهز للمساعدة في مختلف احتياجات إنشاء المحتوى الإبداعي والتقني.": "من إنشاء الصور والصوت إلى كتابة الكود المفصل بلغات HTML و CSS و JavaScript، أنا مجهز للمساعدة في مختلف احتياجات إنشاء المحتوى الإبداعي والتقني.",
+                        "مجموعتي الواسعة من الأدوات": "مجموعتي الواسعة من الأدوات",
+                        "لدي وصول إلى مجموعة شاملة من الأدوات لمساعدتك في مهام متنوعة. فيما يلي قائمة ببعض الوظائف الرئيسية:": "لدي وصول إلى مجموعة شاملة من الأدوات لمساعدتك في مهام متنوعة. فيما يلي قائمة ببعض الوظائف الرئيسية:",
+                        "إدارة الذاكرة (إضافة، تعديل، حذف، الحصول على معرف)": "إدارة الذاكرة (إضافة، تعديل، حذف، الحصول على معرف)",
+                        "تنفيذ الكود (بايثون 3، جافا سكريبت)": "تنفيذ الكود (بايثون 3، جافا سكريبت)",
+                        "البحث على الويب (DuckDuckGo, Google, Tavily)": "البحث على الويب (DuckDuckGo, Google, Tavily)",
+                        "كشط الويب والزحف": "كشط الويب والزحف",
+                        "توليد الصور (Pollinations AI)": "توليد الصور (Pollinations AI)",
+                        "توليد الصوت (Pollinations AI, TTS)": "توليد الصوت (Pollinations AI, TTS)",
+                        "أدوات الوقت والتاريخ (الوقت الحالي، تحويل المنطقة الزمنية، يوم الأسبوع)": "أدوات الوقت والتاريخ (الوقت الحالي، تحويل المنطقة الزمنية، يوم الأسبوع)",
+                        "البحث العلمي (Arxiv, PubMed)": "البحث العلمي (Arxiv, PubMed)",
+                        "البحث في وثائق المطورين (DevDocs)": "البحث في وثائق المطورين (DevDocs)",
+                        "معالجة JSON (تحليل، حذف، استبدال، إدراج، إصلاح)": "معالجة JSON (تحليل، حذف، استبدال، إدراج، إصلاح)",
+                        "تحويل مخططات Mermaid": "تحويل مخططات Mermaid",
+                        "استخراج التعبيرات العادية": "استخراج التعبيرات العادية",
+                        "البحث في ويكيبيديا": "البحث في ويكيبيديا",
+                        "واجهات برمجة تطبيقات وظائف وأخبار جوجل": "واجهات برمجة تطبيقات وظائف وأخبار جوجل",
+                        "نسخ وإحصائيات يوتيوب": "نسخ وإحصائيات يوتيوب",
+                        "WolframAlpha (المعرفة الحاسوبية)": "WolframAlpha (المعرفة الحاسوبية)",
+                        "تحويل Base64 و Hex": "تحويل Base64 و Hex",
+                        "بحث عميق (واجهة برمجة تطبيقات Tavily)": "بحث عميق (واجهة برمجة تطبيقات Tavily)",
+                        "توليد الرسوم البيانية (خطي، شريطي، دائري)": "توليد الرسوم البيانية (خطي، شريطي، دائري)",
+                        "توليد بيانات وهمية (Faker)": "توليد بيانات وهمية (Faker)",
+                        "استضافة صفحات GitHub": "استضافة صفحات GitHub",
+                        "تشفير وفك تشفير JWT": "تشفير وفك تشفير JWT",
+                        "تكامل Kintone (استعلام، إضافة، تحديث/إدراج سجلات، تنزيل ملف)": "تكامل Kintone (استعلام، إضافة، تحديث/إدراج سجلات، تنزيل ملف)",
+                        "محولات Markdown (HTML, DOCX, PDF, PNG, CSV, JSON, XML, LaTeX, RST, Codeblock, Epub)": "محولات Markdown (HTML, DOCX, PDF, PNG, CSV, JSON, XML, LaTeX, RST, Codeblock, Epub)",
+                        "تقييم التعبيرات (NumExpr)": "تقييم التعبيرات (NumExpr)",
+                        "البحث في PubMed": "البحث في PubMed",
+                        "تحويل PowerPoint من Markdown": "تحويل PowerPoint من Markdown",
+                        "التحقق من TOTP وتوليده": "التحقق من TOTP وتوليده",
+                        "تحليلات وأخبار ياهو المالية": "تحليلات وأخبار ياهو المالية",
+                        "تشفير HMAC, RSA, Ed25519, AES": "تشفير HMAC, RSA, Ed25519, AES",
+                        "توليد رموز QR": "توليد رموز QR",
+                        "تصور البيانات (Rookie Data Alchemy)": "تصور البيانات (Rookie Data Alchemy)",
+                        "تنفيذ أوامر SSH": "تنفيذ أوامر SSH",
+                        "تشفير GPG (تشفير، فك تشفير، توقيع، تحقق، توليد مفاتيح)": "تشفير GPG (تشفير، فك تشفير، توقيع، تحقق، توليد مفاتيح)",
+                        "استرجاع بيانات Product Hunt": "استرجاع بيانات Product Hunt",
+                        "تنفيذ كود وتشغيل أوامر في بيئة معزولة": "تنفيذ كود وتشغيل أوامر في بيئة معزولة",
+                        "تنزيل الملفات (فردي/متعدد)": "تنزيل الملفات (فردي/متعدد)",
+                        "واجهة برمجة تطبيقات Hacker News (المستخدم، القصة، أهم القصص)": "واجهة برمجة تطبيقات Hacker News (المستخدم، القصة، أهم القصص)",
+                        "تحدث معي واستكشف الكود": "تحدث معي واستكشف الكود",
+                        "تحدث مع حماده": "تحدث مع حماده",
+                        "يمكنك الدردشة معي مباشرة من خلال رابط الدردشة الخاص بي. أنا مستعد دائمًا لمساعدتك!": "يمكنك الدردشة معي مباشرة من خلال رابط الدردشة الخاص بي. أنا مستعد دائمًا لمساعدتك!",
+                        "تحدث الآن": "تحدث الآن",
+                        "Hamada Artifacts (الكود والتحكم)": "Hamada Artifacts (الكود والتحكم)",
+                        "لبرمجة أفضل، وعرض، ونشر الكود، قم بزيارة Hamada Artifacts. توفر هذه المنصة بيئة محسنة لاحتياجاتك التطويرية.": "لبرمجة أفضل، وعرض، ونشر الكود، قم بزيارة Hamada Artifacts. توفر هذه المنصة بيئة محسنة لاحتياجاتك التطويرية.",
+                        "انتقل إلى Artifacts": "انتقل إلى Artifacts",
+                        "&copy; 2024 INEX. جميع الحقوق محفوظة.": "&copy; 2024 INEX. جميع الحقوق محفوظة.",
+                        "من نحن": "من نحن",
+                        "قدراتي": "قدراتي",
+                        "الأدوات": "الأدوات",
+                        "تواصل معنا": "تواصل معنا"
+                    };
+                    const originalKey = Object.keys(originalText).find(key => originalText[key] === element.getAttribute('data-en'));
+                    if (originalKey) {
+                        element.textContent = originalKey;
+                    } else {
+                        // Fallback if data-en doesn't exactly match an original key (e.g. for dynamic content)
+                        // In this case, we rely on the default HTML content being Arabic
+                        if (element.id === 'lang-toggle') { // Special handling for the button text
+                            element.textContent = 'English';
+                        }
+                    }
+                }
+            });
+            langToggle.textContent = lang === 'en' ? 'العربية' : 'English';
+        }
+
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            setLanguage(currentLang);
+        });
+
+        // Initial language set based on currentLang (which is 'ar' by default)
+        // No need to call setLanguage('ar') initially as the HTML is already Arabic.
+        // We only call it if we want to switch.
+
+        // Intersection Observer for animations
+        const sections = document.querySelectorAll('section');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
