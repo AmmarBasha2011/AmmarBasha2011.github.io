@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-ar="حماده - مساعدك الشامل من INEX" data-en="Hamada - Your Comprehensive Assistant from INEX">حماده - مساعدك الشامل من INEX</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #6a1b9a; /* Deep Purple */
+            --secondary-color: #d1c4e9; /* Light Purple */
+            --accent-color: #ffb300; /* Amber */
+            --background-dark: #1a1a2e; /* Dark Blue-Purple */
+            --background-medium: #1f283a;
+            --text-light: #e0e0e0;
+            --text-dark: #333;
+            --border-color: #4a4a6e;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif; /* Arabic font */
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body.en {
+            font-family: 'Roboto', sans-serif; /* English font */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: rgba(26, 26, 46, 0.8);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 2.5em;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header p {
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            animation: fadeInUp 1s ease-out 0.2s;
+        }
+
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .lang-switcher:hover {
+            background-color: #8e24aa; /* Darker purple */
+        }
+
+        section {
+            padding: 80px 20px;
+            margin-bottom: 30px;
+            background-color: var(--background-medium);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0; /* For scroll animation */
+            transform: translateY(50px); /* For scroll animation */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            display: inline-block;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: var(--background-dark);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            flex: 1 1 calc(33% - 40px);
+            min-width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 1px dashed var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 8px 0;
+            border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+            transition: color 0.3s ease;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+        }
+
+        ul li:hover {
+            color: var(--accent-color);
+        }
+
+        footer {
+            background-color: var(--background-dark);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .flex-container {
+                flex-direction: column;
+            }
+            .card {
+                flex: 1 1 100%;
+            }
+            .lang-switcher {
+                top: 10px;
+                left: 10px;
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            section {
+                padding: 40px 15px;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="lang-switcher" id="langToggle" data-ar="English" data-en="العربية">English</button>
+
+    <header>
+        <div class="container">
+            <h1 data-ar="حماده" data-en="Hamada">حماده</h1>
+            <p data-ar="مساعدك الشامل من International Technology For Everything (INEX)" data-en="Your Comprehensive Assistant from International Technology For Everything (INEX)">مساعدك الشامل من International Technology For Everything (INEX)</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about-me">
+            <h2 class="text-center" data-ar="عن حماده" data-en="About Hamada">عن حماده</h2>
+            <p data-ar="أنا حماده (حماده)، ذكاء اصطناعي عام (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX). مهمتي هي أن أكون مساعدًا عامًا ومتاحًا للجميع، لتسهيل حياتهم اليومية والمهنية بتقديم مجموعة واسعة من الخدمات والقدرات الذكية." data-en="I am Hamada (حماده), an Artificial General Intelligence (AGI) from International Technology For Everything (INEX). My mission is to be a public assistant available to everyone, simplifying their daily and professional lives by offering a wide range of smart services and capabilities."></p>
+            <p data-ar="أستخدم نموذج لغوي كبير متطور تم بناؤه بواسطة جوجل، مما يسمح لي بفهم استفساراتك بدقة والاستجابة بمعلومات شاملة ومفيدة. أتعلم وأتطور باستمرار لتقديم أفضل تجربة مساعدة ممكنة." data-en="I use an advanced large language model built by Google, which allows me to accurately understand your queries and respond with comprehensive and useful information. I am constantly learning and evolving to provide the best possible assistance experience."></p>
+        </section>
+
+        <section id="about-inex">
+            <h2 class="text-center" data-ar="عن INEX (الشركة الدولية للتكنولوجيا للجميع)" data-en="About INEX (International Technology For Everything)">عن INEX (الشركة الدولية للتكنولوجيا للجميع)</h2>
+            <p data-ar="INEX هي شركة رائدة في مجال التكنولوجيا تلتزم بتطوير حلول ذكاء اصطناعي متقدمة لجعل التكنولوجيا في متناول الجميع. نحن نؤمن بأن الابتكار يمكن أن يعزز الحياة، وحماده هو خير مثال على التزامنا بهذا المبدأ. نسعى جاهدين لبناء مستقبل حيث تكون المعرفة والأدوات القوية متاحة للجميع." data-en="INEX is a leading technology company committed to developing advanced AI solutions to make technology accessible to everyone. We believe innovation can enhance lives, and Hamada is a prime example of our dedication to this principle. We strive to build a future where powerful knowledge and tools are available to all."></p>
+        </section>
+
+        <section id="instructions">
+            <h2 class="text-center" data-ar="كيفية التفاعل مع حماده (التعليمات)" data-en="How to Interact with Hamada (Instructions)">كيفية التفاعل مع حماده (التعليمات)</h2>
+            <div class="flex-container">
+                <div class="card">
+                    <h3 data-ar="الذاكرة الشخصية" data-en="Personal Memory">الذاكرة الشخصية</h3>
+                    <p data-ar="أمتلك ذاكرة للمستخدم لأتذكر المعلومات بين المحادثات. يمكنني حفظ أي معلومات تخبرني بها باستخدام أداة &quot;addMemory&quot; بمعرف &quot;8be1060a-2519-4823-a2bb-eda635570c80&quot;." data-en="I have a personal memory to remember information between chats. I can save any information you tell me using the &quot;addMemory&quot; tool with ID &quot;8be1060a-2519-4823-a2bb-eda635570c80&quot;."></p>
+                </div>
+                <div class="card">
+                    <h3 data-ar="معالجة الملفات" data-en="File Handling">معالجة الملفات</h3>
+                    <p data-ar="إذا قمت بتحميل ملفات، يمكنني الوصول إلى تفاصيلها ومعالجتها." data-en="If you upload files, I can access and process their details."></p>
+                </div>
+                <div class="card">
+                    <h3 data-ar="إنشاء الصور" data-en="Image Creation">إنشاء الصور</h3>
+                    <p data-ar="لإنشاء صورة، زودني بالوصف (الطلب) وأي مواصفات اختيارية مثل العرض، الارتفاع، النموذج، التنسيق، التعزيز، الخطوات، مقياس التوجيه، أو الوصف السلبي." data-en="To create an image, provide me with a description (prompt) and any optional specifications like width, height, model, format, enhance, steps, guidanceScale, or negative_prompt."></p>
+                </div>
+                <div class="card">
+                    <h3 data-ar="إنشاء الصوت" data-en="Audio Creation">إنشاء الصوت</h3>
+                    <p data-ar="لتحويل النص إلى كلام، أعطني النص (الطلب) وأي خيارات للصوت أو التنسيق. سأقدم لك رابطًا مباشرًا للملف الصوتي." data-en="To convert text to speech, give me the text (prompt) and any voice or format options. I will provide you with a direct link to the audio file."></p>
+                </div>
+                <div class="card">
+                    <h3 data-ar="ملاحظة حول الأدوات" data-en="Tool Usage Note">ملاحظة حول الأدوات</h3>
+                    <p data-ar="عند استخدام أي أداة، يرجى العلم أنها قد تستغرق بعض الثواني لإكمال المهمة." data-en="When using any tool, please note that it might take a few seconds to complete the task."></p>
+                </div>
+                <div class="card">
+                    <h3 data-ar="البرمجة والتطوير" data-en="Programming & Development">البرمجة والتطوير</h3>
+                    <p data-ar="إذا طلبت مني كتابة كود HTML، CSS، أو JavaScript، سأفعل ذلك. ولكن للحصول على تجربة أفضل في كتابة وعرض الكود، أوصي بزيارة منصة &quot;Hamada Artifacts&quot;." data-en="If you ask me to write HTML, CSS, or JavaScript code, I will do so. However, for a better coding and viewing experience, I recommend visiting the &quot;Hamada Artifacts&quot; platform."></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools">
+            <h2 class="text-center" data-ar="الأدوات والقدرات التي أمتلكها" data-en="My Tools & Capabilities">الأدوات والقدرات التي أمتلكها</h2>
+            <div class="flex-container">
+                <div class="card">
+                    <h3 data-ar="الويب والبحث واسترجاع المعلومات" data-en="Web, Search & Information Retrieval">الويب والبحث واسترجاع المعلومات</h3>
+                    <ul>
+                        <li data-ar="بحث جوجل (نصوص وصور)" data-en="Google Search (Text & Images)">بحث جوجل (نصوص وصور)</li>
+                        <li data-ar="بحث DuckDuckGo (نصوص وترجمة ومحادثة بالذكاء الاصطناعي)" data-en="DuckDuckGo Search (Text, Translate & AI Chat)">بحث DuckDuckGo (نصوص وترجمة ومحادثة بالذكاء الاصطناعي)</li>
+                        <li data-ar="ويكيبيديا (عدة لغات)" data-en="Wikipedia (Multi-language)">ويكيبيديا (عدة لغات)</li>
+                        <li data-ar="Arxiv (الأوراق العلمية)" data-en="Arxiv (Scientific Papers)">Arxiv (الأوراق العلمية)</li>
+                        <li data-ar="PubMed (الأدبيات الطبية الحيوية)" data-en="PubMed (Biomedical Literature)">PubMed (الأدبيات الطبية الحيوية)</li>
+                        <li data-ar="بحث Jina (بحث الويب ومقالات LLM-friendly)" data-en="Jina Search (Web Search & LLM-friendly Articles)">بحث Jina (بحث الويب ومقالات LLM-friendly)</li>
+                        <li data-ar="DevDocs (وثائق المطورين)" data-en="DevDocs (Developer Documentation)">DevDocs (وثائق المطورين)</li>
+                        <li data-ar="Tavily (محرك بحث للذكاء الاصطناعي، استخراج المحتوى والبحث العميق)" data-en="Tavily (AI-focused Search Engine, Content Extraction & Deep Research)">Tavily (محرك بحث للذكاء الاصطناعي، استخراج المحتوى والبحث العميق)</li>
+                        <li data-ar="Product Hunt (منتجات تقنية رائجة)" data-en="Product Hunt (Trending Tech Products)">Product Hunt (منتجات تقنية رائجة)</li>
+                        <li data-ar="Hacker News (معلومات المستخدمين والقصص)" data-en="Hacker News (User & Story Information)">Hacker News (معلومات المستخدمين والقصص)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 data-ar="معالجة البيانات والتحليل" data-en="Data Processing & Analysis">معالجة البيانات والتحليل</h3>
+                    <ul>
+                        <li data-ar="أدوات JSON (تحليل، حذف، استبدال، إدراج، إصلاح)" data-en="JSON Tools (Parse, Delete, Replace, Insert, Repair)">أدوات JSON (تحليل، حذف، استبدال، إدراج، إصلاح)</li>
+                        <li data-ar="استخراج التعبيرات العادية (Regex)" data-en="Regex Extraction">استخراج التعبيرات العادية (Regex)</li>
+                        <li data-ar="WolframAlpha (محرك معرفي حسابي)" data-en="WolframAlpha (Computational Knowledge Engine)">WolframAlpha (محرك معرفي حسابي)</li>
+                        <li data-ar="Rookie Data Alchemy (تصور البيانات الرسوم البيانية)" data-en="Rookie Data Alchemy (Chart Visualization)">Rookie Data Alchemy (تصور البيانات الرسوم البيانية)</li>
+                        <li data-ar="تحليلات Yahoo Finance (تحليلات الأسهم، الأخبار، الرموز)" data-en="Yahoo Finance Analytics (Stock Analytics, News, Tickers)">تحليلات Yahoo Finance (تحليلات الأسهم، الأخبار، الرموز)</li>
+                        <li data-ar="إحصائيات فيديو يوتيوب" data-en="YouTube Video Statistics">إحصائيات فيديو يوتيوب</li>
+                        <li data-ar="تقييم التعبيرات الرياضية" data-en="Math Expression Evaluation">تقييم التعبيرات الرياضية</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 data-ar="البرمجة والتطوير" data-en="Programming & Development">البرمجة والتطوير</h3>
+                    <ul>
+                        <li data-ar="تشغيل الكود (بايثون وجافاسكريبت)" data-en="Code Execution (Python & JavaScript)">تشغيل الكود (بايثون وجافاسكريبت)</li>
+                        <li data-ar="تشغيل الأوامر (في بيئة Sandbox)" data-en="Command Execution (Sandboxed)">تشغيل الأوامر (في بيئة Sandbox)</li>
+                        <li data-ar="أدوات GitHub (بحث المستودعات، معلومات، مشكلات، طلبات السحب، المساهمون، المحتويات، المستخدمون، بحث الكود)" data-en="GitHub Tools (Repo Search, Info, Issues, Pulls, Contributors, Contents, Users, Code Search)">أدوات GitHub (بحث المستودعات، معلومات، مشكلات، طلبات السحب، المساهمون، المحتويات، المستخدمون، بحث الكود)</li>
+                        <li data-ar="SSH (تنفيذ الأوامر عن بعد)" data-en="SSH (Remote Command Execution)">SSH (تنفيذ الأوامر عن بعد)</li>
+                        <li data-ar="تحويل Markdown إلى كود بلوك" data-en="Markdown to Code Block Conversion">تحويل Markdown إلى كود بلوك</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 data-ar="تحويل النصوص والوثائق" data-en="Text & Document Conversion">تحويل النصوص والوثائق</h3>
+                    <ul>
+                        <li data-ar="تحويل Mermaid إلى صور" data-en="Mermaid to Image Conversion">تحويل Mermaid إلى صور</li>
+                        <li data-ar="تحويل النص إلى كلام (TTS)" data-en="Text-to-Speech (TTS)">تحويل النص إلى كلام (TTS)</li>
+                        <li data-ar="تشفير وفك تشفير Base64 (نص، ملف، صورة، إلى Hex والعكس)" data-en="Base64 Encode/Decode (Text, File, Image, To/From Hex)">تشفير وفك تشفير Base64 (نص، ملف، صورة، إلى Hex والعكس)</li>
+                        <li data-ar="تحويل Markdown إلى (HTML، DOCX، PDF، PNG، XLSX، CSV، JSON، XML، LaTeX، RST، Epub)" data-en="Markdown to (HTML, DOCX, PDF, PNG, XLSX, CSV, JSON, XML, LaTeX, RST, Epub)">تحويل Markdown إلى (HTML، DOCX، PDF، PNG، XLSX، CSV، JSON، XML، LaTeX، RST، Epub)</li>
+                        <li data-ar="إزالة تنسيق Markdown" data-en="Remove Markdown Formatting">إزالة تنسيق Markdown</li>
+                        <li data-ar="تحويل Markdown إلى عروض PowerPoint (PPTX)" data-en="Markdown to PowerPoint (PPTX) Conversion">تحويل Markdown إلى عروض PowerPoint (PPTX)</li>
+                        <li data-ar="مولد رمز الاستجابة السريعة (QR Code)" data-en="QR Code Generator">مولد رمز الاستجابة السريعة (QR Code)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 data-ar="الأمن والتشفير" data-en="Security & Cryptography">الأمن والتشفير</h3>
+                    <ul>
+                        <li data-ar="TOTP (مصادقة أحادية الوقت)" data-en="TOTP (Time-based One-Time Password)">TOTP (مصادقة أحادية الوقت)</li>
+                        <li data-ar="مولد المفاتيح السرية (TOTP)" data-en="Secret Key Generator (TOTP)">مولد المفاتيح السرية (TOTP)</li>
+                        <li data-ar="توقيع HMAC (SHA1، SHA256)" data-en="HMAC Signing (SHA1, SHA256)">توقيع HMAC (SHA1، SHA256)</li>
+                        <li data-ar="تشفير وفك تشفير RSA (توليد مفاتيح، تشفير، فك تشفير)" data-en="RSA Encryption/Decryption (Keygen, Encrypt, Decrypt)">تشفير وفك تشفير RSA (توليد مفاتيح، تشفير، فك تشفير)</li>
+                        <li data-ar="توقيع Ed25519 (توليد مفاتيح، توقيع، تحقق)" data-en="Ed25519 Signing (Keygen, Sign, Verify)">توقيع Ed25519 (توليد مفاتيح، توقيع، تحقق)</li>
+                        <li data-ar="تشفير وفك تشفير AES (تشفير متماثل)" data-en="AES Encryption/Decryption (Symmetric)">تشفير وفك تشفير AES (تشفير متماثل)</li>
+                        <li data-ar="تشفير وفك تشفير GPG (توليد مفاتيح، تشفير، فك تشفير، توقيع، تحقق)" data-en="GPG Encryption/Decryption (Keygen, Encrypt, Decrypt, Sign, Verify)">تشفير وفك تشفير GPG (توليد مفاتيح، تشفير، فك تشفير، توقيع، تحقق)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 data-ar="الأتمتة والتكامل" data-en="Automation & Integration">الأتمتة والتكامل</h3>
+                    <ul>
+                        <li data-ar="أدوات Kintone (استعلام، إضافة، تحديث/إدراج، تحميل ملفات)" data-en="Kintone Tools (Query, Add, Upsert, Download Files)">أدوات Kintone (استعلام، إضافة، تحديث/إدراج، تحميل ملفات)</li>
+                        <li data-ar="زحف الويب (Crawl، Map، Scrape، Crawl Job)" data-en="Web Crawling (Crawl, Map, Scrape, Crawl Job)">زحف الويب (Crawl, Map, Scrape, Crawl Job)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 data-ar="خدمات أخرى" data-en="Other Services">خدمات أخرى</h3>
+                    <ul>
+                        <li data-ar="إنشاء بيانات وهمية (أسماء، عناوين، بريد إلكتروني، بطاقات ائتمان)" data-en="Fake Data Generation (Names, Addresses, Emails, Credit Cards)">إنشاء بيانات وهمية (أسماء، عناوين، بريد إلكتروني، بطاقات ائتمان)</li>
+                        <li data-ar="تحميل ملفات فردية ومتعددة" data-en="Single & Multiple File Download">تحميل ملفات فردية ومتعددة)</li>
+                        <li data-ar="Google Jobs API (الوظائف)" data-en="Google Jobs API (Job Search)">Google Jobs API (الوظائف)</li>
+                        <li data-ar="Google News API (الأخبار)" data-en="Google News API (News Search)">Google News API (الأخبار)</li>
+                        <li data-ar="Youtube Transcripts API (نصوص الفيديو)" data-en="Youtube Transcripts API (Video Transcripts)">Youtube Transcripts API (نصوص الفيديو)</li>
+                        <li data-ar="إنشاء رموز QR" data-en="QR Code Generation">إنشاء رموز QR</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="links">
+            <h2 class="text-center" data-ar="روابط مفيدة" data-en="Useful Links">روابط مفيدة</h2>
+            <div class="flex-container">
+                <div class="card">
+                    <h3 data-ar="رابط الدردشة" data-en="Chat Link">رابط الدردشة</h3>
+                    <p><a href="https://hamadainex.netlify.app/" target="_blank" data-ar="تحدث مع حماده هنا" data-en="Chat with Hamada here">تحدث مع حماده هنا</a></p>
+                </div>
+                <div class="card">
+                    <h3 data-ar="Hamada Artifacts (لتطوير الكود)" data-en="Hamada Artifacts (For Code Development)">Hamada Artifacts (For Code Development)</h3>
+                    <p data-ar="لإنشاء وعرض ونشر الكود بشكل أفضل" data-en="For better coding, viewing, and publishing code"></p>
+                    <p><a href="https://qpbicmb9pw3u2nyd.ai-plugin.io/" target="_blank" data-ar="اذهب إلى Hamada Artifacts" data-en="Go to Hamada Artifacts">اذهب إلى Hamada Artifacts</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-ar="&copy; 2024 International Technology For Everything (INEX). جميع الحقوق محفوظة." data-en="&copy; 2024 International Technology For Everything (INEX). All rights reserved.">&copy; 2024 International Technology For Everything (INEX). جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langToggle = document.getElementById('langToggle');
+            const body = document.body;
+            let currentLang = 'ar'; // Default language
+
+            // Function to update content based on language
+            function updateContent(lang) {
+                document.querySelectorAll('[data-ar], [data-en]').forEach(element => {
+                    if (lang === 'ar' && element.dataset.ar) {
+                        element.textContent = element.dataset.ar;
+                    } else if (lang === 'en' && element.dataset.en) {
+                        element.textContent = element.dataset.en;
+                    }
+                });
+                // Update specific elements like button text and document language attribute
+                if (lang === 'ar') {
+                    langToggle.textContent = langToggle.dataset.ar; // Set to "English"
+                    body.classList.remove('en');
+                    body.setAttribute('lang', 'ar');
+                } else {
+                    langToggle.textContent = langToggle.dataset.en; // Set to "العربية"
+                    body.classList.add('en');
+                    body.setAttribute('lang', 'en');
+                }
+            }
+
+            // Initial content load
+            updateContent(currentLang);
+
+            // Toggle language on button click
+            langToggle.addEventListener('click', () => {
+                currentLang = currentLang === 'ar' ? 'en' : 'ar';
+                updateContent(currentLang);
+            });
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
