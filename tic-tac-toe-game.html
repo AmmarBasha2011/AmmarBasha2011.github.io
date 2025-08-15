@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game (Gaming Style)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e); /* Dark futuristic gradient */
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #00f0ff; /* Neon blue */
+            margin-bottom: 25px;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.5);
+            animation: glitchText 1.5s infinite alternate, fadeInDown 1s ease-out;
+        }
+
+        @keyframes glitchText {
+            0% { text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.5), 2px 2px #ff00ff, -2px -2px #00ff00; }
+            20% { text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.5), -1px 1px #ff00ff, 1px -1px #00ff00; }
+            40% { text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.5), 1px -1px #ff00ff, -1px 1px #00ff00; }
+            60% { text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.5), -2px -2px #ff00ff, 2px 2px #00ff00; }
+            80% { text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.5), 1px 2px #ff00ff, -2px -1px #00ff00; }
+            100% { text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.5), 2px 2px #ff00ff, -2px -2px #00ff00; }
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-around;
+            width: 350px;
+            margin-bottom: 30px;
+            background-color: #2e354a; /* Darker panel */
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6), 0 5px 20px rgba(0, 0, 0, 0.7);
+            border: 2px solid #00f0ff; /* Neon border */
+            animation: fadeIn 1s ease-out;
+            font-size: 1.2em;
+        }
+
+        .player-score {
+            text-align: center;
+            flex: 1;
+        }
+        .player-score span {
+            display: block;
+            font-size: 2em;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin-top: 5px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+        #playerX-score span { color: #ff3366; /* Neon pink */ }
+        #playerO-score span { color: #33ccff; /* Neon cyan */ }
+
+
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 110px); /* Slightly larger cells */
+            grid-template-rows: repeat(3, 110px);
+            gap: 10px; /* More prominent gap */
+            background-color: #1a1a2e; /* Even darker for board background */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.9);
+            border: 3px solid #00f0ff; /* Stronger neon border */
+            animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        .cell {
+            width: 110px;
+            height: 110px;
+            background-color: #2e354a; /* Darker cell background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4em; /* Even larger font size */
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease, border 0.3s ease;
+            user-select: none;
+            color: #e0e0e0;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7); /* Inner shadow */
+            border: 2px solid transparent;
+        }
+
+        .cell:hover {
+            background-color: #3f475a; /* Lighter on hover */
+            transform: scale(1.03); /* Subtle hover effect */
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 240, 255, 0.5);
+            border: 2px solid #00f0ff;
+        }
+
+        .cell.x {
+            color: #ff3366; /* Neon pink for X */
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.9), 0 0 25px rgba(255, 51, 102, 0.6);
+            animation: cellPopIn 0.3s ease-out;
+        }
+
+        .cell.o {
+            color: #33ccff; /* Neon cyan for O */
+            text-shadow: 0 0 15px rgba(51, 204, 255, 0.9), 0 0 25px rgba(51, 204, 255, 0.6);
+            animation: cellPopIn 0.3s ease-out;
+        }
+
+        .cell.winner {
+            background-color: #4CAF50; /* Green for winning cells */
+            animation: winnerHighlight 1s infinite alternate;
+            border: 3px solid #76ff03; /* Brighter green border */
+            box-shadow: inset 0 0 20px rgba(76, 255, 3, 0.7), 0 0 30px rgba(76, 255, 3, 0.9);
+        }
+
+        #status {
+            margin-top: 35px;
+            font-size: 2em;
+            font-weight: bold;
+            color: #e0e0e0;
+            animation: fadeInUp 1s ease-out;
+            text-align: center;
+            min-height: 40px; /* Prevent layout shift */
+        }
+
+        .game-controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 1.3em;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            background-color: #6a00ff; /* Purple accent */
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            animation: bounceIn 1s ease-out;
+        }
+
+        button:hover {
+            background-color: #8a2be2; /* Lighter purple on hover */
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8), 0 0 20px rgba(138, 43, 226, 0.7);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #play-again-button {
+            background-color: #00bfff; /* Deep sky blue */
+        }
+        #play-again-button:hover {
+            background-color: #009acd;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.7); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            80% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes cellPopIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes winnerHighlight {
+            0% { box-shadow: inset 0 0 20px rgba(76, 255, 3, 0.7), 0 0 30px rgba(76, 255, 3, 0.9); }
+            50% { box-shadow: inset 0 0 30px rgba(76, 255, 3, 1), 0 0 45px rgba(76, 255, 3, 1); }
+            100% { box-shadow: inset 0 0 20px rgba(76, 255, 3, 0.7), 0 0 30px rgba(76, 255, 3, 0.9); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Tic-Tac-Toe Arcade</h1>
+
+    <div class="scoreboard">
+        <div id="playerX-score" class="player-score">Player X<br><span>0</span></div>
+        <div id="playerO-score" class="player-score">Player O<br><span>0</span></div>
+    </div>
+
+    <div id="game-board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+    <div id="status">Player X's Turn</div>
+    <div class="game-controls">
+        <button id="play-again-button">Play Again</button>
+        <button id="new-game-button">New Game</button>
+    </div>
+
+    <script>
+        const cells = document.querySelectorAll('.cell');
+        const statusDisplay = document.getElementById('status');
+        const playAgainButton = document.getElementById('play-again-button');
+        const newGameButton = document.getElementById('new-game-button');
+        const playerXScoreDisplay = document.querySelector('#playerX-score span');
+        const playerOScoreDisplay = document.querySelector('#playerO-score span');
+
+        let gameActive = true;
+        let currentPlayer = 'X';
+        let gameState = ['', '', '', '', '', '', '', '', '']; // Represents the game board state
+        let playerXScore = 0;
+        let playerOScore = 0;
+
+        const winningConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        function updateScores() {
+            playerXScoreDisplay.textContent = playerXScore;
+            playerOScoreDisplay.textContent = playerOScore;
+        }
+
+        function handleCellClick(event) {
+            const clickedCell = event.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
+
+            if (gameState[clickedCellIndex] !== '' || !gameActive) {
+                return;
+            }
+
+            gameState[clickedCellIndex] = currentPlayer;
+            clickedCell.innerHTML = currentPlayer;
+            clickedCell.classList.add(currentPlayer.toLowerCase()); // Add class for styling
+
+            checkResult();
+        }
+
+        function highlightWinningCells(winningCombo) {
+            winningCombo.forEach(index => {
+                cells[index].classList.add('winner');
+            });
+        }
+
+        function checkResult() {
+            let roundWon = false;
+            let winnerCombo = [];
+            for (let i = 0; i < winningConditions.length; i++) {
+                const winCondition = winningConditions[i];
+                let a = gameState[winCondition[0]];
+                let b = gameState[winCondition[1]];
+                let c = gameState[winCondition[2]];
+
+                if (a === '' || b === '' || c === '') {
+                    continue;
+                }
+                if (a === b && b === c) {
+                    roundWon = true;
+                    winnerCombo = winCondition;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusDisplay.innerHTML = `Player ${currentPlayer} Wins!`;
+                gameActive = false;
+                highlightWinningCells(winnerCombo);
+                if (currentPlayer === 'X') {
+                    playerXScore++;
+                } else {
+                    playerOScore++;
+                }
+                updateScores();
+                return;
+            }
+
+            let roundDraw = !gameState.includes('');
+            if (roundDraw) {
+                statusDisplay.innerHTML = `It's a Draw!`;
+                gameActive = false;
+                return;
+            }
+
+            handlePlayerChange();
+        }
+
+        function handlePlayerChange() {
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusDisplay.innerHTML = `Player ${currentPlayer}'s Turn`;
+        }
+
+        function resetBoard() {
+            gameActive = true;
+            currentPlayer = 'X';
+            gameState = ['', '', '', '', '', '', '', '', ''];
+            statusDisplay.innerHTML = `Player ${currentPlayer}'s Turn`;
+            cells.forEach(cell => {
+                cell.innerHTML = '';
+                cell.classList.remove('x', 'o', 'winner');
+            });
+        }
+
+        function handlePlayAgain() {
+            resetBoard();
+        }
+
+        function handleNewGame() {
+            playerXScore = 0;
+            playerOScore = 0;
+            updateScores();
+            resetBoard();
+        }
+
+        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+        playAgainButton.addEventListener('click', handlePlayAgain);
+        newGameButton.addEventListener('click', handleNewGame);
+
+        // Initial score update
+        updateScores();
+    </script>
+</body>
+</html>
