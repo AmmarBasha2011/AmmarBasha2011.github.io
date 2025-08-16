@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamada's Quest Log</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Gaming Style Variables */
+        :root {
+            --bg-color: #2c2c2c;
+            --container-bg: #4a4a4a;
+            --text-color: #e0e0e0;
+            --accent-color-easy: #00ff00; /* Green for easy */
+            --accent-color-medium: #ffff00; /* Yellow for medium */
+            --accent-color-hard: #ff0000; /* Red for hard */
+            --button-color: #007bff;
+            --button-hover: #0056b3;
+            --delete-color: #dc3545;
+            --delete-hover: #c82333;
+            --complete-color: #008000;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive, Arial, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-color);
+            transition: direction 0.3s ease; /* Smooth transition for dir attribute */
+        }
+
+        .quest-log-container {
+            background-color: var(--container-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Neon glow effect */
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
+            border: 3px solid var(--accent-color-easy); /* Border to match gaming theme */
+        }
+
+        h1 {
+            color: var(--accent-color-easy);
+            margin-bottom: 25px;
+            text-shadow: 2px 2px #000;
+            font-size: 1.8em;
+        }
+
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .language-select, .level-select {
+            padding: 8px;
+            background-color: #3a3a3a;
+            color: var(--text-color);
+            border: 1px solid var(--accent-color-easy);
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive, Arial, sans-serif;
+            font-size: 0.8em;
+            cursor: pointer;
+        }
+
+        .input-group {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border: 2px solid var(--accent-color-easy);
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: #3a3a3a;
+            color: var(--text-color);
+            font-family: Arial, sans-serif; /* Keep input font readable */
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: var(--button-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Press Start 2P', cursive, Arial, sans-serif;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px #0056b3; /* 3D effect */
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px #0056b3;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #3a3a3a;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #555;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            position: relative;
+            font-family: Arial, sans-serif; /* Keep task text readable */
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            color: #888;
+            background-color: #2d2d2d;
+            border-color: var(--complete-color);
+        }
+
+        li .task-text {
+            flex-grow: 1;
+            text-align: left;
+            margin-right: 10px;
+            cursor: pointer; /* To indicate it's clickable for completion */
+        }
+
+        body[dir="rtl"] li .task-text {
+            text-align: right;
+            margin-left: 10px;
+            margin-right: 0;
+        }
+
+        li .level-indicator {
+            font-size: 0.7em;
+            padding: 3px 8px;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-family: 'Press Start 2P', cursive, Arial, sans-serif;
+            border: 1px solid;
+            min-width: 60px; /* Ensure consistent width */
+            text-align: center;
+            flex-shrink: 0; /* Prevent it from shrinking */
+        }
+
+        body[dir="rtl"] li .level-indicator {
+            margin-left: 10px;
+            margin-right: 0;
+        }
+
+        li.easy .level-indicator {
+            background-color: var(--accent-color-easy);
+            border-color: var(--accent-color-easy);
+            color: #000;
+        }
+        li.medium .level-indicator {
+            background-color: var(--accent-color-medium);
+            border-color: var(--accent-color-medium);
+            color: #000;
+        }
+        li.hard .level-indicator {
+            background-color: var(--accent-color-hard);
+            border-color: var(--accent-color-hard);
+            color: #fff;
+        }
+
+        li .task-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0; /* Prevent actions from shrinking */
+        }
+
+        li .edit-btn {
+            background-color: #ffc107;
+            box-shadow: 0 4px #d39e00;
+        }
+        li .edit-btn:hover {
+            background-color: #e0a800;
+        }
+        li .edit-btn:active {
+            box-shadow: 0 2px #d39e00;
+        }
+
+        li .delete-btn {
+            background-color: var(--delete-color);
+            box-shadow: 0 4px #a71d2a;
+        }
+        li .delete-btn:hover {
+            background-color: var(--delete-hover);
+        }
+        li .delete-btn:active {
+            box-shadow: 0 2px #a71d2a;
+        }
+
+        .edit-input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 2px solid #fff;
+            border-radius: 4px;
+            font-size: 0.9em;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: -5px 0; /* Adjust for padding difference */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .quest-log-container {
+                margin: 20px;
+                padding: 20px;
+            }
+            .input-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            button {
+                width: 100%;
+            }
+            .top-controls {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            li {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            li .level-indicator, li .task-text, li .task-actions {
+                margin: 5px 0;
+            }
+            li .task-text {
+                width: 100%;
+                text-align: center !important; /* Override for small screens */
+            }
+            li .task-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body dir="ltr">
+    <div class="quest-log-container">
+        <h1 id="appTitle">Hamada's Quest Log</h1>
+
+        <div class="top-controls">
+            <select id="languageSelect" class="language-select">
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+            </select>
+            <select id="taskLevelSelect" class="level-select">
+                <option value="easy">Easy Quest</option>
+                <option value="medium">Medium Challenge</option>
+                <option value="hard">Hard Boss</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Enter your quest...">
+            <button id="addTaskBtn">Add Quest</button>
+        </div>
+        <ul id="taskList">
+            <!-- Quest items will be added here -->
+        </ul>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskList = document.getElementById('taskList');
+        const languageSelect = document.getElementById('languageSelect');
+        const taskLevelSelect = document.getElementById('taskLevelSelect');
+        const appTitle = document.getElementById('appTitle');
+
+        const translations = {
+            en: {
+                appTitle: "Hamada's Quest Log",
+                taskInputPlaceholder: "Enter your quest...",
+                addTaskButton: "Add Quest",
+                easyQuest: "Easy Quest",
+                mediumChallenge: "Medium Challenge",
+                hardBoss: "Hard Boss",
+                editButton: "Edit",
+                deleteButton: "Delete",
+                saveButton: "Save",
+                alertEmptyTask: "Please enter a quest!",
+            },
+            ar: {
+                appTitle: "سجل مهام حماده",
+                taskInputPlaceholder: "أدخل مهمتك...",
+                addTaskButton: "أضف مهمة",
+                easyQuest: "مهمة سهلة",
+                mediumChallenge: "تحدي متوسط",
+                hardBoss: "زعيم صعب",
+                editButton: "تعديل",
+                deleteButton: "حذف",
+                saveButton: "حفظ",
+                alertEmptyTask: "الرجاء إدخال مهمة!",
+            }
+        };
+
+        let currentLanguage = 'en'; // Default language
+
+        // Function to update UI text based on language
+        function updateUI() {
+            const t = translations[currentLanguage];
+            appTitle.textContent = t.appTitle;
+            taskInput.placeholder = t.taskInputPlaceholder;
+            addTaskBtn.textContent = t.addTaskButton;
+
+            // Update level select options
+            taskLevelSelect.options[0].textContent = t.easyQuest;
+            taskLevelSelect.options[1].textContent = t.mediumChallenge;
+            taskLevelSelect.options[2].textContent = t.hardBoss;
+
+            // Update existing tasks' action buttons and level indicators
+            taskList.querySelectorAll('li').forEach(li => {
+                const editBtn = li.querySelector('.edit-btn');
+                const deleteBtn = li.querySelector('.delete-btn');
+                const levelIndicator = li.querySelector('.level-indicator');
+                const taskTextInput = li.querySelector('.edit-input'); // Check if currently editing
+
+                // Only update button text if not in "Save" state
+                if (editBtn && editBtn.textContent !== translations['en'].saveButton && editBtn.textContent !== translations['ar'].saveButton) {
+                     editBtn.textContent = t.editButton;
+                } else if (editBtn && (editBtn.textContent === translations['en'].saveButton || editBtn.textContent === translations['ar'].saveButton)) {
+                     // If it's currently "Save", update its text to the new language's "Save"
+                     editBtn.textContent = t.saveButton;
+                }
+
+                if (deleteBtn) {
+                    deleteBtn.textContent = t.deleteButton;
+                }
+                if (levelIndicator) {
+                    const level = li.dataset.level;
+                    levelIndicator.textContent = t[level + 'Quest'] || t[level + 'Challenge'] || t[level + 'Boss'] || level;
+                }
+                // Update direction for inputs if currently editing a task
+                if (taskTextInput) {
+                    taskTextInput.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+                }
+            });
+        }
+
+        // Event Listeners
+        addTaskBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+        languageSelect.addEventListener('change', function() {
+            currentLanguage = this.value;
+            document.body.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr'; // Set body direction
+            updateUI();
+        });
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            const taskLevel = taskLevelSelect.value;
+
+            if (taskText === '') {
+                alert(translations[currentLanguage].alertEmptyTask);
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.dataset.level = taskLevel; // Store level as data attribute
+            li.classList.add(taskLevel); // Add class for styling
+
+            const levelIndicator = document.createElement('span');
+            levelIndicator.className = 'level-indicator';
+            levelIndicator.textContent = translations[currentLanguage][taskLevel + 'Quest'] || translations[currentLanguage][taskLevel + 'Challenge'] || translations[currentLanguage][taskLevel + 'Boss'] || taskLevel;
+            li.appendChild(levelIndicator);
+
+            const taskTextSpan = document.createElement('span');
+            taskTextSpan.className = 'task-text';
+            taskTextSpan.textContent = taskText;
+            taskTextSpan.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr'; // Set direction for task text
+            li.appendChild(taskTextSpan);
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'task-actions';
+
+            const editBtn = document.createElement('button');
+            editBtn.textContent = translations[currentLanguage].editButton;
+            editBtn.className = 'action-btn edit-btn';
+
+            editBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent toggling completion
+
+                if (editBtn.textContent === translations[currentLanguage].editButton) {
+                    // Current state: Edit - Transition to Save
+                    const currentText = taskTextSpan.textContent;
+                    const editInput = document.createElement('input');
+                    editInput.type = 'text';
+                    editInput.value = currentText;
+                    editInput.className = 'edit-input';
+                    editInput.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+
+                    li.replaceChild(editInput, taskTextSpan);
+
+                    editBtn.textContent = translations[currentLanguage].saveButton;
+                    editBtn.className = 'action-btn save-btn';
+
+                    editInput.focus();
+                    editInput.select();
+
+                    // Add a temporary listener for Enter key on the input
+                    const enterKeyListener = function(e_input) {
+                        if (e_input.key === 'Enter') {
+                            e_input.preventDefault(); // Prevent default form submission behavior
+                            saveChangesLogic();
+                        }
+                    };
+                    editInput.addEventListener('keypress', enterKeyListener);
+                    // Store listener so we can remove it later if needed (e.g., if save button is clicked instead)
+                    editInput.dataset.enterKeyListenerId = enterKeyListener; // Simple way to store reference
+                } else {
+                    // Current state: Save - Transition to Edit
+                    saveChangesLogic();
+                }
+
+                function saveChangesLogic() {
+                    const editInput = li.querySelector('.edit-input');
+                    const newText = editInput.value.trim();
+
+                    if (newText === '') {
+                        alert(translations[currentLanguage].alertEmptyTask);
+                        return;
+                    }
+
+                    taskTextSpan.textContent = newText;
+                    taskTextSpan.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr'; // Re-set direction after saving
+                    li.replaceChild(taskTextSpan, editInput); // Put original span back
+
+                    editBtn.textContent = translations[currentLanguage].editButton;
+                    editBtn.className = 'action-btn edit-btn';
+
+                    // Clean up the temporary Enter key listener
+                    const listenerToRemove = editInput.dataset.enterKeyListenerId;
+                    if (listenerToRemove) {
+                        editInput.removeEventListener('keypress', listenerToRemove);
+                        delete editInput.dataset.enterKeyListenerId;
+                    }
+                }
+            });
+            actionsDiv.appendChild(editBtn);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = translations[currentLanguage].deleteButton;
+            deleteBtn.className = 'action-btn delete-btn';
+            deleteBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent toggling completion
+                li.remove();
+            });
+            actionsDiv.appendChild(deleteBtn);
+
+            li.appendChild(actionsDiv);
+
+            li.addEventListener('click', function() {
+                // Only toggle completion if not in editing mode
+                if (!li.querySelector('.edit-input')) {
+                    li.classList.toggle('completed');
+                }
+            });
+
+            taskList.appendChild(li);
+            taskInput.value = ''; // Clear the input field
+            taskLevelSelect.value = 'easy'; // Reset level selection
+        }
+
+        // Initial UI update on load
+        updateUI();
+    </script>
+</body>
+</html>
