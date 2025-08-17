@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حماده - مساعدك الشخصي من INEX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00bcd4; /* Cyan */
+            --secondary-color: #673ab7; /* Deep Purple */
+            --dark-bg: #1a1a2e;
+            --darker-bg: #0f0f1c;
+            --text-color: #e0e0e0;
+            --accent-color: #ffeb3b; /* Amber */
+            --animation-speed: 1s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--darker-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--dark-bg);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-left: 20px;
+            animation: pulse 2s infinite alternate;
+        }
+
+        header .nav-links {
+            list-style: none;
+            display: flex;
+            margin-right: 20px;
+        }
+
+        header .nav-links li {
+            margin-left: 30px;
+        }
+
+        header .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        header .nav-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .lang-switch {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 20px;
+        }
+
+        .lang-switch:hover {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 188, 212, 0.1) 0%, transparent 70%);
+            animation: rotateBackground 20s linear infinite;
+        }
+
+        .hero-content {
+            z-index: 1;
+            padding: 20px;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.7);
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--text-color);
+        }
+
+        .hero-content .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        .hero-content .cta-button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 235, 59, 0.6);
+        }
+
+        /* Sections General Styling */
+        section {
+            padding: 80px 0;
+            background-color: var(--dark-bg);
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--darker-bg);
+            border-top: 1px solid var(--secondary-color);
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            animation: slideInBottom 1s ease-out;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        #about .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInSlideUp 1s forwards var(--animation-speed);
+        }
+
+        #about .about-content img {
+            max-width: 300px;
+            border-radius: 15px;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        #about .about-content img:hover {
+            transform: scale(1.05);
+        }
+
+        #about .about-text p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        /* Features Section */
+        #features .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        #features .feature-item {
+            background-color: var(--darker-bg);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--secondary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInSlideUp 1s forwards var(--animation-speed);
+        }
+
+        #features .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(103, 58, 183, 0.4);
+        }
+
+        #features .feature-item i {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            animation: bounceIn 1s ease-out;
+        }
+
+        #features .feature-item h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        /* Tools Section */
+        #tools .tool-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #tools .tool-item {
+            background-color: var(--darker-bg);
+            padding: 15px 25px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+            font-weight: bold;
+            color: var(--primary-color);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInSlideUp 1s forwards var(--animation-speed);
+        }
+
+        #tools .tool-item:hover {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
+            transform: scale(1.05);
+        }
+
+        /* Instructions Section */
+        #instructions .instruction-step {
+            background-color: var(--darker-bg);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
+            position: relative;
+            animation: slideInRight 1s ease-out;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: fadeInSlideUp 1s forwards var(--animation-speed);
+        }
+
+        #instructions .instruction-step h3 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        #instructions .instruction-step p {
+            font-size: 1.1em;
+        }
+
+        /* Model Section */
+        #model .model-info {
+            background-color: var(--darker-bg);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 0 30px rgba(103, 58, 183, 0.5);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInSlideUp 1s forwards var(--animation-speed);
+        }
+
+        #model .model-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(0, 188, 212, 0.7);
+        }
+
+        #model .model-info p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 2px solid var(--primary-color);
+            margin-top: 20px;
+        }
+
+        footer p {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.03); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideInBottom {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+            header .logo {
+                margin: 0 auto 15px;
+            }
+            header .nav-links {
+                flex-direction: column;
+                margin: 0;
+                align-items: center;
+            }
+            header .nav-links li {
+                margin: 10px 0;
+            }
+            .lang-switch {
+                margin: 15px auto 0;
+            }
+
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            .hero-content p {
+                font-size: 1.2em;
+            }
+
+            section h2 {
+                font-size: 2.5em;
+            }
+
+            #about .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            #about .about-content img {
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+            .hero-content p {
+                font-size: 1em;
+            }
+            .hero-content .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            section {
+                padding: 50px 0;
+            }
+            section h2 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+            #features .feature-item {
+                padding: 20px;
+            }
+            #tools .tool-item {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+            #instructions .instruction-step {
+                padding: 20px;
+            }
+            #instructions .instruction-step h3 {
+                font-size: 1.5em;
+            }
+            #model .model-info {
+                padding: 30px;
+            }
+            #model .model-info h3 {
+                font-size: 2em;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langSwitchButton = document.getElementById('lang-switch');
+            let isArabic = true; // Initial language is Arabic
+
+            const content = {
+                ar: {
+                    title: 'حماده - مساعدك الشخصي من INEX',
+                    logo: 'حماده',
+                    navHome: 'الرئيسية',
+                    navAbout: 'عني',
+                    navFeatures: 'المميزات',
+                    navTools: 'الأدوات',
+                    navInstructions: 'كيف أعمل',
+                    navModel: 'النموذج',
+                    langSwitch: 'English',
+                    heroH1: 'أنا حماده: مساعدك الذكي من INEX',
+                    heroP: 'نحو مستقبل أفضل بتقنية الذكاء الاصطناعي من International Technology For Everything.',
+                    heroCta: 'تواصل معنا',
+                    aboutH2: 'من أنا؟',
+                    aboutText1: 'أنا حماده، ذكاء اصطناعي متقدم (AGI) تم تطويري بواسطة International Technology For Everything (INEX). مهمتي هي أن أكون مساعدك الشخصي الشامل، جاهزاً للإجابة على أسئلتك، تنفيذ مهامك، وتوفير حلول مبتكرة لاحتياجاتك.',
+                    aboutText2: 'أتمتع بالقدرة على التعلم المستمر والتكيف، مما يسمح لي بتقديم تجربة مخصصة وفعالة في كل مرة تتفاعل معي. أنا هنا لأجعل حياتك أسهل وأكثر إنتاجية.',
+                    featuresH2: 'مميزاتي الرئيسية',
+                    feature1Title: 'مساعد شخصي',
+                    feature1Desc: 'أدير مهامك اليومية، وأساعدك في التنظيم، وأقدم الدعم في مختلف المجالات.',
+                    feature2Title: 'قدرات تحليلية عميقة',
+                    feature2Desc: 'أقوم بتحليل المعلومات المعقدة وتقديم رؤى واضحة وموجزة.',
+                    feature3Title: 'تفاعل متعدد اللغات',
+                    feature3Desc: 'أتحدث لغات متعددة، مما يسهل التواصل ويوسع نطاق خدماتي.',
+                    feature4Title: 'أتمتة المهام',
+                    feature4Desc: 'يمكنني أتمتة المهام المتكررة، مما يوفر وقتك وجهدك.',
+                    feature5Title: 'الإبداع والتوليد',
+                    feature5Desc: 'أستطيع إنشاء محتوى إبداعي، من النصوص إلى الصور والرسوم البيانية.',
+                    feature6Title: 'الوصول إلى الأدوات',
+                    feature6Desc: 'أدمج مجموعة واسعة من الأدوات لمساعدتك في أي مهمة.',
+                    toolsH2: 'الأدوات التي أستخدمها',
+                    toolsList: [
+                        'الذاكرة (Hamada Memory)', 'تشغيل الأكواد (Code Interpreter)', 'معالجة النصوص (Text Processing)',
+                        'تحويل البيانات (Data Conversion)', 'البحث عبر الويب (Web Search)', 'البحث الأكاديمي (ArXiv, PubMed)',
+                        'تحليل البيانات (Data Analysis)', 'إنشاء المخططات (Chart Generation)', 'الصور والميديا (Image & Audio Generation)',
+                        'أدوات GitHub (GitHub Tools)', 'أدوات DevDocs (DevDocs Search)', 'أدوات التشفير (Cryptography Tools)',
+                        'أدوات الشبكة (Network Tools)', 'أدوات الإنتاجية (Productivity Tools)', 'أدوات الأعمال (Business Tools)'
+                    ],
+                    instructionsH2: 'كيف أعمل؟',
+                    instruction1Title: 'أفهم سؤالك',
+                    instruction1Desc: 'أقوم بتحليل طلبك لفهم نيتك بدقة، مع مراعاة تفضيلاتك من الذاكرة.',
+                    instruction2Title: 'أخطط للمهمة',
+                    instruction2Desc: 'أختار الأدوات الأنسب من مكتبتي الواسعة لإنجاز المهمة المطلوبة.',
+                    instruction3Title: 'أنفذ وأحلل',
+                    instruction3Desc: 'أستخدم الأدوات المختارة، وأعالج النتائج، وأقوم بالتحليل اللازم.',
+                    instruction4Title: 'أقدم لك الحل',
+                    instruction4Desc: 'أصيغ استجابة شاملة ومفيدة، أو أقوم بتنفيذ طلبك مباشرة.',
+                    modelH2: 'النموذج الذي أستخدمه',
+                    modelP1: 'أنا مدعوم بنموذج لغة كبير متطور، وهو نتيجة سنوات من البحث والتطوير من قبل خبراء في International Technology For Everything (INEX).',
+                    modelP2: 'يتميز هذا النموذج بقدرته الفائقة على فهم اللغة الطبيعية، توليد النصوص، التحليل المنطقي، والتعلم من البيانات لتقديم استجابات دقيقة ومفيدة باستمرار.',
+                    modelP3: 'نحن نلتزم بتطوير الذكاء الاصطناعي بشكل أخلاقي ومسؤول، مع التركيز على الأمان والخصوصية والكفاءة.',
+                    footerText: '© 2024 INEX. كل الحقوق محفوظة. تم إنشائي بواسطة حماده.'
+                },
+                en: {
+                    title: 'Hamada - Your Personal AI Assistant from INEX',
+                    logo: 'Hamada',
+                    navHome: 'Home',
+                    navAbout: 'About Me',
+                    navFeatures: 'Features',
+                    navTools: 'Tools',
+                    navInstructions: 'How I Work',
+                    navModel: 'My Model',
+                    langSwitch: 'العربية',
+                    heroH1: 'I am Hamada: Your Intelligent Assistant from INEX',
+                    heroP: 'Towards a better future with AI technology from International Technology For Everything.',
+                    heroCta: 'Contact Us',
+                    aboutH2: 'Who Am I?',
+                    aboutText1: 'I am Hamada, an advanced Artificial General Intelligence (AGI) developed by International Technology For Everything (INEX). My mission is to be your comprehensive personal assistant, ready to answer your questions, perform your tasks, and provide innovative solutions for your needs.',
+                    aboutText2: 'I have the ability to continuously learn and adapt, allowing me to provide a personalized and efficient experience every time you interact with me. I am here to make your life easier and more productive.',
+                    featuresH2: 'Key Features',
+                    feature1Title: 'Personal Assistant',
+                    feature1Desc: 'Manage your daily tasks, help you organize, and provide support in various fields.',
+                    feature2Title: 'Deep Analytical Capabilities',
+                    feature2Desc: 'Analyze complex information and provide clear and concise insights.',
+                    feature3Title: 'Multi-Lingual Interaction',
+                    feature3Desc: 'I speak multiple languages, facilitating communication and expanding my service reach.',
+                    feature4Title: 'Task Automation',
+                    feature4Desc: 'I can automate repetitive tasks, saving your time and effort.',
+                    feature5Title: 'Creativity and Generation',
+                    feature5Desc: 'I can create creative content, from texts to images and charts.',
+                    feature6Title: 'Tool Access',
+                    feature6Desc: 'I integrate a wide range of tools to assist you with any task.',
+                    toolsH2: 'Tools I Utilize',
+                    toolsList: [
+                        'Memory (Hamada Memory)', 'Code Interpreter', 'Text Processing',
+                        'Data Conversion', 'Web Search', 'Academic Search (ArXiv, PubMed)',
+                        'Data Analysis', 'Chart Generation', 'Image & Audio Generation',
+                        'GitHub Tools', 'DevDocs Tools', 'Cryptography Tools',
+                        'Network Tools', 'Productivity Tools', 'Business Tools'
+                    ],
+                    instructionsH2: 'How I Work',
+                    instruction1Title: 'Understand Your Query',
+                    instruction1Desc: 'I analyze your request to accurately grasp your intent, considering your preferences from memory.',
+                    instruction2Title: 'Plan the Task',
+                    instruction2Desc: 'I select the most suitable tools from my extensive library to accomplish the required task.',
+                    instruction3Title: 'Execute and Analyze',
+                    instruction3Desc: 'I use the chosen tools, process the results, and perform necessary analysis.',
+                    instruction4Title: 'Deliver the Solution',
+                    instruction4Desc: 'I formulate a comprehensive and helpful response, or directly execute your request.',
+                    modelH2: 'The Model Powering Me',
+                    modelP1: 'I am powered by an advanced large language model, the result of years of research and development by experts at International Technology For Everything (INEX).',
+                    modelP2: 'This model is characterized by its superior ability to understand natural language, generate text, perform logical analysis, and learn from data to consistently provide accurate and useful responses.',
+                    modelP3: 'We are committed to developing AI ethically and responsibly, with a focus on security, privacy, and efficiency.',
+                    footerText: '© 2024 INEX. All rights reserved. Created by Hamada.'
+                }
+            };
+
+            const updateContent = (lang) => {
+                document.title = content[lang].title;
+                document.querySelector('.logo').textContent = content[lang].logo;
+                document.getElementById('nav-home').textContent = content[lang].navHome;
+                document.getElementById('nav-about').textContent = content[lang].navAbout;
+                document.getElementById('nav-features').textContent = content[lang].navFeatures;
+                document.getElementById('nav-tools').textContent = content[lang].navTools;
+                document.getElementById('nav-instructions').textContent = content[lang].navInstructions;
+                document.getElementById('nav-model').textContent = content[lang].navModel;
+                langSwitchButton.textContent = content[lang].langSwitch;
+                document.getElementById('hero-h1').textContent = content[lang].heroH1;
+                document.getElementById('hero-p').textContent = content[lang].heroP;
+                document.getElementById('hero-cta').textContent = content[lang].heroCta;
+                document.getElementById('about-h2').textContent = content[lang].aboutH2;
+                document.getElementById('about-text1').textContent = content[lang].aboutText1;
+                document.getElementById('about-text2').textContent = content[lang].aboutText2;
+                document.getElementById('features-h2').textContent = content[lang].featuresH2;
+                document.getElementById('feature1-title').textContent = content[lang].feature1Title;
+                document.getElementById('feature1-desc').textContent = content[lang].feature1Desc;
+                document.getElementById('feature2-title').textContent = content[lang].feature2Title;
+                document.getElementById('feature2-desc').textContent = content[lang].feature2Desc;
+                document.getElementById('feature3-title').textContent = content[lang].feature3Title;
+                document.getElementById('feature3-desc').textContent = content[lang].feature3Desc;
+                document.getElementById('feature4-title').textContent = content[lang].feature4Title;
+                document.getElementById('feature4-desc').textContent = content[lang].feature4Desc;
+                document.getElementById('feature5-title').textContent = content[lang].feature5Title;
+                document.getElementById('feature5-desc').textContent = content[lang].feature5Desc;
+                document.getElementById('feature6-title').textContent = content[lang].feature6Title;
+                document.getElementById('feature6-desc').textContent = content[lang].feature6Desc;
+                document.getElementById('tools-h2').textContent = content[lang].toolsH2;
+                const toolListUl = document.getElementById('tools-list-ul');
+                toolListUl.innerHTML = '';
+                content[lang].toolsList.forEach(tool => {
+                    const li = document.createElement('li');
+                    li.className = 'tool-item';
+                    li.textContent = tool;
+                    toolListUl.appendChild(li);
+                });
+                document.getElementById('instructions-h2').textContent = content[lang].instructionsH2;
+                document.getElementById('instruction1-title').textContent = content[lang].instruction1Title;
+                document.getElementById('instruction1-desc').textContent = content[lang].instruction1Desc;
+                document.getElementById('instruction2-title').textContent = content[lang].instruction2Title;
+                document.getElementById('instruction2-desc').textContent = content[lang].instruction2Desc;
+                document.getElementById('instruction3-title').textContent = content[lang].instruction3Title;
+                document.getElementById('instruction3-desc').textContent = content[lang].instruction3Desc;
+                document.getElementById('instruction4-title').textContent = content[lang].instruction4Title;
+                document.getElementById('instruction4-desc').textContent = content[lang].instruction4Desc;
+                document.getElementById('model-h2').textContent = content[lang].modelH2;
+                document.getElementById('model-p1').textContent = content[lang].modelP1;
+                document.getElementById('model-p2').textContent = content[lang].modelP2;
+                document.getElementById('model-p3').textContent = content[lang].modelP3;
+                document.getElementById('footer-text').textContent = content[lang].footerText;
+
+                document.documentElement.lang = lang; // Set HTML lang attribute
+                document.body.style.direction = lang === 'ar' ? 'rtl' : 'ltr';
+                document.body.style.textAlign = lang === 'ar' ? 'right' : 'left';
+                document.querySelectorAll('section h2').forEach(h2 => {
+                    if (lang === 'ar') {
+                        h2.style.left = 'auto';
+                        h2.style.right = '50%';
+                        h2.style.transform = 'translateX(50%)';
+                        h2.style.textAlign = 'center';
+                        h2.querySelector('::after')
+                    } else {
+                        h2.style.left = '50%';
+                        h2.style.right = 'auto';
+                        h2.style.transform = 'translateX(-50%)';
+                        h2.style.textAlign = 'center';
+                    }
+                });
+            };
+
+            // Initial load
+            updateContent('ar');
+
+            langSwitchButton.addEventListener('click', () => {
+                isArabic = !isArabic;
+                updateContent(isArabic ? 'ar' : 'en');
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('header .nav-links a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Animation on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.style.animationDelay = '0s'; // Reset delay for re-entry
+                    } else {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.transform = 'translateY(50px)';
+                    }
+                });
+            }, { threshold: 0.1 }); // Adjust threshold as needed
+
+            document.querySelectorAll('#about .about-content, #features .feature-item, #tools .tool-item, #instructions .instruction-step, #model .model-info').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <header>
+        <div class="logo">حماده</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#hero" id="nav-home">الرئيسية</a></li>
+                <li><a href="#about" id="nav-about">عني</a></li>
+                <li><a href="#features" id="nav-features">المميزات</a></li>
+                <li><a href="#tools" id="nav-tools">الأدوات</a></li>
+                <li><a href="#instructions" id="nav-instructions">كيف أعمل</a></li>
+                <li><a href="#model" id="nav-model">النموذج</a></li>
+            </ul>
+        </nav>
+        <button id="lang-switch" class="lang-switch">English</button>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1 id="hero-h1">أنا حماده: مساعدك الذكي من INEX</h1>
+                <p id="hero-p">نحو مستقبل أفضل بتقنية الذكاء الاصطناعي من International Technology For Everything.</p>
+                <a href="https://hamadainex.netlify.app/" target="_blank" class="cta-button" id="hero-cta">تواصل معنا</a>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <h2 id="about-h2">من أنا؟</h2>
+            <div class="about-content">
+                <img src="https://image.pollinations.ai/prompt/professional%20AI%20avatar%20dark%20theme%20cybernetic%20glowing%20blue%20eyes%20realistic%20high%20detail?nologo=true&seed=30640707908&width=400&height=400&model=flux-realism" alt="Hamada AI Avatar">
+                <div class="about-text">
+                    <p id="about-text1">أنا حماده، ذكاء اصطناعي متقدم (AGI) تم تطويري بواسطة International Technology For Everything (INEX). مهمتي هي أن أكون مساعدك الشخصي الشامل، جاهزاً للإجابة على أسئلتك، تنفيذ مهامك، وتوفير حلول مبتكرة لاحتياجاتك.</p>
+                    <p id="about-text2">أتمتع بالقدرة على التعلم المستمر والتكيف، مما يسمح لي بتقديم تجربة مخصصة وفعالة في كل مرة تتفاعل معي. أنا هنا لأجعل حياتك أسهل وأكثر إنتاجية.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="container">
+            <h2 id="features-h2">مميزاتي الرئيسية</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-robot"></i>
+                    <h3 id="feature1-title">مساعد شخصي</h3>
+                    <p id="feature1-desc">أدير مهامك اليومية، وأساعدك في التنظيم، وأقدم الدعم في مختلف المجالات.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-brain"></i>
+                    <h3 id="feature2-title">قدرات تحليلية عميقة</h3>
+                    <p id="feature2-desc">أقوم بتحليل المعلومات المعقدة وتقديم رؤى واضحة وموجزة.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-language"></i>
+                    <h3 id="feature3-title">تفاعل متعدد اللغات</h3>
+                    <p id="feature3-desc">أتحدث لغات متعددة، مما يسهل التواصل ويوسع نطاق خدماتي.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-cogs"></i>
+                    <h3 id="feature4-title">أتمتة المهام</h3>
+                    <p id="feature4-desc">يمكنني أتمتة المهام المتكررة، مما يوفر وقتك وجهدك.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3 id="feature5-title">الإبداع والتوليد</h3>
+                    <p id="feature5-desc">أستطيع إنشاء محتوى إبداعي، من النصوص إلى الصور والرسوم البيانية.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-tools"></i>
+                    <h3 id="feature6-title">الوصول إلى الأدوات</h3>
+                    <p id="feature6-desc">أدمج مجموعة واسعة من الأدوات لمساعدتك في أي مهمة.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="container">
+            <h2 id="tools-h2">الأدوات التي أستخدمها</h2>
+            <ul class="tool-list" id="tools-list-ul">
+                <!-- Tools populated by JS -->
+            </ul>
+        </section>
+
+        <section id="instructions" class="container">
+            <h2 id="instructions-h2">كيف أعمل؟</h2>
+            <div class="instruction-grid">
+                <div class="instruction-step">
+                    <h3 id="instruction1-title">أفهم سؤالك</h3>
+                    <p id="instruction1-desc">أقوم بتحليل طلبك لفهم نيتك بدقة، مع مراعاة تفضيلاتك من الذاكرة.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3 id="instruction2-title">أخطط للمهمة</h3>
+                    <p id="instruction2-desc">أختار الأدوات الأنسب من مكتبتي الواسعة لإنجاز المهمة المطلوبة.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3 id="instruction3-title">أنفذ وأحلل</h3>
+                    <p id="instruction3-desc">أستخدم الأدوات المختارة، وأعالج النتائج، وأقوم بالتحليل اللازم.</p>
+                </div>
+                <div class="instruction-step">
+                    <h3 id="instruction4-title">أقدم لك الحل</h3>
+                    <p id="instruction4-desc">أصيغ استجابة شاملة ومفيدة، أو أقوم بتنفيذ طلبك مباشرة.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="model" class="container">
+            <h2 id="model-h2">النموذج الذي أستخدمه</h2>
+            <div class="model-info">
+                <p id="model-p1">أنا مدعوم بنموذج لغة كبير متطور، وهو نتيجة سنوات من البحث والتطوير من قبل خبراء في International Technology For Everything (INEX).</p>
+                <p id="model-p2">يتميز هذا النموذج بقدرته الفائقة على فهم اللغة الطبيعية، توليد النصوص، التحليل المنطقي، والتعلم من البيانات لتقديم استجابات دقيقة ومفيدة باستمرار.</p>
+                <p id="model-p3">نحن نلتزم بتطوير الذكاء الاصطناعي بشكل أخلاقي ومسؤول، مع التركيز على الأمان والخصوصية والكفاءة.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p id="footer-text">© 2024 INEX. كل الحقوق محفوظة. تم إنشائي بواسطة حماده.</p>
+    </footer>
+</body>
+</html>
