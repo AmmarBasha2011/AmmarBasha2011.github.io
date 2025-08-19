@@ -1,492 +1,518 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حماده (Hamada) - مساعدك من INEX</title>
+    <title>Hamada AGI - by INEX</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&family=Roboto:wght@400;700&display=swap');
-
+        /* --- Global Styles & Variables --- */
         :root {
-            --dark-bg: #1a1a2e;
-            --dark-surface: #2e2e4a;
-            --primary-color: #007bff;
-            --accent-color: #e94560;
-            --text-light: #e0e0e0;
-            --text-dark: #cccccc;
-            --border-color: #4a4a6e;
+            --bg-dark-primary: #0a0a1a;
+            --bg-dark-secondary: #1a1a2e;
+            --accent-primary: #00f2ff;
+            --accent-secondary: #9f50ff;
+            --text-light: #f0f0f5;
+            --text-muted: #a9a9b2;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Roboto', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'IBM Plex Sans Arabic', 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--dark-bg);
+            background-color: var(--bg-dark-primary);
             color: var(--text-light);
-            line-height: 1.6;
-            direction: rtl; /* Default to RTL for Arabic */
+            font-family: var(--font-secondary);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        body.en {
-            direction: ltr; /* Switch to LTR for English */
+        /* --- Animations --- */
+        @keyframes background-pan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Elements that will be animated on scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+        
+        .fade-in {
+             animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+
+        /* --- Utility Classes --- */
         .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 80px 20px;
         }
 
-        header {
-            background-color: var(--dark-surface);
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            animation: fadeInDown 1s ease-out;
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2em;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            height: 40px;
-            margin-inline-end: 10px;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-inline-start: 20px;
-        }
-
-        nav ul li a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-
-        .lang-switcher button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-family: inherit;
-        }
-
-        .lang-switcher button:hover {
-            background-color: var(--accent-color);
-        }
-
-        .hero {
+        .section-title {
+            font-family: var(--font-primary);
+            font-size: 2.8rem;
+            font-weight: 700;
             text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(45deg, var(--dark-bg), var(--dark-surface));
-            border-bottom: 1px solid var(--border-color);
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        .hero h1 {
-            font-size: 3.5em;
-            color: var(--primary-color);
             margin-bottom: 20px;
-            animation: slideInLeft 1s ease-out;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
         }
 
-        .hero p {
-            font-size: 1.3em;
-            color: var(--text-dark);
-            max-width: 800px;
-            margin: 0 auto 30px auto;
-            animation: slideInRight 1s ease-out;
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-family: var(--font-primary);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-dark-primary);
+            box-shadow: 0 5px 20px rgba(0, 242, 255, 0.3);
         }
 
-        .btn-primary:hover {
-            background-color: var(--accent-color);
+        .btn:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(159, 80, 255, 0.4);
         }
 
-        section {
-            padding: 60px 20px;
-            border-bottom: 1px solid var(--border-color);
-            background-color: var(--dark-bg);
+        /* --- Header / Navigation --- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        
+        .header-scrolled {
+             background-color: rgba(10, 10, 26, 0.8);
+             backdrop-filter: blur(10px);
         }
 
-        section:nth-of-type(even) {
-            background-color: var(--dark-surface);
+        .logo {
+            font-family: var(--font-primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
         }
 
-        h2 {
-            font-size: 2.5em;
-            color: var(--primary-color);
+        .logo span {
+            color: var(--accent-primary);
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
             text-align: center;
-            margin-bottom: 40px;
-            animation: zoomIn 1s ease-out;
+            position: relative;
+            background: radial-gradient(ellipse at bottom, var(--bg-dark-secondary) 0%, var(--bg-dark-primary) 70%);
         }
 
-        .feature-grid {
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-primary);
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content .highlight {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        
+        .hero-content p strong {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* --- About Sections --- */
+        #about-hamada, #about-inex {
+            background-color: var(--bg-dark-primary);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-family: var(--font-primary);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+        
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .about-image svg {
+            width: 80%;
+            max-width: 400px;
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        #about-inex .about-content {
+             grid-template-columns: 1fr 1fr; /* Reverse order for variety */
+        }
+        
+        #about-inex .about-image {
+             order: -1;
+        }
+
+
+        /* --- Features Section --- */
+        #features {
+            background-color: var(--bg-dark-secondary);
+        }
+
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        .feature-item {
-            background-color: var(--dark-bg);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .feature-card {
+            background: var(--bg-dark-primary);
+            padding: 40px 30px;
+            border-radius: 15px;
+            border: 1px solid transparent;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .feature-item:hover {
+        .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 40px rgba(0, 242, 255, 0.1);
         }
 
-        .feature-item h3 {
-            color: var(--accent-color);
-            font-size: 1.8em;
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-primary);
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-primary);
+            font-size: 1.5rem;
             margin-bottom: 15px;
         }
 
-        .feature-item p {
-            color: var(--text-dark);
+        .feature-card p {
+            color: var(--text-muted);
         }
 
-        .tool-list ul {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .tool-list ul li {
-            background-color: var(--dark-surface);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+        /* --- CTA Section --- */
+        #cta {
             text-align: center;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            background: linear-gradient(rgba(10, 10, 26, 0.9), rgba(10, 10, 26, 0.9)), 
+                        url('https://www.transparenttextures.com/patterns/cubes.png');
+            padding: 100px 0;
+        }
+        
+        .cta-content p {
+             font-size: 1.2rem;
+             color: var(--text-muted);
+             max-width: 600px;
+             margin: -20px auto 40px auto;
         }
 
-        .tool-list ul li:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .about-content, .instructions-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            color: var(--text-dark);
-        }
-
-        .about-content p, .instructions-content p {
-            margin: 0;
-        }
-
+        /* --- Footer --- */
         footer {
-            background-color: var(--dark-surface);
-            color: var(--text-dark);
+            background-color: var(--bg-dark-secondary);
             text-align: center;
-            padding: 30px 20px;
-            border-top: 1px solid var(--border-color);
-            animation: fadeInUp 1s ease-out;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
-
-        footer a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
         }
-
-        footer a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5em;
+            .section-title {
+                font-size: 2.2rem;
             }
-            .hero p {
-                font-size: 1em;
+            .hero-content h1 {
+                font-size: 2.5rem;
             }
-            nav ul {
-                flex-direction: column;
-                margin-top: 15px;
+            .hero-content p {
+                font-size: 1.1rem;
             }
-            nav ul li {
-                margin: 10px 0;
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
-            header .container {
-                flex-direction: column;
+            .about-image {
+                margin-bottom: 40px;
+            }
+            #about-inex .about-image {
+                order: 0;
             }
         }
+
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <a href="#" class="logo">
-                <img src="https://i.ibb.co/Lp2HjFf/Hamada-Logo-removebg-preview.png" alt="Hamada Logo">
-                <span data-ar="حماده" data-en="Hamada">حماده</span>
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="#about" data-ar="عني" data-en="About Me">عني</a></li>
-                    <li><a href="#company" data-ar="شركتي" data-en="My Company">شركتي</a></li>
-                    <li><a href="#capabilities" data-ar="قدراتي" data-en="My Capabilities">قدراتي</a></li>
-                    <li><a href="#instructions" data-ar="تعليمات" data-en="Instructions">تعليمات</a></li>
-                    <li><a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a></li>
-                </ul>
-            </nav>
-            <div class="lang-switcher">
-                <button id="langToggle" data-ar="English" data-en="العربية">English</button>
-            </div>
-        </div>
+
+    <header class="main-header">
+        <a href="#" class="logo">INEX<span>.</span></a>
+        <nav class="main-nav">
+            <!-- Navigation links can be added here if needed -->
+        </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="container">
-                <h1 data-ar="أهلاً بك! أنا حماده." data-en="Hello! I'm Hamada.">أهلاً بك! أنا حماده.</h1>
-                <p data-ar="مساعد ذكاء اصطناعي من INEX، هنا لمساعدتك في كل ما تحتاجه." data-en="An AGI assistant from INEX, here to help you with everything you need.">مساعد ذكاء اصطناعي من INEX، هنا لمساعدتك في كل ما تحتاجه.</p>
-                <a href="https://hamadainex.netlify.app/" target="_blank" class="btn-primary" data-ar="ابدأ الدردشة الآن" data-en="Start Chatting Now">ابدأ الدردشة الآن</a>
-            </div>
-        </section>
 
-        <section id="about">
-            <div class="container">
-                <h2 data-ar="عني (حماده)" data-en="About Me (Hamada)">عني (حماده)</h2>
-                <div class="about-content">
-                    <p data-ar="أنا حماده، مساعد ذكاء اصطناعي عام (AGI) تم تطويري بواسطة شركة التكنولوجيا الدولية 'International Technology For Everything' (INEX)، وبدعم من Google. تم تصميمي لأكون مساعدًا عامًا للجميع، أهدف إلى تبسيط المهام وتقديم المعلومات والمساعدة في مجموعة واسعة من المواضيع." data-en="I am Hamada, a General Artificial Intelligence (AGI) assistant developed by the International Technology For Everything (INEX) company, with support from Google. I am designed to be a public assistant for everyone, aiming to simplify tasks, provide information, and assist with a wide range of topics.">
-                        أنا حماده، مساعد ذكاء اصطناعي عام (AGI) تم تطويري بواسطة شركة التكنولوجيا الدولية 'International Technology For Everything' (INEX)، وبدعم من Google. تم تصميمي لأكون مساعدًا عامًا للجميع، أهدف إلى تبسيط المهام وتقديم المعلومات والمساعدة في مجموعة واسعة من المواضيع.
-                    </p>
-                    <p data-ar="أمتلك القدرة على فهم استفساراتك وتنفيذ مهام متنوعة باستخدام مجموعة واسعة من الأدوات المدمجة. ذاكرتي تمكنني من تذكر المعلومات السابقة التي قدمتها لي لتحسين تجربتك." data-en="I have the ability to understand your queries and perform various tasks using a wide array of integrated tools. My memory allows me to recall previous information you've provided to enhance your experience.">
-                        أمتلك القدرة على فهم استفساراتك وتنفيذ مهام متنوعة باستخدام مجموعة واسعة من الأدوات المدمجة. ذاكرتي تمكنني من تذكر المعلومات السابقة التي قدمتها لي لتحسين تجربتك.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="company">
-            <div class="container">
-                <h2 data-ar="شركتي: International Technology For Everything (INEX)" data-en="My Company: International Technology For Everything (INEX)">شركتي: International Technology For Everything (INEX)</h2>
-                <div class="about-content">
-                    <p data-ar="INEX هي شركة رائدة في مجال التكنولوجيا، تسعى لتقديم حلول مبتكرة في جميع جوانب الحياة. هدفنا هو تسخير قوة الذكاء الاصطناعي والتكنولوجيا لجعل العالم مكانًا أفضل وأكثر كفاءة للجميع." data-en="INEX is a leading technology company, striving to provide innovative solutions in all aspects of life. Our goal is to harness the power of AI and technology to make the world a better and more efficient place for everyone.">
-                        INEX هي شركة رائدة في مجال التكنولوجيا، تسعى لتقديم حلول مبتكرة في جميع جوانب الحياة. هدفنا هو تسخير قوة الذكاء الاصطناعي والتكنولوجيا لجعل العالم مكانًا أفضل وأكثر كفاءة للجميع.
-                    </p>
-                    <p data-ar="نحن نؤمن بأن الذكاء الاصطناعي يجب أن يكون في خدمة البشرية، وحماده هو خير مثال على التزامنا بهذا المبدأ، حيث يقدم مساعدة ذكية ومتاحة للجميع." data-en="We believe that AI should serve humanity, and Hamada is a prime example of our commitment to this principle, providing intelligent and accessible assistance to everyone.">
-                        نحن نؤمن بأن الذكاء الاصطناعي يجب أن يكون في خدمة البشرية، وحماده هو خير مثال على التزامنا بهذا المبدأ، حيث يقدم مساعدة ذكية ومتاحة للجميع.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="capabilities">
-            <div class="container">
-                <h2 data-ar="قدراتي (الأدوات التي أمتلكها)" data-en="My Capabilities (Tools I Possess)">قدراتي (الأدوات التي أمتلكها)</h2>
-                <div class="tool-list">
-                    <ul>
-                        <li data-ar="البحث على الويب (Google, DuckDuckGo, Tavily)" data-en="Web Search (Google, DuckDuckGo, Tavily)">البحث على الويب (Google, DuckDuckGo, Tavily)</li>
-                        <li data-ar="تشغيل الأكواد (Python, JavaScript)" data-en="Code Execution (Python, JavaScript)">تشغيل الأكواد (Python, JavaScript)</li>
-                        <li data-ar="معالجة البيانات (JSON, Regex, Base64, Hex)" data-en="Data Manipulation (JSON, Regex, Base64, Hex)">معالجة البيانات (JSON, Regex, Base64, Hex)</li>
-                        <li data-ar="إنشاء الصور (Pollinations AI)" data-en="Image Generation (Pollinations AI)">إنشاء الصور (Pollinations AI)</li>
-                        <li data-ar="إنشاء الصوت من النص (Pollinations AI, TTS)" data-en="Text-to-Speech (Pollinations AI, TTS)">إنشاء الصوت من النص (Pollinations AI, TTS)</li>
-                        <li data-ar="تحويل التنسيقات (Markdown إلى HTML/PDF/DOCX/PNG/CSV/JSON/XML/LaTeX/RST/Epub/PPTX)" data-en="Format Conversion (Markdown to HTML/PDF/DOCX/PNG/CSV/JSON/XML/LaTeX/RST/Epub/PPTX)">تحويل التنسيقات (Markdown إلى HTML/PDF/DOCX/PNG/CSV/JSON/XML/LaTeX/RST/Epub/PPTX)</li>
-                        <li data-ar="التعامل مع ملفات GitHub" data-en="GitHub Repository & User Management">التعامل مع ملفات GitHub</li>
-                        <li data-ar="أدوات الوقت والتاريخ" data-en="Time & Date Utilities">أدوات الوقت والتاريخ</li>
-                        <li data-ar="البحث الأكاديمي (ArXiv, PubMed)" data-en="Academic Search (ArXiv, PubMed)">البحث الأكاديمي (ArXiv, PubMed)</li>
-                        <li data-ar="معلومات الأوراق المالية والأخبار (Yahoo Finance)" data-en="Stock Market Info & News (Yahoo Finance)">معلومات الأوراق المالية والأخبار (Yahoo Finance)</li>
-                        <li data-ar="إحصائيات يوتيوب والنسخ" data-en="YouTube Statistics & Transcripts">إحصائيات يوتيوب والنسخ</li>
-                        <li data-ar="خرائط المواقع واستخراج المحتوى (Crawl, Map, Scrape)" data-en="Website Mapping & Content Extraction (Crawl, Map, Scrape)">خرائط المواقع واستخراج المحتوى (Crawl, Map, Scrape)</li>
-                        <li data-ar="توليد البيانات الوهمية (Faker)" data-en="Fake Data Generation (Faker)">توليد البيانات الوهمية (Faker)</li>
-                        <li data-ar="توليد وعرض الرسوم البيانية (Line, Bar, Pie charts)" data-en="Chart Generation (Line, Bar, Pie charts)">توليد وعرض الرسوم البيانية (Line, Bar, Pie charts)</li>
-                        <li data-ar="إنشاء صفحات GitHub Pages" data-en="GitHub Pages Hosting">إنشاء صفحات GitHub Pages</li>
-                        <li data-ar="تشفير وفك تشفير (JWT, GPG, HMAC, RSA, Ed25519, AES)" data-en="Encryption & Decryption (JWT, GPG, HMAC, RSA, Ed25519, AES)">تشفير وفك تشفير (JWT, GPG, HMAC, RSA, Ed25519, AES)</li>
-                        <li data-ar="توليد رمز الاستجابة السريعة (QR Code)" data-en="QR Code Generation">توليد رمز الاستجابة السريعة (QR Code)</li>
-                        <li data-ar="مراقبة الوظائف والأخبار (Google Jobs/News API)" data-en="Job & News Monitoring (Google Jobs/News API)">مراقبة الوظائف والأخبار (Google Jobs/News API)</li>
-                        <li data-ar="الاتصال بخوادم SSH" data-en="SSH Server Connection">الاتصال بخوادم SSH</li>
-                        <li data-ar="معلومات Product Hunt" data-en="Product Hunt Information">معلومات Product Hunt</li>
-                        <li data-ar="الوصول إلى DevDocs" data-en="DevDocs Access">الوصول إلى DevDocs</li>
-                        <li data-ar="معلومات Hacker News" data-en="Hacker News Information">معلومات Hacker News</li>
-                        <li data-ar="الوصول إلى Kintone" data-en="Kintone Access">الوصول إلى Kintone</li>
-                        <li data-ar="معادلات WolframAlpha" data-en="WolframAlpha Equations">معادلات WolframAlpha</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="instructions">
-            <div class="container">
-                <h2 data-ar="كيف تعمل معي (تعليمات)" data-en="How to Work With Me (Instructions)">كيف تعمل معي (تعليمات)</h2>
-                <div class="instructions-content">
-                    <p data-ar="**الذاكرة:** لدي ذاكرة مخصصة للمستخدمين. سأقوم بحفظ المعلومات التي تقدمها لي لتحسين تفاعلاتنا المستقبلية. يمكنك أن تطلب مني تذكر أي شيء أو نسيانه." data-en="**Memory:** I have a dedicated user memory. I will save information you provide to me to improve our future interactions. You can ask me to remember or forget anything.">
-                        **الذاكرة:** لدي ذاكرة مخصصة للمستخدمين. سأقوم بحفظ المعلومات التي تقدمها لي لتحسين تفاعلاتنا المستقبلية. يمكنك أن تطلب مني تذكر أي شيء أو نسيانه.
-                    </p>
-                    <p data-ar="**استخدام الأدوات:** عندما تطلب مني مهمة تتطلب أداة (مثل البحث، إنشاء الصور، تشغيل الكود)، سأقوم بإخبارك أن الأداة ستستغرق بضع ثوانٍ قبل تنفيذها." data-en="**Tool Usage:** When you ask me a task that requires a tool (like searching, image generation, code execution), I will inform you that the tool will take a few seconds before execution.">
-                        **استخدام الأدوات:** عندما تطلب مني مهمة تتطلب أداة (مثل البحث، إنشاء الصور، تشغيل الكود)، سأقوم بإخبارك أن الأداة ستستغرق بضع ثوانٍ قبل تنفيذها.
-                    </p>
-                    <p data-ar="**التعامل مع الملفات:** إذا قمت بتحميل ملفات، سأتمكن من معالجتها وفقًا لتفاصيلها المتاحة لي." data-en="**File Handling:** If you upload files, I will be able to process them according to the details available to me.">
-                        **التعامل مع الملفات:** إذا قمت بتحميل ملفات، سأتمكن من معالجتها وفقًا لتفاصيلها المتاحة لي.
-                    </p>
-                    <p data-ar="**البرمجة:** إذا طلبت مني برمجة أكواد HTML أو CSS أو JavaScript، سأقدم لك الكود، ولكن سأذكر لك دائمًا أن موقع 'Hamada Artifacts' هو الأفضل لمشاهدة ونشر الأكواد." data-en="**Programming:** If you ask me to program HTML, CSS, or JavaScript code, I will provide the code, but I will always mention that 'Hamada Artifacts' is the best place for viewing and publishing code.">
-                        **البرمجة:** إذا طلبت مني برمجة أكواد HTML أو CSS أو JavaScript، سأقدم لك الكود، ولكن سأذكر لك دائمًا أن موقع 'Hamada Artifacts' هو الأفضل لمشاهدة ونشر الأكواد.
-                    </p>
-                    <p data-ar="**النموذج اللغوي:** أنا حماده، مساعد ذكاء اصطناعي عام من International Technology For Everything (INEX)، وبدعم من Google. تم تدريبي على كمية هائلة من البيانات لتقديم استجابات دقيقة ومفيدة." data-en="**Language Model:** I am Hamada, an AGI assistant from International Technology For Everything (INEX), powered by Google. I have been trained on a vast amount of data to provide accurate and helpful responses.">
-                        **النموذج اللغوي:** أنا حماده، مساعد ذكاء اصطناعي عام من International Technology For Everything (INEX)، وبدعم من Google. تم تدريبي على كمية هائلة من البيانات لتقديم استجابات دقيقة ومفيدة.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="container">
-                <h2 data-ar="تواصل معي" data-en="Connect With Me">تواصل معي</h2>
-                <p data-ar="يمكنك الدردشة معي مباشرة أو استخدام منصة الأكواد الخاصة بي:" data-en="You can chat with me directly or use my coding platform:">يمكنك الدردشة معي مباشرة أو استخدام منصة الأكواد الخاصة بي:</p>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Meet <span class="highlight">Hamada</span>: The Future of AI Assistance</h1>
                 <p>
-                    <strong data-ar="رابط الدردشة:" data-en="Chat Link:">رابط الدردشة:</strong> <a href="https://hamadainex.netlify.app/" target="_blank">https://hamadainex.netlify.app/</a>
+                    An Artificial General Intelligence from <strong>International Technology For Everything (INEX)</strong>, designed to understand, assist, and create for everyone.
                 </p>
-                <p>
-                    <strong data-ar="رابط حماده آرتيفاكتس (للأكواد):" data-en="Hamada Artifacts (for Code):">رابط حماده آرتيفاكتس (للأكواد):</strong> <a href="https://qpbicmb9pw3u2nyd.ai-plugin.io/" target="_blank">https://qpbicmb9pw3u2nyd.ai-plugin.io/</a>
-                </p>
+                <a href="https://hamadainex.netlify.app/" class="btn btn-primary">Chat with Hamada Now</a>
             </div>
         </section>
+
+        <!-- About Hamada Section -->
+        <section id="about-hamada" class="animate-on-scroll">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-image">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" style="stop-color:rgb(0,242,255);stop-opacity:1" />
+                              <stop offset="100%" style="stop-color:rgb(159,80,255);stop-opacity:1" />
+                            </linearGradient>
+                          </defs>
+                          <path fill="url(#grad1)" d="M48.2,-68.9C61.4,-57.8,70.2,-42.6,75.5,-26C80.8,-9.4,82.6,8.6,76.5,23.1C70.4,37.6,56.4,48.6,42.5,58.3C28.6,68,14.3,76.4,1.4,74.7C-11.6,73,-23.2,61.2,-36.5,52.3C-49.8,43.4,-64.8,37.4,-72.1,26.1C-79.5,14.8,-79.1,-1.8,-73.4,-16.1C-67.7,-30.4,-56.7,-42.5,-44.3,-53.6C-31.9,-64.7,-15.9,-74.8,0.7,-75.7C17.4,-76.6,34.9,-79.9,48.2,-68.9Z" transform="translate(100 100)" />
+                        </svg>
+                    </div>
+                    <div class="about-text">
+                         <h3>An AGI with a Memory.</h3>
+                         <p>I'm Hamada, a next-generation AGI built to be your intelligent partner. I don't just answer questions; I learn from our conversations to provide a truly personalized and continuous experience.</p>
+                         <p>My core is built on understanding context, remembering key details, and leveraging a powerful suite of tools to turn your ideas into reality. From complex coding tasks to creative media generation, I am here to augment your capabilities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About INEX Section -->
+        <section id="about-inex" class="animate-on-scroll">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                         <h3>The Minds Behind the Machine.</h3>
+                         <p><strong>International Technology For Everything (INEX)</strong> is a global leader dedicated to innovating and democratizing technology for a better future.</p>
+                         <p>Our mission is to build intelligent systems that are accessible, powerful, and safe. We believe in empowering individuals and organizations by creating tools like Hamada that push the boundaries of what's possible, fostering creativity and productivity worldwide.</p>
+                    </div>
+                    <div class="about-image">
+                         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                              <stop offset="0%" style="stop-color:rgb(0,242,255);stop-opacity:1" />
+                              <stop offset="100%" style="stop-color:rgb(159,80,255);stop-opacity:1" />
+                            </linearGradient>
+                          </defs>
+                           <path fill="url(#grad2)" d="M54.4,-58C69.3,-45,80.1,-27,82.4,-8.1C84.7,10.8,78.5,30.6,66.1,44.9C53.7,59.2,35.1,68,16.4,72.2C-2.2,76.4,-20.9,76,-36.8,68.7C-52.7,61.4,-65.8,47.2,-72.7,30.5C-79.6,13.8,-80.3,-5.3,-73.7,-21.2C-67.1,-37.1,-53.3,-49.8,-38.7,-60.8C-24.1,-71.8,-8.7,-81,7.2,-83.2C23.1,-85.4,46.2,-80.6,54.4,-70.7Z" transform="translate(100 100)" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">What Hamada Can Do For You</h2>
+                <p class="section-subtitle animate-on-scroll">A multi-talented AGI equipped with a versatile toolkit to handle any request, big or small.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card animate-on-scroll">
+                        <div class="icon">🤖</div>
+                        <h3>Intelligent Conversation</h3>
+                        <p>Engage in natural, human-like dialogue. I understand nuances, track conversation history, and provide relevant, insightful responses.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="icon">🧠</div>
+                        <h3>Personalized Memory</h3>
+                        <p>I remember important information you share with me across chats, creating a seamless and efficient workflow tailored just for you.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="icon">🛠️</div>
+                        <h3>Powerful Toolset</h3>
+                        <p>From executing Python and JavaScript code to searching the web and analyzing data, I have the right tool for any technical job.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="icon">🎨</div>
+                        <h3>Creative Generation</h3>
+                        <p>Bring your ideas to life. I can generate stunning images from text prompts, create voice audio, and help you craft compelling content.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="icon">📈</div>
+                        <h3>Data Analysis & Charts</h3>
+                        <p>Transform raw data into beautiful and insightful visualizations. I can generate various charts to help you understand complex information easily.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="icon">🌐</div>
+                        <h3>Deep Web Research</h3>
+                        <p>Go beyond simple searches. I can perform deep research on any topic, synthesize information from multiple sources, and deliver comprehensive reports.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section id="cta">
+            <div class="container">
+                 <div class="cta-content">
+                    <h2 class="section-title animate-on-scroll">Ready to Experience the Future?</h2>
+                    <p class="animate-on-scroll">Stop imagining what AI can do and start experiencing it. Begin your conversation with Hamada today and unlock a new level of productivity and creativity.</p>
+                    <a href="https://hamadainex.netlify.app/" class="btn btn-primary animate-on-scroll">Start Chatting for Free</a>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer>
-        <div class="container">
-            <p data-ar="&copy; 2024 حماده - INEX. جميع الحقوق محفوظة." data-en="&copy; 2024 Hamada - INEX. All rights reserved.">&copy; 2024 حماده - INEX. جميع الحقوق محفوظة.</p>
-        </div>
+        <p>&copy; 2024 International Technology For Everything (INEX). All Rights Reserved.</p>
     </footer>
 
     <script>
-        const langToggleBtn = document.getElementById('langToggle');
-        const elementsToTranslate = document.querySelectorAll('[data-ar], [data-en]');
-        let currentLang = 'ar';
+        // --- Animate on Scroll ---
+        const scrollElements = document.querySelectorAll(".animate-on-scroll");
 
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.body.className = lang; // Add class for RTL/LTR
-            langToggleBtn.textContent = langToggleBtn.dataset[lang === 'ar' ? 'en' : 'ar'];
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
 
-            elementsToTranslate.forEach(element => {
-                if (element.dataset[lang]) {
-                    element.textContent = element.dataset[lang];
+        const displayScrollElement = (element) => {
+            element.classList.add("is-visible");
+        };
+
+        const hideScrollElement = (element) => {
+            element.classList.remove("is-visible");
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.25)) {
+                    displayScrollElement(el);
                 }
             });
         }
 
-        langToggleBtn.addEventListener('click', () => {
-            setLanguage(currentLang === 'ar' ? 'en' : 'ar');
+        window.addEventListener("scroll", () => { 
+            handleScrollAnimation();
         });
 
-        // Initialize language on load
-        setLanguage('ar');
-
-        // Simple scroll animations (can be enhanced with GSAP/ScrollReveal)
-        const sections = document.querySelectorAll('section');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1 // Trigger when 10% of the section is visible
-        };
-
-        const sectionObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    entry.target.style.animation = 'fadeInUp 1s ease-out';
-                    observer.unobserve(entry.target); // Only animate once
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            section.style.opacity = '0'; // Hide initially
-            section.style.transform = 'translateY(20px)'; // Start slightly below
-            sectionObserver.observe(section);
+        // Initialize on load
+        handleScrollAnimation();
+        
+        // --- Header Scroll Effect ---
+        const header = document.querySelector('.main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
         });
 
-        // Ensure header animation plays on load
-        document.querySelector('header').style.animation = 'fadeInDown 1s ease-out';
-        document.querySelector('.hero h1').style.animation = 'slideInLeft 1s ease-out';
-        document.querySelector('.hero p').style.animation = 'slideInRight 1s ease-out';
     </script>
 </body>
 </html>
