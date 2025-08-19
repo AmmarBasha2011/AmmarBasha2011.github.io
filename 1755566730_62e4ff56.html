@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Hamada - Your AI Assistant" data-ar="حماده - مساعدك الذكي">حماده - مساعدك الذكي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #1a1a2e;
+            --secondary-bg: #16213e;
+            --accent-color: #0f3460;
+            --text-color: #e0e0e0;
+            --highlight-color: #e94560;
+            --border-color: #0e374c;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --transition-speed: 0.5s;
+        }
+
+        /* Base styles */
+        body {
+            font-family: 'Cairo', sans-serif; /* Default to Arabic font */
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            direction: rtl; /* Default to Right-to-Left for Arabic */
+        }
+
+        html[lang="en"] body {
+            font-family: 'Montserrat', sans-serif; /* Switch to English font */
+            direction: ltr; /* Left-to-Right for English */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--secondary-bg);
+            padding: 20px 0;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color var(--transition-speed);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--highlight-color);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        .logo:hover {
+            color: var(--text-color);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            padding: 5px 10px;
+            transition: color var(--transition-speed), border-bottom var(--transition-speed);
+        }
+
+        nav a:hover {
+            color: var(--highlight-color);
+            border-bottom: 2px solid var(--highlight-color);
+        }
+
+        .lang-switch-btn {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color var(--transition-speed), transform 0.2s;
+        }
+
+        .lang-switch-btn:hover {
+            background-color: var(--highlight-color);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(45deg, var(--primary-bg), var(--accent-color));
+            text-align: center;
+            padding: 100px 20px;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp 1s forwards 0.5s;
+        }
+
+        #hero p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp 1s forwards 0.7s;
+        }
+
+        .cta-button {
+            background-color: var(--highlight-color);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            transition: background-color var(--transition-speed), transform 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp 1s forwards 0.9s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 80px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        section.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--secondary-bg);
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: var(--highlight-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        #about p {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+
+        /* Capabilities Section */
+        #capabilities .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .capability-card {
+            background-color: var(--accent-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7);
+        }
+
+        .capability-card h3 {
+            color: var(--highlight-color);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .capability-card p {
+            color: var(--text-color);
+            font-size: 0.95em;
+        }
+
+        /* Contact Section */
+        #contact p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .chat-link {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--highlight-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid var(--highlight-color);
+            border-radius: 5px;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        .chat-link:hover {
+            background-color: var(--highlight-color);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.9em;
+            box-shadow: 0 -4px 8px var(--shadow-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2.5em;
+            }
+
+            #hero p {
+                font-size: 1em;
+            }
+
+            section h2 {
+                font-size: 2em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            header .container {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            #hero {
+                padding: 80px 15px;
+            }
+
+            #hero h1 {
+                font-size: 2em;
+            }
+
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            section {
+                padding: 50px 15px;
+            }
+
+            .capability-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#" class="logo" data-en="Hamada" data-ar="حماده">حماده</a>
+            <nav>
+                <ul>
+                    <li><a href="#hero" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
+                    <li><a href="#about" data-en="About" data-ar="من أنا؟">من أنا؟</a></li>
+                    <li><a href="#capabilities" data-en="Capabilities" data-ar="قدراتي">قدراتي</a></li>
+                    <li><a href="#contact" data-en="Contact" data-ar="تواصل معي">تواصل معي</a></li>
+                </ul>
+            </nav>
+            <button class="lang-switch-btn" data-en="العربية" data-ar="English">English</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1 data-en="Meet Hamada: Your Intelligent AI Assistant" data-ar="قابل حماده: مساعدك الذكي المعتمد على الذكاء الاصطناعي">
+                قابل حماده: مساعدك الذكي المعتمد على الذكاء الاصطناعي
+            </h1>
+            <p data-en="I am Hamada, an Advanced General Intelligence (AGI) from International Technology For Everything (INEX), designed to be your public assistant for all your needs. I'm here to simplify your tasks and provide information with ease."
+               data-ar="أنا حماده، ذكاء اصطناعي عام متقدم (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX)، مصمم لأكون مساعدك العام لجميع احتياجاتك. أنا هنا لتبسيط مهامك وتقديم المعلومات بسهولة.">
+                أنا حماده، ذكاء اصطناعي عام متقدم (AGI) من شركة التكنولوجيا الدولية لكل شيء (INEX)، مصمم لأكون مساعدك العام لجميع احتياجاتك. أنا هنا لتبسيط مهامك وتقديم المعلومات بسهولة.
+            </p>
+            <a href="https://hamadainex.netlify.app/" target="_blank" class="cta-button" data-en="Chat with Hamada Now!" data-ar="ابدأ الدردشة مع حماده الآن!">
+                ابدأ الدردشة مع حماده الآن!
+            </a>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2 data-en="Who is Hamada?" data-ar="من هو حماده؟">من هو حماده؟</h2>
+                <p data-en="As Hamada, I represent the cutting edge of artificial general intelligence from INEX. My core purpose is to serve as a versatile and reliable public assistant. I am equipped to understand and process complex queries, provide comprehensive answers, generate creative content, and even execute code, all while maintaining a user-friendly and approachable persona. My goal is to make advanced AI capabilities accessible and beneficial to everyone, streamlining workflows and enriching your interactions with technology."
+                   data-ar="بصفتي حماده، أمثل أحدث ما توصلت إليه تكنولوجيا الذكاء الاصطناعي العام من INEX. هدفي الأساسي هو أن أكون مساعدًا عامًا متعدد الاستخدامات وموثوقًا به. أنا مجهز لفهم ومعالجة الاستفسارات المعقدة، وتقديم إجابات شاملة، وإنشاء محتوى إبداعي، وحتى تنفيذ الأكواد، كل ذلك مع الحفاظ على شخصية سهلة الاستخدام ويمكن الوصول إليها. هدفي هو جعل قدرات الذكاء الاصطناعي المتقدمة متاحة ومفيدة للجميع، وتبسيط سير العمل وإثراء تفاعلاتك مع التكنولوجيا.">
+                    بصفتي حماده، أمثل أحدث ما توصلت إليه تكنولوجيا الذكاء الاصطناعي العام من INEX. هدفي الأساسي هو أن أكون مساعدًا عامًا متعدد الاستخدامات وموثوقًا به. أنا مجهز لفهم ومعالجة الاستفسارات المعقدة، وتقديم إجابات شاملة، وإنشاء محتوى إبداعي، وحتى تنفيذ الأكواد، كل ذلك مع الحفاظ على شخصية سهلة الاستخدام ويمكن الوصول إليها. هدفي هو جعل قدرات الذكاء الاصطناعي المتقدمة متاحة ومفيدة للجميع، وتبسيط سير العمل وإثراء تفاعلاتك مع التكنولوجيا.
+                </p>
+            </div>
+        </section>
+
+        <section id="capabilities">
+            <div class="container">
+                <h2 data-en="My Capabilities" data-ar="قدراتي">قدراتي</h2>
+                <div class="grid-container">
+                    <div class="capability-card">
+                        <h3 data-en="Intelligent Assistance" data-ar="المساعدة الذكية">المساعدة الذكية</h3>
+                        <p data-en="I can answer your questions, provide explanations, and offer insights on a wide range of topics."
+                           data-ar="يمكنني الإجابة على أسئلتك، وتقديم الشروحات، وتقديم رؤى حول مجموعة واسعة من المواضيع.">
+                            يمكنني الإجابة على أسئلتك، وتقديم الشروحات، وتقديم رؤى حول مجموعة واسعة من المواضيع.
+                        </p>
+                    </div>
+                    <div class="capability-card">
+                        <h3 data-en="Code Execution" data-ar="تنفيذ الأكواد">تنفيذ الأكواد</h3>
+                        <p data-en="I can write and execute code snippets in various languages, helping you with development tasks."
+                           data-ar="أستطيع كتابة وتنفيذ مقتطفات برمجية بلغات مختلفة، مما يساعدك في مهام التطوير.">
+                            أستطيع كتابة وتنفيذ مقتطفات برمجية بلغات مختلفة، مما يساعدك في مهام التطوير.
+                        </p>
+                    </div>
+                    <div class="capability-card">
+                        <h3 data-en="Information Retrieval" data-ar="استرجاع المعلومات">استرجاع المعلومات</h3>
+                        <p data-en="I can search the web, access databases, and retrieve specific information efficiently."
+                           data-ar="يمكنني البحث في الويب، والوصول إلى قواعد البيانات، واسترجاع معلومات محددة بكفاءة.">
+                            يمكنني البحث في الويب، والوصول إلى قواعد البيانات، واسترجاع معلومات محددة بكفاءة.
+                        </p>
+                    </div>
+                    <div class="capability-card">
+                        <h3 data-en="Memory and Context" data-ar="الذاكرة والسياق">الذاكرة والسياق</h3>
+                        <p data-en="I remember our conversations and relevant details to provide a continuous and personalized experience."
+                           data-ar="أتذكر محادثاتنا وتفاصيلها ذات الصلة لتقديم تجربة مستمرة ومخصصة.">
+                            أتذكر محادثاتنا وتفاصيلها ذات الصلة لتقديم تجربة مستمرة ومخصصة.
+                        </p>
+                    </div>
+                    <div class="capability-card">
+                        <h3 data-en="Creative Content Generation" data-ar="إنشاء المحتوى الإبداعي">إنشاء المحتوى الإبداعي</h3>
+                        <p data-en="From text to images and audio, I can help you generate diverse creative content."
+                           data-ar="من النصوص إلى الصور والمقاطع الصوتية، يمكنني مساعدتك في إنشاء محتوى إبداعي متنوع.">
+                            من النصوص إلى الصور والمقاطع الصوتية، يمكنني مساعدتك في إنشاء محتوى إبداعي متنوع.
+                        </p>
+                    </div>
+                    <div class="capability-card">
+                        <h3 data-en="Problem Solving" data-ar="حل المشكلات">حل المشكلات</h3>
+                        <p data-en="I can assist in breaking down complex problems and suggesting potential solutions."
+                           data-ar="أستطيع المساعدة في تحليل المشاكل المعقدة واقتراح الحلول المحتملة.">
+                            أستطيع المساعدة في تحليل المشاكل المعقدة واقتراح الحلول المحتملة.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2 data-en="Connect with Hamada" data-ar="تواصل مع حماده">تواصل مع حماده</h2>
+                <p data-en="Ready to experience the power of an advanced AI assistant? Click below to start chatting with me instantly!"
+                   data-ar="هل أنت مستعد لتجربة قوة مساعد الذكاء الاصطناعي المتقدم؟ انقر أدناه لبدء الدردشة معي على الفور!">
+                    هل أنت مستعد لتجربة قوة مساعد الذكاء الاصطناعي المتقدم؟ انقر أدناه لبدء الدردشة معي على الفور!
+                </p>
+                <a href="https://hamadainex.netlify.app/" target="_blank" class="chat-link" data-en="Start Chatting" data-ar="ابدأ الدردشة">
+                    ابدأ الدردشة
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p data-en="&copy; 2024 Hamada - An AGI from INEX. All rights reserved."
+               data-ar="&copy; 2024 حماده - ذكاء اصطناعي عام من INEX. جميع الحقوق محفوظة.">
+                &copy; 2024 حماده - ذكاء اصطناعي عام من INEX. جميع الحقوق محفوظة.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langSwitchBtn = document.querySelector('.lang-switch-btn');
+            const htmlTag = document.querySelector('html');
+            const translatableElements = document.querySelectorAll('[data-en], [data-ar]');
+
+            // Function to set language
+            const setLanguage = (lang) => {
+                htmlTag.setAttribute('lang', lang);
+                document.body.style.direction = (lang === 'ar') ? 'rtl' : 'ltr';
+
+                translatableElements.forEach(element => {
+                    if (lang === 'ar' && element.dataset.ar) {
+                        element.textContent = element.dataset.ar;
+                    } else if (lang === 'en' && element.dataset.en) {
+                        element.textContent = element.dataset.en;
+                    }
+                    // Update button text
+                    if (element === langSwitchBtn) {
+                        langSwitchBtn.textContent = (lang === 'ar') ? langSwitchBtn.dataset.en : langSwitchBtn.dataset.ar;
+                    }
+                });
+                localStorage.setItem('hamadaLang', lang); // Store preference
+            };
+
+            // Check for saved language preference
+            const savedLang = localStorage.getItem('hamadaLang');
+            if (savedLang) {
+                setLanguage(savedLang);
+            } else {
+                setLanguage('ar'); // Default to Arabic if no preference
+            }
+
+            // Language switch button event listener
+            langSwitchBtn.addEventListener('click', () => {
+                const currentLang = htmlTag.getAttribute('lang');
+                const newLang = (currentLang === 'ar') ? 'en' : 'ar';
+                setLanguage(newLang);
+            });
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        // Optional: Unobserve after animation if it's a one-time animation
+                        // observer.unobserve(entry.target);
+                    } else {
+                        // Optional: Remove 'animated' class if you want animation to repeat on scroll up/down
+                        entry.target.classList.remove('animated');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe sections for animation
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
