@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INEX Team Documentation</title>
+    <style>
+        :root {
+            --primary-color: #0a0a23;
+            --secondary-color: #1b1b32;
+            --text-color: #f5f6f7;
+            --accent-color: #3b82f6;
+            --border-color: #3b3b4f;
+            --card-bg: #2a2a40;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: var(--secondary-color);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+            color: #aaa;
+        }
+        section {
+            padding: 40px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        h2 {
+            font-size: 2em;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .card ul {
+            padding-left: 20px;
+        }
+        .card li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: var(--primary-color);
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+            background-color: var(--primary-color);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+        .collapsible {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.2em;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+        .collapsible:hover {
+            background-color: #3a3a50;
+        }
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: var(--secondary-color);
+            border-radius: 0 0 5px 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>🚀 INEX Team Documentation 💡🌍</h1>
+            <p>Professional high-performance software solutions.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2>✨ About INEX & Mission</h2>
+            <p>INEX is a professional tech team specializing in high-performance software solutions, renowned for developing INEX SPA, a lightweight and ultra-fast PHP framework. The team is dedicated to innovation, efficiency, and open-source contributions, believing in technology's power to transform industries.</p>
+            <p><strong>Core mission includes:</strong> Developing cutting-edge web technologies, providing optimized solutions, fostering an open-source community, and innovating in artificial intelligence and automation.</p>
+        </section>
+
+        <section id="projects">
+            <h2>🛠️ Projects</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>⚡ INEX SPA</h3>
+                    <p>A powerful and lightweight PHP framework built for speed and efficiency.</p>
+                    <ul>
+                        <li><strong>Ultra-fast:</strong> 1ms response time.</li>
+                        <li><strong>Built-in CLI:</strong> Ammar CLI for easy management.</li>
+                        <li><strong>Secure:</strong> Built-in CSRF protection.</li>
+                        <li><strong>Modular:</strong> Supports plugins and extensions.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>☁️ INEX SPA Cloud</h3>
+                    <p>A free hosting platform exclusively for INEX SPA applications.</p>
+                    <ul>
+                        <li>Easy deployment with subdomains/subdirectories.</li>
+                        <li>Integrated file and database management via IW Panel.</li>
+                        <li>Automated backup system.</li>
+                        <li>Pre-installed and optimized for INEX SPA.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🖥️ IW Panel</h3>
+                    <p>An advanced web panel to manage web applications efficiently.</p>
+                    <ul>
+                        <li>File and database management.</li>
+                        <li>Traffic analytics and site monitoring.</li>
+                        <li>User-friendly UI.</li>
+                        <li>Security integrations and error logging.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🤖 Atiyat Project</h3>
+                    <p>The first Artificial General Intelligence (AGI) and Extra Language Model (ELM) by INEX.</p>
+                    <ul>
+                        <li>Understands and generates human-like responses.</li>
+                        <li>Solves complex problems with deep reasoning.</li>
+                        <li>Integrates with various systems for AI-driven solutions.</li>
+                        <li>Supports real-time processing and conversational AI.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="ai-models">
+            <h2>🧠 INEX AI Models</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>💬 Atiyat Chat Model</h3>
+                    <p>A conversational AI model delivering highly contextual, human-like responses with multilingual support.</p>
+                </div>
+                <div class="card">
+                    <h3>🔬 YWPAI</h3>
+                    <p>A specialized AI model focused on deep reasoning, problem-solving, and logical analysis for research and cybersecurity.</p>
+                </div>
+                <div class="card">
+                    <h3>📊 YWP AI 1.0</h3>
+                    <p>An earlier-generation AI specializing in pattern recognition, contextual understanding, and predictive analytics.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="technical-docs">
+            <h2>🔧 Technical Documentation</h2>
+            
+            <button class="collapsible">Cronjob Management with 'ammar' CLI</button>
+            <div class="content">
+                <p>The application includes a cronjob system to schedule background tasks managed via the <code>ammar</code> CLI.</p>
+                <h4>Cron Runner Script</h4>
+                <p>The core script <code>core/cron/cron_runner.php</code> is used to execute tasks.</p>
+                <pre><code>/usr/bin/php /path/to/project/core/cron/cron_runner.php &lt;TaskName&gt;</code></pre>
+                <h4>CLI Commands</h4>
+                <ul>
+                    <li><code>php ammar list:cron</code>: Lists all available cron tasks.</li>
+                    <li><code>php ammar make:cron &lt;TaskName&gt;</code>: Creates a new cron task file.</li>
+                    <li><code>php ammar run:cron &lt;TaskName&gt;</code>: Manually runs a specific cron task.</li>
+                    <li><code>php ammar delete:cron &lt;TaskName&gt;</code>: Deletes a specific cron task.</li>
+                    <li><code>php ammar clear:cron</code>: Deletes all cron tasks.</li>
+                </ul>
+            </div>
+
+            <button class="collapsible">Built-in Motion Engine (Beta)</button>
+            <div class="content">
+                <p>A lightweight, dependency-free JavaScript motion engine for CSS animations, controlled via the <code>.env</code> file.</p>
+                <h4>Enabling the Engine</h4>
+                <p>Set <code>USE_ANIMATE=true</code> in your <code>.env</code> file.</p>
+                <h4>JavaScript `animate` function</h4>
+                <p>Syntax: <code>animate(elementOrSelector, animationName, durationMs)</code></p>
+                <pre><code>// Example: Animate an element with id 'myBox'
+animate('#myBox', 'fade-in', 300);</code></pre>
+                <h4>Adding New Animations</h4>
+                <ol>
+                    <li>Define <code>@keyframes</code> in <code>public/css/motion-animations.css</code>.</li>
+                    <li>Create a corresponding CSS class (e.g., <code>.motion-slide-up</code>).</li>
+                    <li>Use the new animation name in your JavaScript code.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="future">
+            <h2>🗺️ Future Plans</h2>
+            <p>INEX is constantly evolving. Future plans include expanding INEX SPA & Cloud, advancing AI models like Atiyat, developing the IW Panel with AI-driven analytics, and launching new open-source projects to grow the community.</p>
+        </section>
+        
+        <section id="contact">
+            <h2>📧 Contact & License</h2>
+            <p>For inquiries, contributions, or collaborations, reach out via:</p>
+            <ul>
+                <li><strong>Email:</strong> inex.own@gmail.com</li>
+                <li><strong>Phone & WhatsApp:</strong> +201096730619</li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/AmmarBasha2011" style="color: var(--accent-color);">AmmarBasha2011</a></li>
+            </ul>
+            <p>All INEX projects are open-source and distributed under the <strong>MIT License</strong>.</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 INEX Team. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const collapsibles = document.querySelectorAll('.collapsible');
+            collapsibles.forEach(button => {
+                button.addEventListener('click', function () {
+                    this.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
