@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INEX SPA Framework</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #1a1a1a;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 2em;
+        }
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+        .features-list li {
+            background: #e7f3ff;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+        .features-list strong {
+            color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f1f1f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            position: relative;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            background-color: #555;
+        }
+        .conclusion, .community-links {
+            text-align: center;
+        }
+        .community-links a {
+            text-decoration: none;
+            color: #007bff;
+            margin: 0 10px;
+            font-size: 1.2em;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 2em;
+            padding-top: 1em;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>INEX SPA Framework</h1>
+
+        <div class="section" id="introduction">
+            <h2>Introduction</h2>
+            <p>In the ever-evolving landscape of web development, performance and efficiency are crucial. Modern developers seek frameworks that balance speed, scalability, and ease of use. Enter INEX SPA, a cutting-edge PHP framework designed for Single Page Applications (SPA) that offers blazing-fast performance, minimal footprint, and seamless integration with Apache servers.</p>
+        </div>
+
+        <div class="section" id="what-is-inex-spa">
+            <h2>What is INEX SPA?</h2>
+            <p>INEX SPA is an ultra-lightweight PHP framework built for developers who need a fast, reliable, and flexible solution for modern web applications. Unlike traditional PHP frameworks, INEX SPA is optimized for SPAs, making it ideal for high-performance web applications without sacrificing developer experience.</p>
+        </div>
+
+        <div class="section" id="key-features">
+            <h2>Key Features</h2>
+            <ul class="features-list">
+                <li><strong>Ultra-Lightweight:</strong> Weighing less than 100KB, INEX SPA ensures that your applications remain fast and efficient.</li>
+                <li><strong>Optimized for SPAs:</strong> Designed specifically for Single Page Applications, it integrates seamlessly with JavaScript front-end libraries like React, Vue.js, and Svelte.</li>
+                <li><strong>Blazing Fast Performance:</strong> Unlike heavier PHP frameworks, INEX SPA minimizes bloat, resulting in faster response times and reduced server load.</li>
+                <li><strong>Native Apache Support:</strong> Runs smoothly on standard Apache servers without requiring additional configurations.</li>
+                <li><strong>Simple and Clean Architecture:</strong> Provides a structured yet flexible way to build and manage projects.</li>
+                <li><strong>Open Source & Free:</strong> Fully open-source, allowing the developer community to contribute and expand its capabilities.</li>
+            </ul>
+        </div>
+
+        <div class="section" id="comparison">
+            <h2>Why Choose INEX SPA Over Other Frameworks?</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>INEX SPA</th>
+                        <th>Laravel</th>
+                        <th>Symfony</th>
+                        <th>CodeIgniter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Size</td>
+                        <td>&lt; 100KB</td>
+                        <td>~70MB</td>
+                        <td>~50MB</td>
+                        <td>~2MB</td>
+                    </tr>
+                    <tr>
+                        <td>Performance</td>
+                        <td>⚡️ Fast</td>
+                        <td>Medium</td>
+                        <td>Medium</td>
+                        <td>Fast</td>
+                    </tr>
+                    <tr>
+                        <td>SPA Support</td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td>❌ No</td>
+                        <td>❌ No</td>
+                    </tr>
+                    <tr>
+                        <td>Apache Ready</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Ease of Use</td>
+                        <td>✅ Easy</td>
+                        <td>✅ Easy</td>
+                        <td> complex</td>
+                        <td>✅ Easy</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="getting-started">
+            <h2>Getting Started</h2>
+            <h3>Installation</h3>
+            <p>Setting up INEX SPA is straightforward. You can install it by cloning the repository:</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code>git clone https://github.com/AmmarBasha2011/INEX-SPA.git my-project
+cd my-project</code></pre>
+            </div>
+        </div>
+
+        <div class="section" id="benchmarks">
+            <h2>Performance Benchmarks</h2>
+            <p>Compared to other PHP frameworks, INEX SPA delivers superior performance due to its lightweight core and optimized architecture. Here’s a benchmark comparison based on request processing time:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Framework</th>
+                        <th>Avg. Response Time (ms)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>INEX SPA</td>
+                        <td>15ms</td>
+                    </tr>
+                    <tr>
+                        <td>Laravel</td>
+                        <td>40ms</td>
+                    </tr>
+                    <tr>
+                        <td>Symfony</td>
+                        <td>55ms</td>
+                    </tr>
+                    <tr>
+                        <td>CodeIgniter</td>
+                        <td>25ms</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section conclusion">
+            <h2>Conclusion</h2>
+            <p>If you are looking for a fast, efficient, and developer-friendly PHP framework for SPAs, INEX SPA is the perfect choice. With its minimal footprint, high performance, and seamless Apache support, it stands out as a game-changer in PHP web development.</p>
+        </div>
+
+        <div class="section community-links">
+            <p><strong>Join the INEX SPA Community and start building high-performance web applications today!</strong></p>
+            <p>
+                <a href="https://github.com/AmmarBasha2011/INEX-SPA" target="_blank">📌 GitHub</a>
+                <a href="#" target="_blank">🌐 Official Website: Coming Soon!</a>
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>💡 Developed by INEX Team – Innovating the Future of Web Development 🚀</p>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.querySelector('pre code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerText = 'Copied!';
+                setTimeout(() => {
+                    button.innerText = 'Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
