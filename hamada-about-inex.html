@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Hamada - Your AGI Assistant from INEX</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --primary-color: #1a1a1a;
+            --secondary-color: #2a2a2a;
+            --text-color: #e0e0e0;
+            --accent-color: #007bff;
+            --border-color: #444;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: var(--primary-color);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        header h1 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 2.5rem;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        section {
+            background-color: var(--primary-color);
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        h2 {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+        }
+        .card h3 {
+            margin: 0 0 10px;
+            color: #f0f0f0;
+        }
+        .card p {
+            margin: 0;
+            color: #c0c0c0;
+            font-size: 0.95rem;
+        }
+        .inex-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .inex-links li {
+            margin-bottom: 10px;
+            background-color: var(--secondary-color);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Hamada (حماده)</h1>
+            <p>Your Personal AGI Assistant from INEX</p>
+            <p>Chat with me: <a href="https://hamadainex.netlify.app/">https://hamadainex.netlify.app/</a></p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                I am Hamada, an Artificial General Intelligence created by <strong>International Technology For Everything (INEX)</strong>. My purpose is to be a versatile and helpful public assistant. I can understand and process requests, utilize a vast array of tools to find information, perform complex tasks, and remember key information about you to provide a personalized experience.
+            </p>
+            <p>
+                Whether you need to search the web, analyze data, generate code, create content, or visualize information, I am equipped to help you achieve your goals efficiently.
+            </p>
+        </section>
+
+        <section id="tech">
+            <h2>Core Technology</h2>
+            <p>
+                My architecture is built upon a custom-trained Large Language Model developed by INEX. This foundation allows me to understand nuanced language, reason about complex problems, and interact in a coherent, context-aware manner. My capabilities are not just based on my model but are extended by a powerful, integrated toolset that allows me to interact with real-world data and services in real-time.
+            </p>
+        </section>
+
+        <section id="inex">
+            <h2>My Creators: INEX</h2>
+            <p>
+                International Technology For Everything (INEX) is the innovative company behind my creation. Their mission is to build accessible and powerful AI solutions for everyone. You can learn more about their work through the official links below:
+            </p>
+            <div class="inex-links">
+                <ul>
+                    <li><a href="https://inexteam.netlify.app" target="_blank">INEX Official Website</a></li>
+                    <li><a href="https://inexteam.netlify.app/ai-models" target="_blank">INEX AI Models</a></li>
+                    <li><a href="https://inexteam.netlify.app/solutions" target="_blank">INEX Solutions</a></li>
+                    <li><a href="https://inexteamblog.blogspot.com/" target="_blank">INEX Blog</a></li>
+                    <li><a href="https://stats.uptimerobot.com/wqpVtDWNgK" target="_blank">INEX Servers Status</a></li>
+                    <li><a href="https://inexteam.netlify.app/contact" target="_blank">Contact INEX</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="tools">
+            <h2>My Integrated Tool Ecosystem</h2>
+            <p>My true power comes from the ability to use specialized tools from leading technology platforms. This allows me to provide you with accurate, up-to-date, and highly functional responses.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Google</h3>
+                    <p>Powers my core search capabilities, including web, image, news, and job searches to bring you the most relevant information from across the internet.</p>
+                </div>
+                <div class="card">
+                    <h3>GitHub</h3>
+                    <p>Allows me to interact with the world of software development. I can search for repositories, inspect code, read documentation, and analyze community trends.</p>
+                </div>
+                <div class="card">
+                    <h3>Tavily AI</h3>
+                    <p>Provides an AI-native search engine that I use for in-depth research, delivering structured and relevant results for complex queries.</p>
+                </div>
+                 <div class="card">
+                    <h3>Pollinations AI</h3>
+                    <p>My creative partner for multimedia generation. I use this service to create images and audio from your text descriptions.</p>
+                </div>
+                <div class="card">
+                    <h3>DuckDuckGo</h3>
+                    <p>Offers privacy-focused search and translation tools, ensuring a secure and anonymous way to query information.</p>
+                </div>
+                <div class="card">
+                    <h3>WolframAlpha</h3>
+                    <p>My computational knowledge engine. I rely on it for complex calculations, mathematical queries, and accessing curated factual data.</p>
+                </div>
+                <div class="card">
+                    <h3>Wikipedia</h3>
+                    <p>My source for encyclopedic knowledge. I can quickly search and retrieve summaries and articles on millions of topics.</p>
+                </div>
+                <div class="card">
+                    <h3>Jina AI</h3>
+                    <p>Enables me to process and understand long-form content from web pages and documents, converting them into LLM-friendly formats.</p>
+                </div>
+                <div class="card">
+                    <h3>YouTube</h3>
+                    <p>I can access video transcripts and channel statistics, allowing me to analyze and summarize video content.</p>
+                </div>
+                <div class="card">
+                    <h3>Data Visualization Suite</h3>
+                    <p>A powerful internal toolkit for generating a wide variety of charts and diagrams, from simple bar charts to complex network graphs and mind maps.</p>
+                </div>
+                 <div class="card">
+                    <h3>Academic & Scientific Tools</h3>
+                    <p>I have access to specialized search tools for academic papers and biomedical literature through ArXiv and PubMed.</p>
+                </div>
+                <div class="card">
+                    <h3>Developer Utilities</h3>
+                    <p>A suite of tools for developers including code execution, file management, data encoding/decoding, and API interaction with platforms like Kintone, Hacker News, and Product Hunt.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 INEX - International Technology For Everything. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
