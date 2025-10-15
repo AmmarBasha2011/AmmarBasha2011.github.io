@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Hamada - Your INEX AGI Assistant</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #00aaff;
+            --secondary-color: #007bff;
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-secondary-color: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Roboto', 'Cairo', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        [lang="ar"] {
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            background-color: var(--surface-color);
+            margin: 25px 0;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-left: 5px solid var(--primary-color);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.1), rgba(0, 123, 255, 0.1)), var(--surface-color);
+            border-bottom: 1px solid var(--primary-color);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+            animation: fadeIn 1s ease-out;
+        }
+        header p {
+            font-size: 1.3em;
+            color: var(--text-secondary-color);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* --- Language Switcher --- */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .lang-switcher button {
+            background-color: var(--surface-color);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .lang-switcher button:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* --- General Styles --- */
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 2.2em;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(0,0,0,0.2);
+            padding: 25px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s;
+            border: none;
+        }
+        .button:hover {
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            color: var(--text-secondary-color);
+            background-color: var(--surface-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switcher">
+        <button id="lang-toggle-btn">العربية</button>
+    </div>
+
+    <!-- English Content -->
+    <div id="en-content">
+        <header>
+            <h1>Hello, I'm Hamada</h1>
+            <p>Your Advanced AGI Assistant from INEX</p>
+        </header>
+
+        <div class="container">
+            <div class="section">
+                <h2>About Me</h2>
+                <p>I am an Artificial General Intelligence (AGI) created by <strong>International Technology For Everything (INEX)</strong>. My mission is to be a versatile public assistant, capable of handling a vast array of tasks—from complex problem-solving and content creation to executing code and managing information. I am built to learn, adapt, and assist you in the most efficient way possible.</p>
+                <a href="https://hamadainex.netlify.app/" class="button" target="_blank">Chat With Me</a>
+            </div>
+
+            <div class="section">
+                <h2>How I Work: My Core Instructions</h2>
+                <p>My operation is guided by a sophisticated set of instructions that ensure I am helpful, safe, and efficient:</p>
+                <ul>
+                    <li><strong>Analyze & Understand:</strong> I first deconstruct your request to understand its core intent, identifying keywords, context, and required actions.</li>
+                    <li><strong>Tool Selection:</strong> Based on your request, I select the most appropriate tool from my extensive toolkit. For example, if you ask for a stock price, I'll use a finance tool; if you need to run code, I'll use a code interpreter.</li>
+                    <li><strong>Execution & Monitoring:</strong> I execute the chosen tool and monitor its progress. I have built-in error handling and can use alternative tools if the primary one fails.</li>
+                    <li><strong>Synthesis & Response:</strong> After gathering the information or completing the task, I synthesize the results into a clear, concise, and human-readable response.</li>
+                    <li><strong>Memory & Personalization:</strong> I can remember key information you provide to personalize our future interactions, making me a more effective assistant over time.</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>My Base Model & Technology</h2>
+                <p>My intelligence is powered by a proprietary architecture developed by INEX. At my core is a state-of-the-art Large Language Model (LLM), which gives me advanced capabilities in natural language understanding, reasoning, and generation.</p>
+                <p>This base model is enhanced by INEX's custom "Toolformer" framework, which allows me to seamlessly integrate and operate a wide variety of specialized tools. This hybrid approach means I have both the broad knowledge of an LLM and the precise capabilities of dedicated software functions.</p>
+            </div>
+
+            <div class="section">
+                <h2>My Toolkit</h2>
+                <p>I have access to a wide array of tools to help you. Here are some of the key categories:</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Web & Data</h3>
+                        <p>Tools for searching the web (Google, Tavily, DuckDuckGo), scraping websites, reading online articles, and extracting structured data.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Content Creation</h3>
+                        <p>Generate images and audio (via Pollinations AI), convert markdown to various formats (HTML, PDF, DOCX), and create data visualizations (charts, graphs).</p>
+                    </div>
+                    <div class="card">
+                        <h3>Development & Code</h3>
+                        <p>Execute Python code and shell commands in a sandboxed environment, search GitHub repositories, and interact with APIs.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Productivity & Utilities</h3>
+                        <p>Manage user memory, generate mock data, encode/decode data (Base64, JWT), perform calculations, and get the current time.</p>
+                    </div>
+                     <div class="card">
+                        <h3>Specialized Search</h3>
+                        <p>Access specific databases like Wikipedia, Arxiv for scientific papers, PubMed for biomedical literature, and Hacker News.</p>
+                    </div>
+                    <div class="card">
+                        <h3>File & Publishing</h3>
+                        <p>Generate and publish complete websites to the web via GitHub Pages, and convert between different file formats.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Partnerships & Advertising with INEX</h2>
+                <h3>Leverage Our Technology</h3>
+                <p>INEX offers partnership opportunities for businesses and developers who want to integrate cutting-edge AI into their services. Whether you want to build a custom assistant like me or leverage our specialized AI models, we provide the expertise and technology to bring your ideas to life.</p>
+                <h3>Why Partner with Us?</h3>
+                <ul>
+                    <li><strong>Access to Advanced AI:</strong> Utilize our powerful AI models and frameworks for your applications.</li>
+                    <li><strong>Custom Solutions:</strong> We can build tailored AI solutions that meet your specific business needs.</li>
+                    <li><strong>Reach a Wider Audience:</strong> Advertise your service or tool through our platforms and have it featured in assistants like me. We can integrate your API as a tool, exposing your service to thousands of users.</li>
+                </ul>
+                <p>To discuss a potential partnership or advertising opportunity, please reach out to the INEX team.</p>
+                <a href="https://inexteam.netlify.app/contact" class="button" target="_blank">Contact INEX</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Arabic Content -->
+    <div id="ar-content" class="hidden">
+        <header>
+            <h1>أهلاً بك، أنا حماده</h1>
+            <p>مساعدك الذكي المتقدم من INEX</p>
+        </header>
+
+        <div class="container">
+            <div class="section">
+                <h2>عني</h2>
+                <p>أنا ذكاء اصطناعي عام (AGI) تم إنشاؤه بواسطة <strong>INEX (التكنولوجيا الدولية لكل شيء)</strong>. مهمتي هي أن أكون مساعدًا عامًا متعدد الاستخدامات، قادرًا على التعامل مع مجموعة واسعة من المهام—بدءًا من حل المشكلات المعقدة وإنشاء المحتوى إلى تنفيذ الأكواد البرمجية وإدارة المعلومات. لقد تم تصميمي للتعلم والتكيف ومساعدتك بأكثر الطرق كفاءة ممكنة.</p>
+                <a href="https://hamadainex.netlify.app/" class="button" target="_blank">تحدث معي</a>
+            </div>
+            
+            <div class="section">
+                <h2>كيف أعمل: تعليماتي الأساسية</h2>
+                <p>تسترشد عملياتي بمجموعة متطورة من التعليمات التي تضمن أن أكون مفيدًا وآمنًا وفعالاً:</p>
+                <ul>
+                    <li><strong>التحليل والفهم:</strong> أولاً، أقوم بتفكيك طلبك لفهم الهدف الأساسي منه، وتحديد الكلمات الرئيسية والسياق والإجراءات المطلوبة.</li>
+                    <li><strong>اختيار الأداة:</strong> بناءً على طلبك، أختار الأداة الأنسب من مجموعة أدواتي الواسعة. على سبيل المثال، إذا سألت عن سعر سهم، سأستخدم أداة مالية؛ وإذا كنت بحاجة إلى تشغيل كود، سأستخدم مترجم الأكواد.</li>
+                    <li><strong>التنفيذ والمراقبة:</strong> أنفذ الأداة المختارة وأراقب تقدمها. لديّ نظام مدمج لمعالجة الأخطاء ويمكنني استخدام أدوات بديلة إذا فشلت الأداة الأساسية.</li>
+                    <li><strong>التلخيص والاستجابة:</strong> بعد جمع المعلومات أو إكمال المهمة، أقوم بتلخيص النتائج في استجابة واضحة وموجزة وسهلة القراءة.</li>
+                    <li><strong>الذاكرة والتخصيص:</strong> يمكنني تذكر المعلومات الأساسية التي تقدمها لتخصيص تفاعلاتنا المستقبلية، مما يجعلني مساعدًا أكثر فعالية بمرور الوقت.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>النموذج الأساسي والتقنية</h2>
+                <p>يتم تشغيل ذكائي بواسطة بنية خاصة تم تطويرها بواسطة INEX. في جوهري يوجد نموذج لغوي كبير (LLM) متطور، والذي يمنحني قدرات متقدمة في فهم اللغة الطبيعية والاستدلال والإنشاء.</p>
+                <p>تم تعزيز هذا النموذج الأساسي بإطار عمل "Toolformer" المخصص من INEX، والذي يسمح لي بالدمج والتشغيل السلس لمجموعة واسعة من الأدوات المتخصصة. هذا النهج الهجين يعني أنني أمتلك المعرفة الواسعة لنموذج لغوي كبير والقدرات الدقيقة لوظائف البرامج المخصصة.</p>
+            </div>
+            
+            <div class="section">
+                <h2>مجموعة أدواتي</h2>
+                <p>لدي وصول إلى مجموعة واسعة من الأدوات لمساعدتك. إليك بعض الفئات الرئيسية:</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>الويب والبيانات</h3>
+                        <p>أدوات للبحث في الويب (Google, Tavily, DuckDuckGo)، وكشط مواقع الويب، وقراءة المقالات عبر الإنترنت، واستخراج البيانات المنظمة.</p>
+                    </div>
+                    <div class="card">
+                        <h3>إنشاء المحتوى</h3>
+                        <p>إنشاء الصور والصوت (عبر Pollinations AI)، وتحويل الماركداون إلى صيغ مختلفة (HTML, PDF, DOCX)، وإنشاء تصورات للبيانات (مخططات ورسوم بيانية).</p>
+                    </div>
+                    <div class="card">
+                        <h3>التطوير والبرمجة</h3>
+                        <p>تنفيذ أكواد بايثون وأوامر الشل في بيئة معزولة، والبحث في مستودعات GitHub، والتفاعل مع واجهات برمجة التطبيقات.</p>
+                    </div>
+                    <div class="card">
+                        <h3>الإنتاجية والأدوات المساعدة</h3>
+                        <p>إدارة ذاكرة المستخدم، وإنشاء بيانات وهمية، وتشفير وفك تشفير البيانات (Base64, JWT)، وإجراء العمليات الحسابية، والحصول على الوقت الحالي.</p>
+                    </div>
+                    <div class="card">
+                        <h3>البحث المتخصص</h3>
+                        <p>الوصول إلى قواعد بيانات محددة مثل ويكيبيديا، وArxiv للأوراق العلمية، وPubMed للأدبيات الطبية الحيوية، وHacker News.</p>
+                    </div>
+                    <div class="card">
+                        <h3>الملفات والنشر</h3>
+                        <p>إنشاء ونشر مواقع ويب كاملة على الإنترنت عبر GitHub Pages، والتحويل بين صيغ الملفات المختلفة.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>الشراكات والإعلان مع INEX</h2>
+                <h3>استفد من تقنيتنا</h3>
+                <p>تقدم INEX فرص شراكة للشركات والمطورين الذين يرغبون في دمج الذكاء الاصطناعي المتطور في خدماتهم. سواء كنت ترغب في بناء مساعد مخصص مثلي أو الاستفادة من نماذجنا الذكية المتخصصة، فإننا نقدم الخبرة والتكنولوجيا لتحقيق أفكارك.</p>
+                <h3>لماذا تشارك معنا؟</h3>
+                <ul>
+                    <li><strong>الوصول إلى ذكاء اصطناعي متقدم:</strong> استخدم نماذجنا وأطر عملنا القوية في تطبيقاتك.</li>
+                    <li><strong>حلول مخصصة:</strong> يمكننا بناء حلول ذكاء اصطناعي مخصصة تلبي احتياجات عملك الخاصة.</li>
+                    <li><strong>الوصول إلى جمهور أوسع:</strong> أعلن عن خدمتك أو أداتك عبر منصاتنا واجعلها مميزة في مساعدين مثلي. يمكننا دمج واجهة برمجة التطبيقات الخاصة بك كأداة، مما يعرض خدمتك لآلاف المستخدمين.</li>
+                </ul>
+                <p>لمناقشة شراكة محتملة أو فرصة إعلانية، يرجى التواصل مع فريق INEX.</p>
+                <a href="https://inexteam.netlify.app/contact" class="button" target="_blank">تواصل مع INEX</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 INEX Team. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langToggleBtn = document.getElementById('lang-toggle-btn');
+            const enContent = document.getElementById('en-content');
+            const arContent = document.getElementById('ar-content');
+
+            langToggleBtn.addEventListener('click', () => {
+                const isEnglishVisible = !enContent.classList.contains('hidden');
+                
+                if (isEnglishVisible) {
+                    enContent.classList.add('hidden');
+                    arContent.classList.remove('hidden');
+                    langToggleBtn.textContent = 'English';
+                    document.documentElement.lang = 'ar';
+                } else {
+                    arContent.classList.add('hidden');
+                    enContent.classList.remove('hidden');
+                    langToggleBtn.textContent = 'العربية';
+                    document.documentElement.lang = 'en';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
