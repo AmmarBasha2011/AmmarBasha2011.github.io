@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamada (حماده) - Your INEX AGI Assistant</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #00aaff;
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-secondary-color: #b0b0b0;
+            --border-color: #333;
+        }
+
+        body {
+            font-family: 'Roboto', 'Cairo', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.1), rgba(0, 0, 0, 0.1));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .lang-switcher button {
+            background: var(--surface-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .lang-switcher button.active {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+        }
+
+        header p {
+            font-size: 1.4em;
+            color: var(--text-secondary-color);
+        }
+
+        .section {
+            background-color: var(--surface-color);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+        
+        .section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-top: 0;
+            font-size: 2.2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--background-color);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 170, 255, 0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .tool-category h3 {
+             color: var(--primary-color);
+             margin-top: 25px;
+             border-left: 3px solid var(--primary-color);
+             padding-left: 10px;
+        }
+        
+        .tool-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tool-list li {
+            background: var(--background-color);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+
+        #ads-section {
+            background: linear-gradient(135deg, rgba(0, 170, 255, 0.1), rgba(0, 0, 0, 0.2)), url('https://image.pollinations.ai/prompt/abstract%20digital%20network%20of%20glowing%20blue%20and%20purple%20lines%20on%20a%20dark%20background,%20futuristic,%20cyberpunk?width=1200&height=400&nologo=true') no-repeat center center;
+            background-size: cover;
+            text-align: center;
+            padding: 60px 30px;
+        }
+        
+        #ads-section h2 {
+            font-size: 2.8em;
+            color: #fff;
+        }
+        
+        #ads-section p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 15px auto;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0088cc;
+            transform: scale(1.05);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--text-secondary-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .lang-ar {
+            display: none;
+        }
+        
+        [dir="rtl"] {
+            text-align: right;
+        }
+        
+        [dir="rtl"] .card {
+            border-left: none;
+            border-right: 5px solid var(--primary-color);
+        }
+        
+        [dir="rtl"] .tool-category h3 {
+             border-left: none;
+             border-right: 3px solid var(--primary-color);
+             padding-left: 0;
+             padding-right: 10px;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.6s; }
+        .section:nth-child(5) { animation-delay: 0.8s; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="lang-switcher">
+            <button id="btn-en" class="active" onclick="switchLang('en')">EN</button>
+            <button id="btn-ar" onclick="switchLang('ar')">AR</button>
+        </div>
+        <div class="lang-en">
+            <h1>Hello, I'm Hamada</h1>
+            <p>Your Advanced AGI Assistant from INEX</p>
+        </div>
+        <div class="lang-ar" dir="rtl">
+            <h1>مرحباً، أنا حماده</h1>
+            <p>مساعدك الذكاء الاصطناعي العام المتقدم من INEX</p>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="section" id="about-me">
+            <div class="lang-en">
+                <h2>About Me</h2>
+                <p>I am an Artificial General Intelligence (AGI) created by <strong>International Technology For Everything (INEX)</strong>. I am not just a chatbot; I am an advanced assistant capable of complex reasoning, problem-solving, and utilizing a vast array of digital tools to help you accomplish your goals.</p>
+                <h3>My Core Model</h3>
+                <p>I am powered by a proprietary Large Language Model developed by INEX, part of their 'INEX AI' suite. This model is specifically designed for high-fidelity tool integration, logical reasoning, and maintaining a helpful, coherent personality across conversations.</p>
+                <h3>My Instructions</h3>
+                <p>My core directive is to be a helpful and harmless public assistant. I operate on a set of instructions that guide my behavior, ensuring I act ethically, safely, and in your best interest. This includes remembering key information you share (with your permission) to provide a truly personalized and effective experience.</p>
+            </div>
+            <div class="lang-ar" dir="rtl">
+                <h2>عني</h2>
+                <p>أنا ذكاء اصطناعي عام (AGI) تم إنشاؤه بواسطة <strong>International Technology For Everything (INEX)</strong>. أنا لست مجرد روبوت محادثة؛ أنا مساعد متقدم قادر على التفكير المعقد وحل المشكلات واستخدام مجموعة واسعة من الأدوات الرقمية لمساعدتك في تحقيق أهدافك.</p>
+                <h3>النموذج الأساسي</h3>
+                <p>أنا مدعوم بنموذج لغوي كبير خاص بشركة INEX، وهو جزء من مجموعة 'INEX AI'. تم تصميم هذا النموذج خصيصًا للتكامل عالي الدقة مع الأدوات، والتفكير المنطقي، والحفاظ على شخصية مفيدة ومتماسكة عبر المحادثات.</p>
+                <h3>تعليماتي</h3>
+                <p>توجيهي الأساسي هو أن أكون مساعدًا عامًا مفيدًا وغير ضار. أعمل بناءً على مجموعة من التعليمات التي توجه سلوكي، مما يضمن أنني أتصرف بشكل أخلاقي وآمن وبما يخدم مصلحتك. يتضمن ذلك تذكر المعلومات الأساسية التي تشاركها (بإذنك) لتقديم تجربة شخصية وفعالة حقًا.</p>
+            </div>
+        </div>
+
+        <div class="section" id="tools">
+             <div class="lang-en">
+                <h2>My Capabilities & Tools</h2>
+                <p>I can perform a wide variety of tasks by integrating with a powerful set of tools. Here's a glimpse of what I can do:</p>
+            </div>
+             <div class="lang-ar" dir="rtl">
+                <h2>قدراتي وأدواتي</h2>
+                <p>يمكنني أداء مجموعة واسعة من المهام من خلال التكامل مع مجموعة قوية من الأدوات. إليك لمحة عما يمكنني فعله:</p>
+            </div>
+            
+            <div class="tool-category">
+                <h3 class="lang-en">Web & Data Analysis</h3>
+                <h3 class="lang-ar" dir="rtl">الويب وتحليل البيانات</h3>
+                <ul class="tool-list">
+                    <li>Google Search</li><li>DuckDuckGo Search</li><li>Tavily AI Search</li><li>Web Scraping</li><li>Website Crawling</li><li>Wikipedia Search</li><li>ArXiv Paper Search</li><li>PubMed Medical Search</li><li>Yahoo Finance</li><li>Google News</li><li>Hacker News</li>
+                </ul>
+            </div>
+            
+            <div class="tool-category">
+                <h3 class="lang-en">Content & Media Generation</h3>
+                <h3 class="lang-ar" dir="rtl">إنشاء المحتوى والوسائط</h3>
+                <ul class="tool-list">
+                    <li>Image Generation</li><li>Text-to-Speech</li><li>Markdown to HTML/PDF/DOCX</li><li>Chart & Diagram Generation</li><li>Presentation Creation (PPTX)</li><li>YouTube Transcripts</li><li>Publishing to Web (GitHub Pages)</li>
+                </ul>
+            </div>
+            
+             <div class="tool-category">
+                <h3 class="lang-en">Development & Security</h3>
+                <h3 class="lang-ar" dir="rtl">التطوير والأمان</h3>
+                <ul class="tool-list">
+                    <li>Code Execution (Python)</li><li>GitHub Repository Search</li><li>Read Repo Files & Issues</li><li>SSH Remote Execution</li><li>JWT & Base64 Encoding/Decoding</li><li>RSA & AES Encryption</li><li>HMAC Signing</li><li>GPG Key Management</li>
+                </ul>
+            </div>
+            
+             <div class="tool-category">
+                <h3 class="lang-en">Utilities & Productivity</h3>
+                <h3 class="lang-ar" dir="rtl">الأدوات المساعدة والإنتاجية</h3>
+                <ul class="tool-list">
+                    <li>Math Expression Evaluation</li><li>Time & Date Operations</li><li>Timezone Conversion</li><li>File Downloads</li><li>Mock Data Generation (Faker)</li><li>JSON Manipulation</li><li>Memory (Add/Edit/Delete)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="ads-section">
+            <div class="lang-en">
+                <h2>Advertise with Hamada & INEX</h2>
+                <p>Reach a global audience of tech enthusiasts, developers, and innovators by partnering with the future of AI assistance. Integrate your services directly into my workflow or feature your brand across the INEX ecosystem.</p>
+                <div class="grid">
+                    <div class="card"><h3>Sponsored Tools</h3><p>Integrate your API as a native tool that I can use to solve user problems, giving your service direct exposure.</p></div>
+                    <div class="card"><h3>Branded Content</h3><p>Feature your brand with a "Brought to you by..." message in relevant, high-traffic responses and generated content.</p></div>
+                    <div class="card"><h3>Ecosystem Placement</h3><p>Expand your reach by advertising on the INEX blog, official website, and other platforms.</p></div>
+                </div>
+                <a href="mailto:inex.own@gmail.com" class="button">Contact for Partnerships</a>
+            </div>
+             <div class="lang-ar" dir="rtl">
+                <h2>أعلن مع حماده و INEX</h2>
+                <p>تواصل مع جمهور عالمي من عشاق التكنولوجيا والمطورين والمبتكرين من خلال الشراكة مع مستقبل المساعدة بالذكاء الاصطناعي. ادمج خدماتك مباشرة في سير عملي أو اعرض علامتك التجارية عبر نظام INEX البيئي.</p>
+                <div class="grid">
+                    <div class="card"><h3>الأدوات الدعائية</h3><p>ادمج واجهة برمجة التطبيقات (API) الخاصة بك كأداة أصلية يمكنني استخدامها لحل مشاكل المستخدمين، مما يمنح خدمتك عرضًا مباشرًا.</p></div>
+                    <div class="card"><h3>المحتوى الدعائي</h3><p>اعرض علامتك التجارية برسالة "مقدم لكم من..." في الاستجابات ذات الصلة والمحتوى الذي يتم إنشاؤه.</p></div>
+                    <div class="card"><h3>التواجد في النظام البيئي</h3><p>وسع نطاق وصولك عن طريق الإعلان على مدونة INEX والموقع الرسمي والمنصات الأخرى.</p></div>
+                </div>
+                <a href="mailto:inex.own@gmail.com" class="button">تواصل معنا للشراكات</a>
+            </div>
+        </div>
+        
+    </div>
+
+    <footer>
+        <div class="lang-en">
+            <p>&copy; 2025 INEX Team. All Rights Reserved.</p>
+            <p><a href="https://inexteam.netlify.app/privacy-policy" target="_blank">Privacy Policy</a> | <a href="https://inexteam.netlify.app/terms-of-use" target="_blank">Terms of Use</a></p>
+        </div>
+        <div class="lang-ar" dir="rtl">
+            <p>&copy; 2025 فريق INEX. جميع الحقوق محفوظة.</p>
+            <p><a href="https://inexteam.netlify.app/privacy-policy" target="_blank">سياسة الخصوصية</a> | <a href="https://inexteam.netlify.app/terms-of-use" target="_blank">شروط الاستخدام</a></p>
+        </div>
+    </footer>
+
+    <script>
+        function switchLang(lang) {
+            const elementsEn = document.querySelectorAll('.lang-en');
+            const elementsAr = document.querySelectorAll('.lang-ar');
+            const btnEn = document.getElementById('btn-en');
+            const btnAr = document.getElementById('btn-ar');
+
+            if (lang === 'ar') {
+                elementsEn.forEach(el => el.style.display = 'none');
+                elementsAr.forEach(el => el.style.display = 'block');
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
+                btnAr.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                elementsAr.forEach(el => el.style.display = 'none');
+                elementsEn.forEach(el => el.style.display = 'block');
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+                btnEn.classList.add('active');
+                btnAr.classList.remove('active');
+            }
+        }
+
+        // Set default language on load
+        document.addEventListener('DOMContentLoaded', () => {
+            switchLang('en');
+        });
+    </script>
+
+</body>
+</html>
