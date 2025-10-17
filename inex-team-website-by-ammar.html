@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INEX Team - Professional Tech Solutions</title>
+    <style>
+        /* --- General Styling & Variables --- */
+        :root {
+            --primary-color: #0d1117;
+            --secondary-color: #161b22;
+            --accent-color: #58a6ff;
+            --text-color: #c9d1d9;
+            --border-color: #30363d;
+            --header-font: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --body-font: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--header-font);
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.5rem; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-top: 40px; }
+        h3 { font-size: 1.8rem; color: var(--accent-color); }
+        h4 { font-size: 1.4rem; }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #80bfff;
+        }
+
+        /* --- Navigation Bar --- */
+        .navbar {
+            background-color: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a.active, .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-links a.active::after, .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+        }
+
+        .hero .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            font-weight: bold;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .hero .cta-button:hover {
+            transform: translateY(-3px);
+            background-color: #80bfff;
+        }
+        
+        /* --- General Section Styling --- */
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Card Layout for Projects/Models --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .card ul {
+            list-style-position: inside;
+            padding-left: 5px;
+        }
+
+        .card li {
+            margin-bottom: 10px;
+        }
+        
+        /* --- Code Block Styling --- */
+        pre {
+            background-color: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #c9d1d9;
+        }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+            background-color: var(--secondary-color);
+        }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--secondary-color);
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#home" class="nav-logo">🚀 INEX Team</a>
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#models" class="nav-link">AI Models</a></li>
+            <li><a href="#future" class="nav-link">Future</a></li>
+            <li><a href="#docs" class="nav-link">Docs</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero">
+        <h1>Welcome to INEX Team 💡🌍</h1>
+        <p>We are a professional tech team specializing in high-performance software solutions, pushing the boundaries of web development, artificial intelligence, and open-source contributions.</p>
+        <a href="#about" class="cta-button">Learn More</a>
+    </header>
+
+    <main class="container">
+
+        <section id="about">
+            <h2>✨ About INEX & Our Mission</h2>
+            <p>
+                INEX is a professional tech team renowned for developing <strong>INEX SPA</strong>, a lightweight and ultra-fast PHP framework. We are dedicated to innovation, efficiency, and open-source contributions. We believe in the power of technology to transform industries, enhance efficiency, and provide sustainable solutions. Our projects reflect our commitment to pushing the boundaries of software development and making robust, scalable, and high-performance applications accessible to everyone. 🚀🔥
+            </p>
+            <h3>🎯 Mission</h3>
+            <p>
+                INEX is driven by a passion for technological advancement. Our core mission includes: developing cutting-edge web technologies, providing optimized and scalable solutions, fostering an open-source community, enhancing accessibility to powerful web technologies, and innovating in artificial intelligence and automation.
+            </p>
+        </section>
+
+        <section id="projects">
+            <h2>🛠️ Our Projects</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>⚡ INEX SPA</h3>
+                    <p>A powerful and lightweight PHP framework built for speed and efficiency.</p>
+                    <ul>
+                        <li>Ultra-fast execution (1ms response time).</li>
+                        <li>Built-in CLI (Ammar CLI).</li>
+                        <li>Advanced routing and database management.</li>
+                        <li>Built-in CSRF protection.</li>
+                        <li>Support for modular development.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>☁️ INEX SPA Cloud</h3>
+                    <p>A free hosting platform exclusively for INEX SPA applications.</p>
+                     <ul>
+                        <li>Subdomain & subdirectory hosting.</li>
+                        <li>Integrated file and database management via IW Panel.</li>
+                        <li>Automated backup system.</li>
+                        <li>Pre-installed support for INEX SPA.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🖥️ IW Panel</h3>
+                    <p>An advanced web panel to manage web applications efficiently.</p>
+                     <ul>
+                        <li>File management (upload, edit, delete).</li>
+                        <li>Database management (create, modify, delete).</li>
+                        <li>Traffic analytics and site monitoring.</li>
+                        <li>User-friendly UI.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="models">
+            <h2>🧠 AI Models</h2>
+             <div class="card-grid">
+                <div class="card">
+                    <h3>🤖 Atiyat Project</h3>
+                    <p>The first Artificial General Intelligence (AGI) and Extra Language Model (ELM) developed by the INEX Team.</p>
+                    <ul>
+                        <li>Understand and generate human-like responses.</li>
+                        <li>Solve complex problems with deep reasoning.</li>
+                        <li>Enhance automation and AI-driven decision-making.</li>
+                        <li>Adapt dynamically to new challenges.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>💬 Atiyat Chat Model</h3>
+                    <p>A conversational AI model based on AGI principles, delivering highly contextual, human-like responses.</p>
+                </div>
+                 <div class="card">
+                    <h3>🔬 YWPAI & YWP AI 1.0</h3>
+                    <p>Specialized AI models focused on deep reasoning, problem-solving, pattern recognition, and predictive analytics.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="future">
+            <h2>📈 Our Plan for the Future</h2>
+            <p>At INEX, we are constantly evolving. Our future plans focus on expanding our capabilities, improving our existing projects, and pioneering new innovations.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>☁️ Expanding SPA & Cloud</h4>
+                    <p>Enhancing INEX SPA with more features and expanding INEX SPA Cloud to support more users and better scalability.</p>
+                </div>
+                <div class="card">
+                    <h4>🤖 Advancing AI</h4>
+                    <p>Improving Atiyat to be more human-like, efficient, and adaptable in real-world applications.</p>
+                </div>
+                 <div class="card">
+                    <h4>🌐 New Open-Source Projects</h4>
+                    <p>Launching new tools like INEX SPA Coder and supporting a vibrant ecosystem for third-party plugin development.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="docs">
+            <h2>👨‍💻 For Developers: Tech Docs</h2>
+            <div class="card">
+                <h3>Cronjob Management</h3>
+                <p>Our framework includes a cronjob management system to schedule and run background tasks using the <code>ammar</code> CLI.</p>
+                <p>Example of running a task:</p>
+                <pre><code>php ammar run:cron MyDailyReport</code></pre>
+                 <p>Example of creating a new task:</p>
+                <pre><code>php ammar make:cron MyNewTask</code></pre>
+            </div>
+            <br>
+            <div class="card">
+                <h3>Built-in Motion Engine (Beta)</h3>
+                <p>A lightweight, dependency-free JavaScript motion engine to apply CSS animations to HTML elements. Enable it via the <code>USE_ANIMATE=true</code> variable in your <code>.env</code> file.</p>
+                <p>JS function syntax:</p>
+                <pre><code>animate(elementOrSelector, animationName, durationMs)</code></pre>
+                 <p>Example usage:</p>
+                <pre><code>// Animate an element with id 'myBox'
+animate('#myBox', 'fade-in', 500);</code></pre>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>📫 Contact Us</h2>
+            <p>For inquiries, contributions, or collaborations, feel free to connect with us. We welcome new ideas, feedback, and contributions from developers passionate about innovation and efficiency.</p>
+            <ul>
+                <li><strong>GitHub:</strong> <a href="https://github.com/AmmarBasha2011" target="_blank">github.com/AmmarBasha2011</a></li>
+                <li><strong>Email:</strong> <a href="mailto:inex.own@gmail.com">inex.own@gmail.com</a></li>
+                <li><strong>Phone & WhatsApp:</strong> +201096730619</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>All INEX projects are open-source and distributed under the MIT License.</p>
+        <p>&copy; 2025 INEX Team. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+            const navLinkItems = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            // Mobile menu toggle
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when a link is clicked
+            navLinkItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+
+            // Active nav link highlighting and fade-in animations on scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Fade in the section
+                        entry.target.classList.add('visible');
+
+                        // Update nav link
+                        navLinkItems.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
